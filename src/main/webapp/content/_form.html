@@ -1,0 +1,11 @@
+<fieldset class="solid">
+	<legend>详情</legend>
+	<div style="margin-top:4px;">
+		<label>来源网站:</label>
+		<#if bean.source??><a href="${bean.source!}" target="_bank">来源网站</a></#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>标题:</label>
+		<#if bean.title??>${bean.title!}</#if>
+	</div>
+</fieldset>

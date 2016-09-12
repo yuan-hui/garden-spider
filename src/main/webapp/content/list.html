@@ -1,0 +1,28 @@
+<#include "/common/_layout.html"/>
+<@layout>
+<div class="table_box">
+	<table class="list">
+		<tbody>
+			<tr>
+				<th width="4%">序号</th>
+				<th nowrap>产品名称</th>
+				<th nowrap>操作</th>
+			</tr>
+			
+			<#list page.getList() as x>
+			<tr>
+				<td style="text-align:left;">${x_index+1}</td>
+				<td nowrap style="text-align:left;"><#if x.title??>${x.title}</#if></td>
+				<td nowrap style="text-align:left;">
+					<a href="/content/edit/${x.id}">查看</a>
+					&nbsp;&nbsp;
+					<#if x.source??><a href="${x.source!}" target="_bank">来源网站</a></#if>
+				</td>
+			</tr>
+			</#list>
+		</tbody>
+	</table>
+	<#include "/common/_paginate.html" />
+	<@paginate currentPage=page.pageNumber totalPage=page.totalPage actionUrl="/content/list/" />
+</div>
+</@layout>

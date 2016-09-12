@@ -1,0 +1,83 @@
+Table: t_content
+------------+----------------------+------+-----+---------+---------
+ Field      | Type                 | Null | Key | Default | Remarks 
+------------+----------------------+------+-----+---------+---------
+ id         | VARCHAR(255)         | NO   | PRI |         | 主键ID    
+ title      | VARCHAR(500)         | YES  |     |         | 标题      
+ titleImage | VARCHAR(500)         | YES  |     |         | 标题图     
+ keywords   | VARCHAR(500)         | YES  |     |         | 关键词     
+ images     | VARCHAR(5000)        | YES  |     |         | 相册      
+ content    | LONGTEXT(2147483647) | YES  |     |         | 内容      
+ createTime | DATETIME(19)         | YES  |     |         | 创建时间    
+ updateTime | DATETIME(19)         | YES  |     |         | 更新时间    
+------------+----------------------+------+-----+---------+---------
+
+Table: t_demo
+-------+--------------+------+-----+---------+---------
+ Field | Type         | Null | Key | Default | Remarks 
+-------+--------------+------+-----+---------+---------
+ id    | INT(10)      | NO   | PRI |         |         
+ name  | VARCHAR(255) | YES  |     |         |         
+-------+--------------+------+-----+---------+---------
+
+Table: t_downloader_config
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | VARCHAR(255) | NO   | PRI |         | 主键ID    
+ url        | VARCHAR(255) | NO   |     |         | 列表页通用访问路径
+ startpage  | INT(10)      | NO   |     | 0       | 开始页     
+ endpage    | INT(10)      | NO   |     | 0       | 结束页     
+ status     | VARCHAR(255) | NO   |     | no      | 状态编码(yes/no)
+ code       | VARCHAR(255) | NO   |     |         | 业务编码(gooood-architecture)
+ createTime | DATETIME(19) | YES  |     |         | 创建时间    
+ updateTime | DATETIME(19) | YES  |     |         | 更新时间    
+------------+--------------+------+-----+---------+---------
+
+Table: t_images_list
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | VARCHAR(255) | NO   | PRI |         | 主键ID    
+ url        | VARCHAR(500) | NO   |     |         | 图片地址    
+ path       | VARCHAR(255) | YES  |     |         | 图片路径    
+ download   | VARCHAR(255) | NO   |     | no      | 下载状态(yes/no)
+ upload     | VARCHAR(255) | NO   |     | no      | 上传状态    
+ fileKey    | VARCHAR(255) | YES  |     |         | OSS File Key
+ code       | VARCHAR(255) | NO   |     |         | 业务编码    
+ detailId   | VARCHAR(255) | NO   |     |         | 详情页ID   
+ source     | VARCHAR(500) | YES  |     |         | 来源页     
+ createTime | DATETIME(19) | YES  |     |         | 创建时间    
+ updateTime | DATETIME(19) | YES  |     |         | 更新时间    
+------------+--------------+------+-----+---------+---------
+
+Table: t_page_detail
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | VARCHAR(255) | NO   | PRI |         | 主键ID    
+ url        | VARCHAR(255) | NO   |     |         | 详情页地址   
+ code       | VARCHAR(500) | NO   |     |         | 所属分类或栏目 
+ path       | VARCHAR(255) | YES  |     |         | 文件所在路径(相对路径)
+ download   | VARCHAR(255) | NO   |     | no      | 是否已下载到本地(yes/no)
+ parser     | VARCHAR(255) | NO   |     | no      | 分析数据(yes/no)
+ downimg    | VARCHAR(255) | YES  |     |         | 是否把图片下载(yes/no)
+ pageno     | INT(10)      | YES  |     |         | 列表页码    
+ source     | VARCHAR(500) | YES  |     |         | 来源地址(列表页地址)
+ createTime | DATETIME(19) | YES  |     |         | 创建时间    
+ updateTime | DATETIME(19) | YES  |     |         | 更新时间    
+------------+--------------+------+-----+---------+---------
+
+Table: t_page_list
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | VARCHAR(255) | NO   | PRI |         | 主键ID    
+ url        | VARCHAR(255) | NO   |     |         | 列表页URL  
+ pageno     | INT(10)      | NO   |     | 0       | 第几页     
+ code       | VARCHAR(255) | NO   |     |         | 所属分类或栏目 
+ handle     | VARCHAR(255) | NO   |     | no      | 是否已分析成详情页(yes/no)
+ createTime | DATETIME(19) | YES  |     |         | 创建时间    
+ updateTime | DATETIME(19) | YES  |     |         | 更新时间    
+------------+--------------+------+-----+---------+---------
+
