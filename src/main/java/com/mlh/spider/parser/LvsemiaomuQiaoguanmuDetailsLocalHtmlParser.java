@@ -150,6 +150,7 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 			info.setZipcode(zipcode);
 			info.setReleasetime(releasetime);
 
+			
 			if (StringUtils.isNotBlank(title)) {
 				boolean save = Content.dao.save(info, detailId, source, code);
 
