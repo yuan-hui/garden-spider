@@ -2,14 +2,14 @@ package com.mlh.spider.pageprocessor;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.jfinal.kit.PropKit;
 import com.mlh.enums.Confirm;
 import com.mlh.model.PageDetail;
-import com.mlh.spider.factory.ImageProcessorFactory;
 import com.mlh.spider.pipeline.HtmlToLocalPipeline;
-import com.mlh.utils.common.PathUtil;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -83,7 +83,9 @@ public class LvsemiaomuQiaoguanmuDetailsDowloadProcessor implements PageProcesso
 				String id = d.getId();
 				String url = d.getUrl();
 				
-				System.out.println(index + "、开始下载：" + id);
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String now = formatter.format(new Date());
+				System.out.println(index + "、开始下载["+now+"]：" + id);
 
 				//文件保存路径
 				//String path = PathUtil.getRootPath() + "download" + "\\" + "details" + "\\";

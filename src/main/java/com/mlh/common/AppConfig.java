@@ -8,7 +8,6 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
-import com.jfinal.ext.plugin.oss.OSSPlugin;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.log.Log;
@@ -111,11 +110,14 @@ public class AppConfig extends JFinalConfig {
 		_MappingKit.mapping(arp);
 
 		SqlReporter.setLog(true);
+		
 	}
 
 	@Override
 	public void configInterceptor(Interceptors me) {
+
 	}
+	
 
 	/**
 	 * 此方法用来配置 JFinal的Handler

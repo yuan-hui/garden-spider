@@ -2,7 +2,10 @@ package com.mlh.spider.parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +18,7 @@ import com.mlh.buss.content.bean.ContentInfo;
 import com.mlh.enums.Confirm;
 import com.mlh.model.Content;
 import com.mlh.model.PageDetail;
+import com.mlh.spider.util.DetailsHtmlUtil;
 
 import us.codecraft.webmagic.selector.Html;
 
@@ -51,104 +55,115 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 			Document htmldoc = Jsoup.parse(text);
 			Html html = new Html(htmldoc);
 
-			String title = "";
+			// 详情内容
+			List<String> detailcontentList = html.xpath("//div[@id='detailcontent']/ul/li").all();
+			Map<String, String> detailcontentMap = DetailsHtmlUtil.changeToAttrMap(detailcontentList);
+
+			// 联系信息
+			List<String> contactusList = html.xpath("//div[@id='contactus']/div[@id='linkmode']/div[@class='linkmode_row']").all();
+			Map<String, String> contactusMap = DetailsHtmlUtil.changeToAttrMap(contactusList);
+
+			String title = null;
 
 			// 标题
 			title = html.xpath("//input[@name='Search21:KeyWord']").$("input", "value").get();
-			System.out.println("title==" + title);
 
-			//米径(cm)
-			Integer midiameter = null;
-			
-			List<String> detailcontentList = html.xpath("//div[@id='detailcontent']/ul/li").all();
-			for (String info : detailcontentList) {
-				System.out.println("info=" + info);
-			}
-			
-			//高度(cm)
-			Integer height = null;
-			
-			//冠幅(cm)
-			Integer crown = null;
-			
-			//地径(cm)
-			Integer grounddiameter = null;
-			
-			//单位
-			String unit = null;
-			
-			//价格
-			String price = null;
-			
-			//公司
-			String company = null;
-			
-			//省份
-			String province = null;
-			
-			//城市
-			String city = null;
-			
-			//联系人
-			String contacts = null;
-			
-			//电话
-			String tel = null;
-			
-			//传真
-			String fax = null;
-			
-			//电子邮箱
-			String email = null;
-			
-			//网址
-			String website = null;
-			
-			//地址
-			String address = null;
-			
-			//邮编
-			String zipcode = null;
-			
-			//发布时间
-			String releasetime = null;
+			// 米径(cm)
+			String midiameter = DetailsHtmlUtil.getMidiameter(detailcontentMap);
 
+			// 高度(cm)
+			String height = DetailsHtmlUtil.getHeight(detailcontentMap);
+
+			// 冠幅(cm)
+			String crown = DetailsHtmlUtil.getCrown(detailcontentMap);
+
+			// 地径(cm)
+			String grounddiameter = DetailsHtmlUtil.getGrounddiameter(detailcontentMap);
+
+			// 单位
+			String unit = DetailsHtmlUtil.getUnit(detailcontentMap);
+
+			// 价格
+			String price = DetailsHtmlUtil.getPrice(detailcontentMap);
+
+			//备注
+			String remark = DetailsHtmlUtil.getRemark(detailcontentMap);
 			
+			// 公司
+			String company = DetailsHtmlUtil.getCompany(contactusMap);
+
+			String provinceAndCityHtml = html.xpath("//div[@class='linkmode_row']/span[@class='zt1']").get();
+			// 省份
+			String province = DetailsHtmlUtil.getProvince(provinceAndCityHtml);
+
+			// 城市
+			String city = DetailsHtmlUtil.getCity(provinceAndCityHtml);
+
+			// 联系人
+			String contacts = DetailsHtmlUtil.getContacts(contactusMap);
+
+			// 电话
+			String tel = DetailsHtmlUtil.getTel(contactusMap);
+
+			// 传真
+			String fax = DetailsHtmlUtil.getFax(contactusMap);
+
+			// 电子邮箱
+			String email = DetailsHtmlUtil.getEmail(contactusMap);
+
+			// 网址
+			String website = DetailsHtmlUtil.getWebsite(contactusMap);
+
+			// 地址
+			String address = DetailsHtmlUtil.getAddress(contactusMap);
+
+			// 邮编
+			String zipcode = DetailsHtmlUtil.getZipcode(contactusMap);
+
+			// 发布时间
+			String releasetimeHtml = html.xpath("//div[@id='detailtime']").get();
+			Date releasetime = DetailsHtmlUtil.getReleasetime(releasetimeHtml);
+
 			// 来源内容ID
 			String cid = StringUtils.substringBefore(path, ".");
 
-			//内容信息保存
+			// 内容信息保存
 			ContentInfo info = new ContentInfo();
 			info.setCid(cid);
 			info.setTitle(title);
-			info.setMidiameter(0);
-			info.setHeight(0);
-			info.setCrown(0);
-			info.setGrounddiameter(0);
-			info.setUnit("0");
-			info.setPrice("0");
-			info.setCompany("0");
-			info.setProvince("0");
-			info.setCity("0");
-			info.setContacts("0");
-			info.setTel("0");
-			info.setFax("0");
-			info.setEmail("0");
-			info.setWebsite("0");
-			info.setAddress("0");
-			info.setZipcode("0");
-			info.setReleasetime(null);
+			info.setMidiameter(midiameter);
+			info.setHeight(height);
+			info.setCrown(crown);
+			info.setGrounddiameter(grounddiameter);
+			info.setUnit(unit);
+			info.setRemark(remark);
+			info.setPrice(price);
+			info.setCompany(company);
+			info.setProvince(province);
+			info.setCity(city);
+			info.setContacts(contacts);
+			info.setTel(tel);
+			info.setFax(fax);
+			info.setEmail(email);
+			info.setWebsite(website);
+			info.setAddress(address);
+			info.setZipcode(zipcode);
+			info.setReleasetime(releasetime);
+
+			if (StringUtils.isNotBlank(title)) {
+				boolean save = Content.dao.save(info, detailId, source, code);
+
+				if (save) {
+					System.out.println("内容保存成功：" + title);
+					int row = PageDetail.dao.updateParserById(Confirm.yes.toString(), detailId);
+					System.out.println("详情页更新为已解析：" + row);
+				} else {
+					System.out.println("内容保存失败：" + title + "->" + detailId);
+				}
+			} else {
+				System.out.println("详情页存在异常，请查阅源文件：" + path);
+			}
 			
-//			boolean save = Content.dao.save(info, detailId, source, code);
-//			
-//			if (save) {
-//				System.out.println("内容保存成功：" + title);
-//
-//				//int row = PageDetail.dao.updateParserById(Confirm.yes.toString(), detailId);
-//				//System.out.println("详情页更新为已解析：" + row);
-//			} else {
-//				System.out.println("内容保存失败：" + title + "->" + detailId);
-//			}
 
 		} catch (IOException e1) {
 			e1.printStackTrace();

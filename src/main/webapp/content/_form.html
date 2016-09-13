@@ -5,7 +5,83 @@
 		<#if bean.source??><a href="${bean.source!}" target="_bank">来源网站</a></#if>
 	</div>
 	<div style="margin-top:4px;">
-		<label>标题:</label>
+		<label>产品名称:</label>
 		<#if bean.title??>${bean.title!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>米径(cm):</label>
+		<#if bean.midiameter??>${bean.midiameter!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>高度(cm):</label>
+		<#if bean.height??>${bean.height!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>冠幅(cm):</label>
+		<#if bean.crown??>${bean.crown!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>地径(cm):</label>
+		<#if bean.grounddiameter??>${bean.grounddiameter!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>单位:</label>
+		<#if bean.unit??>${bean.unit!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>价格(元):</label>
+		<#if bean.price??>${bean.price!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>备注:</label>
+		<#if bean.remark??>${bean.remark!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>公司:</label>
+		<#if bean.company??>${bean.company!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>省份:</label>
+		<#if bean.province??>${bean.province!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>城市:</label>
+		<#if bean.city??>${bean.city!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>联系人:</label>
+		<#if bean.contacts??>${bean.contacts!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>电话:</label>
+		<#if bean.tel??>${bean.tel!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>传真:</label>
+		<#if bean.fax??>${bean.fax!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>E-mail:</label>
+		<#if bean.email??>${bean.email!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>网址:</label>
+		<#if bean.website??><a href="${bean.website!}" target="_bank">${bean.website!}</a></#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>地址:</label>
+		<#if bean.address??>${bean.address!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>邮编:</label>
+		<#if bean.zipcode??>${bean.zipcode!}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>发布时间:</label>
+		<#if bean.releasetime??>${bean.releasetime?string("yyyy-MM-dd HH:mm:ss")}</#if>
+	</div>
+	<div style="margin-top:4px;">
+		<label>解析时间:</label>
+		<#if bean.createTime??>${bean.createTime?string("yyyy-MM-dd HH:mm:ss")}</#if>
 	</div>
 </fieldset>

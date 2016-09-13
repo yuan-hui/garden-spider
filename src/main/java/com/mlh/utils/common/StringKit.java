@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 /**
  * 
@@ -168,6 +170,29 @@ public class StringKit {
 		return key.toUpperCase();
 	}
 
+	/**
+	 * 
+	 * @Description: 提取Html内部的文本
+	 * @author liujiecheng
+	 */
+	public static String getHtmlText(String html) {
+		Document doc = Jsoup.parse(html);
+		String text = doc.text();
+		return text;
+	}
+	
+	/**
+	 * 
+	 * @Description: 提取Html内部的文本
+	 * @author liujiecheng
+	 */
+	public static String getHtmlTextNoBlank(String html) {
+		html = StringUtils.replaceEach(html, new String[]{"&nbsp;"," "}, new String[]{"",""});
+		Document doc = Jsoup.parse(html);
+		String text = doc.text();
+		return StringUtils.trim(text);
+	}
+	
 	public static void main(String[] args) {
 		// String str = "A.N，D";
 		// System.out.println(str);

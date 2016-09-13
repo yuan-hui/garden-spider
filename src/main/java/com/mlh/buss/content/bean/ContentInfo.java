@@ -10,13 +10,13 @@ public class ContentInfo {
 	
 	private String title;
 	
-	private Integer midiameter;
+	private String midiameter;
 	
-	private Integer height;
+	private String height;
 	
-	private Integer crown;
+	private String crown;
 	
-	private Integer grounddiameter;
+	private String grounddiameter;
 	
 	private String unit;
 	
@@ -54,6 +54,16 @@ public class ContentInfo {
 	
 	private Date releasetime;
 
+	private String remark;
+	
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -78,35 +88,35 @@ public class ContentInfo {
 		this.title = title;
 	}
 
-	public Integer getMidiameter() {
+	public String getMidiameter() {
 		return midiameter;
 	}
 
-	public void setMidiameter(Integer midiameter) {
+	public void setMidiameter(String midiameter) {
 		this.midiameter = midiameter;
 	}
 
-	public Integer getHeight() {
+	public String getHeight() {
 		return height;
 	}
 
-	public void setHeight(Integer height) {
+	public void setHeight(String height) {
 		this.height = height;
 	}
 
-	public Integer getCrown() {
+	public String getCrown() {
 		return crown;
 	}
 
-	public void setCrown(Integer crown) {
+	public void setCrown(String crown) {
 		this.crown = crown;
 	}
 
-	public Integer getGrounddiameter() {
+	public String getGrounddiameter() {
 		return grounddiameter;
 	}
 
-	public void setGrounddiameter(Integer grounddiameter) {
+	public void setGrounddiameter(String grounddiameter) {
 		this.grounddiameter = grounddiameter;
 	}
 

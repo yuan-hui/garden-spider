@@ -6,13 +6,35 @@
 			<tr>
 				<th width="4%">序号</th>
 				<th nowrap>产品名称</th>
+				<th nowrap>米径(cm)</th>
+				<th nowrap>高度(cm)</th>
+				<th nowrap>冠幅(cm)</th>
+				<th nowrap>地径(cm)</th>
+				<th nowrap>单位</th>
+				<th nowrap>价格(元)</th>
+				<th nowrap>备注</th>
+				<th nowrap>提供商</th>
+				<th nowrap>省份</th>
+				<th nowrap>城市</th>
+				<th nowrap>发布时间</th>
 				<th nowrap>操作</th>
 			</tr>
 			
 			<#list page.getList() as x>
 			<tr>
 				<td style="text-align:left;">${x_index+1}</td>
-				<td nowrap style="text-align:left;"><#if x.title??>${x.title}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.title??>${x.title!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.midiameter??>${x.midiameter!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.height??>${x.height!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.crown??>${x.crown!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.grounddiameter??>${x.grounddiameter!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.unit??>${x.unit!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.price??>${x.price!}</#if></td>
+				<td style="text-align:left;"><#if x.remark??>${x.remark!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.company??>${x.company!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.province??>${x.province!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.city??>${x.city!}</#if></td>
+				<td nowrap style="text-align:left;"><#if x.releasetime??>${x.releasetime?string("yyyy-MM-dd HH:mm:ss")}</#if></td>
 				<td nowrap style="text-align:left;">
 					<a href="/content/edit/${x.id}">查看</a>
 					&nbsp;&nbsp;

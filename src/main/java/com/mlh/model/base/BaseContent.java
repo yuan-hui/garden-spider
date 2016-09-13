@@ -70,35 +70,35 @@ public abstract class BaseContent<M extends BaseContent<M>> extends Model<M> imp
 		return get("detailId");
 	}
 	
-	public void setMidiameter(java.lang.Integer midiameter) {
+	public void setMidiameter(java.lang.String midiameter) {
 		set("midiameter", midiameter);
 	}
 
-	public java.lang.Integer getMidiameter() {
+	public java.lang.String getMidiameter() {
 		return get("midiameter");
 	}
 	
-	public void setHeight(java.lang.Integer height) {
+	public void setHeight(java.lang.String height) {
 		set("height", height);
 	}
 
-	public java.lang.Integer getHeight() {
+	public java.lang.String getHeight() {
 		return get("height");
 	}
 	
-	public void setCrown(java.lang.Integer crown) {
+	public void setCrown(java.lang.String crown) {
 		set("crown", crown);
 	}
 
-	public java.lang.Integer getCrown() {
+	public java.lang.String getCrown() {
 		return get("crown");
 	}
 	
-	public void setGrounddiameter(java.lang.Integer grounddiameter) {
+	public void setGrounddiameter(java.lang.String grounddiameter) {
 		set("grounddiameter", grounddiameter);
 	}
 
-	public java.lang.Integer getGrounddiameter() {
+	public java.lang.String getGrounddiameter() {
 		return get("grounddiameter");
 	}
 	
@@ -115,7 +115,7 @@ public abstract class BaseContent<M extends BaseContent<M>> extends Model<M> imp
 	}
 
 	public java.lang.String getPrice() {
-		return get("unit");
+		return get("price");
 	}
 	
 	public void setCompany(java.lang.String company) {
@@ -196,6 +196,14 @@ public abstract class BaseContent<M extends BaseContent<M>> extends Model<M> imp
 
 	public java.lang.String getZipcode() {
 		return get("zipcode");
+	}
+	
+	public void setRemark(java.lang.String remark) {
+		set("remark", remark);
+	}
+
+	public java.lang.String getRemark() {
+		return get("remark");
 	}
 	
 	public void setReleasetime(java.util.Date releasetime) {

@@ -29,6 +29,7 @@ public class Content extends BaseContent<Content> {
 		bean.setGrounddiameter(info.getGrounddiameter());
 		bean.setUnit(info.getUnit());
 		bean.setPrice(info.getPrice());
+		bean.setRemark(info.getRemark());
 		bean.setCompany(info.getCompany());
 		bean.setProvince(info.getProvince());
 		bean.setCity(info.getCity());
