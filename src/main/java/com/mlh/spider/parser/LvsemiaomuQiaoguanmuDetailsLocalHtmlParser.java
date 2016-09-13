@@ -35,7 +35,7 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 
 	/**
 	 * 
-	 * @Description: 解析页面
+	 * @Description: 解析页面{}
 	 * @author liujiecheng
 	 */
 	private static void process(PageDetail detail) {
