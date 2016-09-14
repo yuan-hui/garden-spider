@@ -163,4 +163,11 @@ public class PageDetail extends BasePageDetail<PageDetail> {
 	public int updateParserById(String parser, String id) {
 		return Db.update("update t_page_detail set parser = ?, updateTime = now() where id = ?", parser, id);
 	}
+	/**
+	 * 
+	 * @param time
+	 */
+	public void updateReleaseTime(String time,String detailId) {
+		Db.update("UPDATE t_content SET releasetime = ? WHERE detailId=?",time,detailId);
+	}
 }

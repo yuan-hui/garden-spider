@@ -2,6 +2,7 @@ package com.mlh.spider.factory;
 
 import com.mlh.enums.BussCode;
 import com.mlh.spider.pageprocessor.LvsemiaomuQiaoguanmuDetailsDowloadProcessor;
+import com.mlh.spider.pageprocessor.MiaomuzhanMiaomujiageDetailsDownloadProcessor;
 
 /**
  * 
@@ -21,12 +22,25 @@ public class DetailsDowloadProcessorFactory {
 			case lvsemiaomu_qiaoguanmu:
 				lvsemiaomuQiaoguanmuDetailsDownloadProcessor(code);
 				break;
+			case miaomuzhan_miaomujiage:
+				miaomuzhanMiaomujiageDetailsDownloadProcessor(code);
+				break;
 			default:
 				System.out.println("列表页业务未处理...");
 				break;
 		}
 	}
 	
+	
+	/**
+	 * @Description "进入第一苗木站_苗木价格，详情页处理器"
+	 * @param code
+	 * @author sjl
+	 */
+	private void miaomuzhanMiaomujiageDetailsDownloadProcessor(String code) {
+		MiaomuzhanMiaomujiageDetailsDownloadProcessor.main(new String[] { code });
+	}
+
 	/**
 	 * 
 	 * @Description: 进入详情页处理器

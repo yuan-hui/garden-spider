@@ -10,7 +10,11 @@ public enum BussCode {
 	/**
 	 * gooood-architecture
 	 */
-	lvsemiaomu_qiaoguanmu("lvsemiaomu_qiaoguanmu", "绿色苗木_乔灌木");
+	lvsemiaomu_qiaoguanmu("lvsemiaomu_qiaoguanmu", "绿色苗木_乔灌木"),
+	
+	/**
+	 * */
+	miaomuzhan_miaomujiage("miaomuzhan_miaomujiage","第一苗木站_苗木价格");
 
 	private String code;
 

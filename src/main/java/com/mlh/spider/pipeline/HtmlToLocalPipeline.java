@@ -26,9 +26,14 @@ import us.codecraft.webmagic.utils.FilePersistentBase;
 public class HtmlToLocalPipeline extends FilePersistentBase implements Pipeline {
 
 	private final static Log logger = Log.getLog(PageHandler.class);
+	
+	//根据网页编码设置编码格式   *
+	private String encoding ;
 
-	public HtmlToLocalPipeline(String path) throws UnsupportedEncodingException, FileNotFoundException {
+	public HtmlToLocalPipeline(String path,String charSet) throws UnsupportedEncodingException, FileNotFoundException {
 		setPath(path);
+		
+		this.encoding=charSet;
 	}
 
 	@Override
@@ -43,7 +48,7 @@ public class HtmlToLocalPipeline extends FilePersistentBase implements Pipeline 
 			String filepath = this.path + filename;
 			
 			//保存在本地文件
-			FileUtils.write(new File(filepath), result, "UTF-8");
+			FileUtils.write(new File(filepath), result, this.encoding);
 			System.out.println("文件保存成功：" + id + "->" + filepath);
 
 			//更新详情页为已下载
@@ -59,4 +64,5 @@ public class HtmlToLocalPipeline extends FilePersistentBase implements Pipeline 
 		}
 	}
 
+		
 }

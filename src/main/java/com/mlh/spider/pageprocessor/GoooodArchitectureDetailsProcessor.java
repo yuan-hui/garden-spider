@@ -95,7 +95,7 @@ public class GoooodArchitectureDetailsProcessor implements PageProcessor {
 				
 				//启动
 				try {
-					Spider.create(new GoooodArchitectureDetailsProcessor()).addPipeline(new HtmlToLocalPipeline(path)).thread(1).addRequest(request).run();
+					Spider.create(new GoooodArchitectureDetailsProcessor()).addPipeline(new HtmlToLocalPipeline(path,"UTF-8")).thread(1).addRequest(request).run();
 					System.out.println("-----------------------------------------------------------------");
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();

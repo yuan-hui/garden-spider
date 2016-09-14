@@ -2,6 +2,7 @@ package com.mlh.spider.factory;
 
 import com.mlh.enums.BussCode;
 import com.mlh.spider.parser.LvsemiaomuQiaoguanmuDetailsLocalHtmlParser;
+import com.mlh.spider.parser.MiaomuzhanMiaomuDetailsLocalHtmlParser;
 
 /**
  * 
@@ -21,12 +22,22 @@ public class DetailsParserFactory {
 			case lvsemiaomu_qiaoguanmu:
 				lvsemiaomuQiaoguanmuDetailsLocalHtmlParser(code);
 				break;
+			case miaomuzhan_miaomujiage:
+				miaomuzhanMiaomuDetailsLocalHtmlParser(code);
 			default:
 				System.out.println("详情解析业务未处理...");
 				break;
 		}
 	}
 	
+	/**
+	 * @Description  进去解析详情页面处理器
+	 * @author sjl
+	 */
+	private void miaomuzhanMiaomuDetailsLocalHtmlParser(String code) {
+		MiaomuzhanMiaomuDetailsLocalHtmlParser.main(new String[] { code });
+	}
+
 	/**
 	 * 
 	 * @Description: 进入详情页处理器
