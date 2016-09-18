@@ -49,7 +49,7 @@ public class DetailsHtmlUtil {
 					attrName = StringUtils.trim(attrs[0]);
 				} else if (attrs != null && attrs.length == 2) {
 					attrName = StringUtils.trim(attrs[0]);
-					attrValue = StringUtils.trim(attrs[1]);
+					attrValue = StringUtils.trim(attrs[1].replace("cm", ""));
 				}
 				map.put(attrName, attrValue);
 			}

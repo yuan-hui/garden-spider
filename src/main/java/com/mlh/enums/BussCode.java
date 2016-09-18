@@ -13,9 +13,15 @@ public enum BussCode {
 	lvsemiaomu_qiaoguanmu("lvsemiaomu_qiaoguanmu", "绿色苗木_乔灌木"),
 	
 	/**
-	 * */
-	miaomuzhan_miaomujiage("miaomuzhan_miaomujiage","第一苗木站_苗木价格");
-
+	 *苗木第一站 
+	 */
+	miaomuzhan_miaomujiage("miaomuzhan_miaomujiage","第一苗木站_苗木价格"),
+	
+	/***
+	 * 青青苗木站
+	 */
+	green321_qiaoguanmu("green321_qiaoguanmu","青青苗木_乔灌木");
+	
 	private String code;
 
 	private String name;

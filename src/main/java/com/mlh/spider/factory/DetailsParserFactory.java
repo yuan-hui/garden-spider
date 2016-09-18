@@ -1,6 +1,7 @@
 package com.mlh.spider.factory;
 
 import com.mlh.enums.BussCode;
+import com.mlh.spider.parser.Green321QiaoGuanMuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.LvsemiaomuQiaoguanmuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.MiaomuzhanMiaomuDetailsLocalHtmlParser;
 
@@ -24,12 +25,23 @@ public class DetailsParserFactory {
 				break;
 			case miaomuzhan_miaomujiage:
 				miaomuzhanMiaomuDetailsLocalHtmlParser(code);
+				break;
+			case green321_qiaoguanmu:
+				green321QiaoGuanMuDetailsLocalHtmlParser(code);
 			default:
 				System.out.println("详情解析业务未处理...");
 				break;
 		}
 	}
 	
+	/**
+	 * 
+	 * @param code
+	 */
+	private void green321QiaoGuanMuDetailsLocalHtmlParser(String code) {
+		Green321QiaoGuanMuDetailsLocalHtmlParser.main(new String []{code});
+	}
+
 	/**
 	 * @Description  进去解析详情页面处理器
 	 * @author sjl

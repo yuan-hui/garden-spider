@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @Author:jilongliang
  * @Date :2012-8-19
@@ -795,4 +797,24 @@ public class DateUtils
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		return fmt.format(new Date());
 	}
+	
+	/**
+	 * yyyy-MM-dd HH:mm 格式的字符串转为Date
+	 * @author sjl
+	 * @param str  yyyy-MM-dd HH:mm 格式的字符串
+	 */
+	public static Date StringToDate(String str){
+		Date date = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		if (StringUtils.isNotBlank(str)) {
+			try {
+				date = formatter.parse(str);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}	
+		}
+		return date;
+		
+	}
+	
 }

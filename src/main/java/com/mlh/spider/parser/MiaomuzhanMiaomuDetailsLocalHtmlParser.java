@@ -2,9 +2,7 @@ package com.mlh.spider.parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +16,6 @@ import com.mlh.enums.Confirm;
 import com.mlh.model.Content;
 import com.mlh.model.PageDetail;
 import com.mlh.spider.pageprocessor.UpdateReleaseTime;
-import com.mlh.spider.util.DetailsHtmlUtil;
 
 import us.codecraft.webmagic.selector.Html;
 /**

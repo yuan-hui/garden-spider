@@ -36,6 +36,7 @@ public class DownloaderConfigHandler {
 
 			System.out.println("开始转换为列表页...");
 			List<PageList> pages = new LinkedList<PageList>();
+			int index = 1;
 			for (DownloaderConfig c : configs) {
 				String _id = c.getId();
 
@@ -68,12 +69,13 @@ public class DownloaderConfigHandler {
 
 				// 保存当前业务所有的列表
 				int[] rows = PageList.dao.saveAll(pages);
-				System.out.println("共保存列表页：" + rows.length);
+				System.out.println(index+"、共保存列表页：" + rows.length);
 
 				// 状态更新为已处理
 				DownloaderConfig.dao.updateStatusById(Confirm.yes.toString(), _id);
 				System.out.println("转换状态更新完毕！");
-
+				pages.clear();
+				index++;
 				System.out.println("-----------------------------------------------------------------");
 			}
 		} else {

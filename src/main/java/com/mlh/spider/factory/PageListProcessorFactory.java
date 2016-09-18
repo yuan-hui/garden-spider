@@ -1,6 +1,7 @@
 package com.mlh.spider.factory;
 
 import com.mlh.enums.BussCode;
+import com.mlh.spider.pageprocessor.Green321QiaoGuanMuPageListProcessor;
 import com.mlh.spider.pageprocessor.LvsemiaomuQiaoguanmuPageListProcessor;
 import com.mlh.spider.pageprocessor.MiaomuzhanMiaomujiagePageListProcessor;
 
@@ -25,10 +26,21 @@ public class PageListProcessorFactory {
 			case miaomuzhan_miaomujiage:
 				miaomuzhanMiaomujiagePageList(code);
 				break;
+			case green321_qiaoguanmu:
+				green321QiaoGuanMuPageList(code);
+				break;
 			default:
 				System.out.println("列表页业务未处理...");
 				break;
 		}
+	}
+	
+	/**
+	 * @Description 进入青青苗木列表页面处理器
+	 * @author sjl
+	 */
+	private void green321QiaoGuanMuPageList(String code) {
+		Green321QiaoGuanMuPageListProcessor.main(new String[] {code});
 	}
 	/**
 	 * @Description 进入苗木【第一站】列表页面处理器
