@@ -80,9 +80,9 @@ public class MiaomuzhanMiaomuDetailsLocalHtmlParser {
 			//电话
 			String tel = userInfor.get(4);
 			// 电子邮箱
-			String email =userInfor.get(7);
+			String email =userInfor.get(6);
 			// 地址
-			String address =userInfor.get(8);
+			String address =userInfor.get(7);
 
 			// 来源内容ID
 			String cid = StringUtils.substringBefore(path, ".");

@@ -33,7 +33,7 @@ public class WebMagicFunction {
 		System.out.println("进入" + code + "列表页处理器...");
 
 		List<PageList> pages = PageList.dao.findByCodeAndStatus(code, Confirm.no.toString());
-		System.out.println(pages.size());
+		System.out.println("没有处理的列表数量:"+pages.size());
 		for (PageList p : pages) {
 			// 列表页ID
 			String id = p.getId();

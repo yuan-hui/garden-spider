@@ -1,5 +1,6 @@
 package com.mlh.spider.pageprocessor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jfinal.log.Log;
@@ -44,16 +45,22 @@ public class Green321QiaoGuanMuPageListProcessor extends WebMagicParams implemen
 		// 获取详情页所有连接
 		List<String> urls = html.xpath("//table[@class='table_gridline']").xpath("//tr[@class='table_back']/td[1]").links().all();
 		int index = 0 ;
-		int temp =0;
+		List<Integer> temp = new ArrayList<Integer>();
 		for(String url :urls ){
+			
 			if(!url.endsWith(".html")){
-				temp = index;
+				temp.add(index); 
 			}
 			
 			index++;
+			
 		}
-		
-		urls.remove(temp);
+		if(temp.size()>0){
+			for(int i =0;i<temp.size();i++){
+				urls.remove((int)temp.get(i)-i);
+				
+			}
+		}
 		// 将详情页的链接保存到数据库
 		int[] rows = PageDetail.dao.saveDetails(urls, code, page.getUrl().get(), pageno);
 		System.out.println("详情页保存完毕：" + rows.length);
