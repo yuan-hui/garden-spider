@@ -28,5 +28,22 @@ public class WebMagicParams {
 	 */
 	public static final int RETRY_TIMES = 3;
 	
+	/**
+	 * yuanlin365
+	 */
+	public static final String YUANLIN = "details.yuanlin365.path";
+	/**
+	 * miaomuzhan
+	 */
+	public static final String MIAOMUZHAN = "details.miaomuzhan.path";
+	/**
+	 * green321
+	 */
+	public static final String GREEN = "details.green321.path";
+	/**
+	 * miaomu
+	 */
+	public static final String MIAOMU = "details.miaomu.path";
+	
 
 }

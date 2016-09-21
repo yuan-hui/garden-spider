@@ -19,9 +19,9 @@ import us.codecraft.webmagic.selector.Html;
  * @author sjl
  *
  */
-public class Miaomu_PicePageList extends WebMagicParams implements PageProcessor {
+public class MiaomuPicePageList extends WebMagicParams implements PageProcessor {
 	
-	private final static Log logger = Log.getLog(Miaomu_PicePageList.class);
+	private final static Log logger = Log.getLog(MiaomuPicePageList.class);
 	/**
 	 * 域名
 	 */
@@ -58,7 +58,7 @@ public class Miaomu_PicePageList extends WebMagicParams implements PageProcessor
 	}
 
 	public static void main(String[] args) {
-		WebMagicFunction.ListProcessor(args[0], new Miaomu_PicePageList());
+		WebMagicFunction.ListProcessor(args[0], new MiaomuPicePageList());
 		
 
 	}

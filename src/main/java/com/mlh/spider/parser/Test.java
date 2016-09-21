@@ -23,19 +23,17 @@ import us.codecraft.webmagic.selector.Html;
 public class Test {
 
 	public static void main(String[] args) throws IOException {
-//		String filepath = "D:\\dowload\\miaomuzhan\\details\\488598.shtml";
-//		File file = new File(filepath);
-//		String text;
-//		text = FileUtils.readFileToString(file, "GBK");
-//
-//		Document htmldoc = Jsoup.parse(text);
-//		Html html = new Html(htmldoc);
-//		List<String> tableList = html.xpath("//tr[@class='table_back']/td/text()").all(); 
-//		List<String> userInfor = html.xpath("//div[@class='infolist']").xpath("//span/text()").all();
-//		System.out.println(tableList);
-//		System.out.println(userInfor);
+		String filepath = "D:\\dowload\\miaomu\\details\\prices_show_14879.html";
+		File file = new File(filepath);
+		String text;
+		text = FileUtils.readFileToString(file, "GBK");
+
+		Document htmldoc = Jsoup.parse(text);
+		Html html = new Html(htmldoc);
+		List<String> tableList = html.xpath("//tr[@class='table_back']/td/text()").all(); 
+		List<String> userInfor = html.xpath("//div[@class='infolist']").xpath("//span/text()").all();
 		
-		System.out.print(StringKit.getUUID());
+		
 		
 	}
 

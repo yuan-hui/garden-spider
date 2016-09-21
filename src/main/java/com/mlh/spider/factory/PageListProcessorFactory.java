@@ -4,7 +4,7 @@ import com.mlh.enums.BussCode;
 import com.mlh.spider.pageprocessor.Green321QiaoGuanMuPageListProcessor;
 import com.mlh.spider.pageprocessor.LvsemiaomuQiaoguanmuPageListProcessor;
 import com.mlh.spider.pageprocessor.MiaomuzhanMiaomujiagePageListProcessor;
-import com.mlh.spider.pageprocessor.miaomu.Miaomu_PicePageList;
+import com.mlh.spider.pageprocessor.miaomu.MiaomuPicePageList;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class PageListProcessorFactory {
 	 */
 	private void miaomu_PicePageList(String code) {
 		
-		Miaomu_PicePageList.main(new String []{code});
+		MiaomuPicePageList.main(new String []{code});
 		
 	}
 

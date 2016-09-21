@@ -1,19 +1,14 @@
-package com.mlh.spider.pageprocessor;
-
-import java.util.List;
+package com.mlh.spider.pageprocessor.miaomu;
 
 import com.mlh.common.WebMagicFunction;
 import com.mlh.common.WebMagicParams;
-import com.mlh.enums.Confirm;
-import com.mlh.model.PageDetail;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.selector.Html;
 
-public class Green321QiaoGuanMuDetailsDownloadProcessor extends WebMagicParams implements PageProcessor {
-
+public class MiaomuPiceDetailsDownloadProcessor extends WebMagicParams implements PageProcessor{
+	
 	/**
 	 * 域名
 	 */
@@ -25,6 +20,7 @@ public class Green321QiaoGuanMuDetailsDownloadProcessor extends WebMagicParams i
 	private Site site = Site.me().setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
 			.setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
 
+
 	@Override
 	public void process(Page page) {
 		String id = page.getRequest().getExtra("id").toString();
@@ -33,7 +29,7 @@ public class Green321QiaoGuanMuDetailsDownloadProcessor extends WebMagicParams i
 		page.putField("code", code);
 		page.putField("result", page.getHtml().get());
 		page.putField("url", page.getUrl().get());
-
+		
 	}
 
 	@Override
@@ -42,10 +38,7 @@ public class Green321QiaoGuanMuDetailsDownloadProcessor extends WebMagicParams i
 	}
 
 	public static void main(String[] args) {
-		String code = args[0];
-		WebMagicFunction.DetailDownload(code, new Green321QiaoGuanMuDetailsDownloadProcessor(),GREEN);
-		
-
+		WebMagicFunction.DetailDownload(args[0], new MiaomuPiceDetailsDownloadProcessor(),MIAOMU);
 	}
 
 }

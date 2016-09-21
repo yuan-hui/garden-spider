@@ -53,8 +53,10 @@ public class WebMagicFunction {
 
 	/**
 	 * 详情页面下载
+	 * @param code  code   processor 一个 PageProcessor对象
+	 * 	pathCode 保存路径   
 	 */
-	public static void DetailDownload(String code, PageProcessor processor) {
+	public static void DetailDownload(String code, PageProcessor processor,String pathCode) {
 
 		System.out.println("进入" + code + "详情页下载器...");
 
@@ -67,7 +69,7 @@ public class WebMagicFunction {
 				String url = pageDetail.getUrl();
 				System.out.println(index + "、开始下载[" + DateUtils.getNow() + "]：" + id);
 				// 保存路劲
-				String path = PropKit.get("details.green321.path");
+				String path = PropKit.get(pathCode);
 				// 业务参数
 				Request request = new Request(url).setPriority(0).putExtra("code", code).putExtra("id", id);
 				// 启动

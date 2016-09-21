@@ -4,6 +4,7 @@ import com.mlh.enums.BussCode;
 import com.mlh.spider.pageprocessor.Green321QiaoGuanMuDetailsDownloadProcessor;
 import com.mlh.spider.pageprocessor.LvsemiaomuQiaoguanmuDetailsDowloadProcessor;
 import com.mlh.spider.pageprocessor.MiaomuzhanMiaomujiageDetailsDownloadProcessor;
+import com.mlh.spider.pageprocessor.miaomu.MiaomuPiceDetailsDownloadProcessor;
 
 /**
  * 
@@ -41,7 +42,7 @@ public class DetailsDowloadProcessorFactory {
 	 * @param code
 	 */
 	private void miaomuPiceDetailsDownloadProcessor(String code) {
-		
+		MiaomuPiceDetailsDownloadProcessor.main(new String []{code});
 	}
 
 	/**
