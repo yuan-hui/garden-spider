@@ -20,7 +20,14 @@ public enum BussCode {
 	/***
 	 * 青青苗木站
 	 */
-	green321_qiaoguanmu("green321_qiaoguanmu","青青苗木_乔灌木");
+	green321_qiaoguanmu("green321_qiaoguanmu","青青苗木_乔灌木"),
+	
+	/**
+	 * 中国苗木网
+	 */
+	miaomu_pice("miaomu_pice","中国苗木网_价格");
+	
+	
 	
 	private String code;
 

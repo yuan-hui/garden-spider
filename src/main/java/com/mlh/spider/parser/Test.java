@@ -15,28 +15,28 @@ import com.mlh.spider.util.DetailsHtmlUtil;
 import com.mlh.utils.common.StringKit;
 
 import us.codecraft.webmagic.selector.Html;
-
+/**
+ *解析test
+ * @author sjl
+ *
+ */
 public class Test {
 
 	public static void main(String[] args) throws IOException {
-		String filepath = "D:\\dowload\\green321\\details\\122532903814.jpg";
-		File file = new File(filepath);
-		String text;
-		text = FileUtils.readFileToString(file, "GBK");
-
-		Document htmldoc = Jsoup.parse(text);
-		Html html = new Html(htmldoc);
-		String title = html.xpath("//h1/text()").get();
-
-		List<String> detailcontentList = html.xpath("//div[@id='detailcontent']/ul/li").all();
-
-		Map<String, String> detailcontentMap = DetailsHtmlUtil.changeToAttrMap(detailcontentList);
-		System.out.println(detailcontentMap);
-		String midiaMeter = detailcontentMap.get("米径");
-		String height = detailcontentMap.get("高度");
-		String crown = detailcontentMap.get("冠幅");
-		String grounddiaMeter = detailcontentMap.get("地径");
-		System.out.println(detailcontentMap);
+//		String filepath = "D:\\dowload\\miaomuzhan\\details\\488598.shtml";
+//		File file = new File(filepath);
+//		String text;
+//		text = FileUtils.readFileToString(file, "GBK");
+//
+//		Document htmldoc = Jsoup.parse(text);
+//		Html html = new Html(htmldoc);
+//		List<String> tableList = html.xpath("//tr[@class='table_back']/td/text()").all(); 
+//		List<String> userInfor = html.xpath("//div[@class='infolist']").xpath("//span/text()").all();
+//		System.out.println(tableList);
+//		System.out.println(userInfor);
+		
+		System.out.print(StringKit.getUUID());
+		
 	}
 
 }

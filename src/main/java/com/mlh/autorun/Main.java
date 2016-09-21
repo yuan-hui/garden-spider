@@ -28,21 +28,23 @@ public class Main {
 		 * 
 		 * miaomuzhan_miaomujiage
 		 * 
+		 * miaomu_pice
+		 * 
 		 */
 		
-		String _code = "green321_qiaoguanmu";
+		String _code = "miaomu_pice";
 		
 		/********保存详情页面连接开始*********/
-		PageListProcessorFactory factory = new PageListProcessorFactory();
-		factory.produce(_code);// 根据业务编码从列表页中解析出详情页的地址，并保存起来
+//		PageListProcessorFactory factory = new PageListProcessorFactory();
+//		factory.produce(_code);// 根据业务编码从列表页中解析出详情页的地址，并保存起来
 		/********保存详情页面连接结束*********/
 		
 		
 		
 		/********下载详情页面开始*********/
 		
-//		DetailsDowloadProcessorFactory factory = new DetailsDowloadProcessorFactory();
-//		factory.produce(_code);
+		DetailsDowloadProcessorFactory factory = new DetailsDowloadProcessorFactory();
+		factory.produce(_code);
 		/********下载详情页面结束*********/
 		
 		/********解析详情页面开始*********/

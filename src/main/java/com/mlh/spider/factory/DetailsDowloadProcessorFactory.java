@@ -29,12 +29,21 @@ public class DetailsDowloadProcessorFactory {
 			case green321_qiaoguanmu:
 				green321QiaoGuanMuDetailsDownloadProcessor(code);
 				break;
+			case miaomu_pice:
+				miaomuPiceDetailsDownloadProcessor(code);
 			default:
 				System.out.println("列表页业务未处理...");
 				break;
 		}
 	}
-	
+	/**
+	 * 中国苗木站 详情页面下载
+	 * @param code
+	 */
+	private void miaomuPiceDetailsDownloadProcessor(String code) {
+		
+	}
+
 	/**
 	 * @Description "进如青青苗木，详情页处理器"
 	 * @param code

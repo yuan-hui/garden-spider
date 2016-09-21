@@ -67,22 +67,32 @@ public class MiaomuzhanMiaomuDetailsLocalHtmlParser {
 			
 			List<String> userInfor = html.xpath("//div[@class='infolist']").xpath("//span/text()").all();
 			
+			String company = null;
+			String contacts  =null;
+			String email  =null;
+			String tel  =null;
+			String address  =null;
+			if(userInfor.size()>0){
 			//公司
-			String company = userInfor.get(1);
+			 company = userInfor.get(1);
+			
+			//联系人
+			 contacts =userInfor.get(2);
+			//电话
+			 tel = userInfor.get(4);
+			// 电子邮箱
+			 email =userInfor.get(6);
+			// 地址
+			 address =userInfor.get(7);
+			}
+			
 			
 			String str = tableList.get(8);
 			// 省份
-			String province = str.substring(0, str.indexOf("--")).trim();
+			String province =str.indexOf("--")>-1? str.substring(0, str.indexOf("--")).trim():str;
 			
-			String city =  str.substring(str.lastIndexOf("-")+1).trim();
-			//联系人
-			String contacts =userInfor.get(2);
-			//电话
-			String tel = userInfor.get(4);
-			// 电子邮箱
-			String email =userInfor.get(6);
-			// 地址
-			String address =userInfor.get(7);
+			String city =  str.indexOf("--")>-1? str.substring(str.lastIndexOf("-")+1).trim() :str;
+		
 
 			// 来源内容ID
 			String cid = StringUtils.substringBefore(path, ".");
