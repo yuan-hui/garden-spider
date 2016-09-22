@@ -44,6 +44,8 @@ public class HtmlToLocalPipeline extends FilePersistentBase implements Pipeline 
 		String filename = StringUtils.substringAfterLast(url, "/");
 
 		try {
+			if(!filename.endsWith(".html") && !filename.endsWith(".shtml"))
+				filename = filename+".html";
 			//完整路径
 			String filepath = this.path + filename;
 			

@@ -30,9 +30,10 @@ public class Main {
 		 * 
 		 * miaomu_pice
 		 * 
+		 * xbmiaomu_maiomujiage
 		 */
 		
-		String _code = "miaomu_pice";
+		String _code = "xbmiaomu_maiomujiage";
 		
 		/********保存详情页面连接开始*********/
 //		PageListProcessorFactory factory = new PageListProcessorFactory();

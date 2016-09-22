@@ -45,5 +45,10 @@ public class WebMagicParams {
 	 */
 	public static final String MIAOMU = "details.miaomu.path";
 	
+	
+	/**
+	 * xbmiaomu_miaomujiage
+	 */
+	public static final String XBMIAOMU = "details.xbmiaomu.path";
 
 }

@@ -5,6 +5,8 @@ import com.mlh.spider.pageprocessor.Green321QiaoGuanMuDetailsDownloadProcessor;
 import com.mlh.spider.pageprocessor.LvsemiaomuQiaoguanmuDetailsDowloadProcessor;
 import com.mlh.spider.pageprocessor.MiaomuzhanMiaomujiageDetailsDownloadProcessor;
 import com.mlh.spider.pageprocessor.miaomu.MiaomuPiceDetailsDownloadProcessor;
+import com.mlh.spider.pageprocessor.xbmiaomu.XBMiaoMuMaiomuJiaGeDetailsDownloadProcessor;
+import com.mlh.spider.pageprocessor.xbmiaomu.XBMiaoMuMiaoMuJiaGePageListProcessor;
 
 /**
  * 
@@ -32,10 +34,22 @@ public class DetailsDowloadProcessorFactory {
 				break;
 			case miaomu_pice:
 				miaomuPiceDetailsDownloadProcessor(code);
+				break;
+			case xbmiaomu_maiomujiage:
+				xbmiaomu_maiomujiageDetailsDownloadProcessor(code);
+				break;
 			default:
 				System.out.println("列表页业务未处理...");
 				break;
 		}
+	}
+	
+	/**
+	 * 西北苗木站 ——绿化苗木详情页面下载
+	 * @param code
+	 */
+	private void xbmiaomu_maiomujiageDetailsDownloadProcessor(String code) {
+		XBMiaoMuMaiomuJiaGeDetailsDownloadProcessor.main(new String []{code});
 	}
 	/**
 	 * 中国苗木站 详情页面下载

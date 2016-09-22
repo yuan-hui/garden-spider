@@ -5,6 +5,7 @@ import com.mlh.spider.pageprocessor.Green321QiaoGuanMuPageListProcessor;
 import com.mlh.spider.pageprocessor.LvsemiaomuQiaoguanmuPageListProcessor;
 import com.mlh.spider.pageprocessor.MiaomuzhanMiaomujiagePageListProcessor;
 import com.mlh.spider.pageprocessor.miaomu.MiaomuPicePageList;
+import com.mlh.spider.pageprocessor.xbmiaomu.XBMiaoMuMiaoMuJiaGePageListProcessor;
 
 /**
  * 
@@ -33,12 +34,23 @@ public class PageListProcessorFactory {
 			case miaomu_pice:
 				miaomu_PicePageList(code);
 				break;
+			case xbmiaomu_maiomujiage:
+				xbmiaomu_jiagePageList(code);
+				break;
 			default:
 				System.out.println("列表页业务未处理...");
 				break;
 		}
 	}
-	
+	/**
+	 * 进入西北苗木站 列表页面处理器
+	 * @param code
+	 */
+	private void xbmiaomu_jiagePageList(String code) {
+		XBMiaoMuMiaoMuJiaGePageListProcessor.main(new String []{code});
+		
+	}
+
 	/**
 	 * 进入中国苗木站 列表页面处理器
 	 * @param code
