@@ -4,6 +4,7 @@ import com.mlh.enums.BussCode;
 import com.mlh.spider.parser.Green321QiaoGuanMuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.LvsemiaomuQiaoguanmuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.MiaomuzhanMiaomuDetailsLocalHtmlParser;
+import com.mlh.spider.parser.XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser;
 
 /**
  * 
@@ -28,12 +29,25 @@ public class DetailsParserFactory {
 				break;
 			case green321_qiaoguanmu:
 				green321QiaoGuanMuDetailsLocalHtmlParser(code);
+				break;
+			case xbmiaomu_maiomujiage:
+				xbmiaomu_maiomujiageDetailsLocalHtmlParser(code);
+				break;
 			default:
 				System.out.println("详情解析业务未处理...");
 				break;
 		}
 	}
 	
+	/**
+	 * 西北苗木站 详情页面解析 控制器
+	 * @param code
+	 */
+	private void xbmiaomu_maiomujiageDetailsLocalHtmlParser(String code) {
+		
+		XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser.main(new String []{code});
+	}
+
 	/**
 	 * 
 	 * @param code

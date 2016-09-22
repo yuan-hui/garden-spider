@@ -50,6 +50,15 @@ public class DetailsHtmlUtil {
 				} else if (attrs != null && attrs.length == 2) {
 					attrName = StringUtils.trim(attrs[0]);
 					attrValue = StringUtils.trim(attrs[1].replace("cm", ""));
+				}else if(attrs == null){
+					String tmp [] ={"联系人","电话","所在地","地址","邮件"}; 
+					for(int i =0;i<tmp.length;i++){
+						if(str.indexOf(tmp[i])>-1){
+							attrName = tmp[i];
+							attrValue = str.replace(tmp[i], "");
+						}
+					}
+					
 				}
 				map.put(attrName, attrValue);
 			}

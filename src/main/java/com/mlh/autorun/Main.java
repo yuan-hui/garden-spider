@@ -44,13 +44,13 @@ public class Main {
 		
 		/********下载详情页面开始*********/
 		
-		DetailsDowloadProcessorFactory factory = new DetailsDowloadProcessorFactory();
-		factory.produce(_code);
+//		DetailsDowloadProcessorFactory factory = new DetailsDowloadProcessorFactory();
+//		factory.produce(_code);
 		/********下载详情页面结束*********/
 		
 		/********解析详情页面开始*********/
-//		DetailsParserFactory factory = new DetailsParserFactory();
-//		factory.produce(_code);
+		DetailsParserFactory factory = new DetailsParserFactory();
+		factory.produce(_code);
 	
 		/********解析详情页面结束*********/
 		

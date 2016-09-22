@@ -74,7 +74,7 @@ public class WebMagicFunction {
 				Request request = new Request(url).setPriority(0).putExtra("code", code).putExtra("id", id);
 				// 启动
 				try {
-					Spider.create(new MiaomuzhanMiaomujiageDetailsDownloadProcessor())
+					Spider.create(processor)
 							.addPipeline(new HtmlToLocalPipeline(path, "GBK")).thread(1).addRequest(request).run();
 					System.out.println("-----------------------------------------------------------------");
 				} catch (UnsupportedEncodingException e) {

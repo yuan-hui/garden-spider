@@ -816,5 +816,23 @@ public class DateUtils
 		return date;
 		
 	}
+	/**
+	 * yyyy-MM-dd 格式的字符串转为Date
+	 * @author sjl
+	 * @param str  yyyy-MM-dd  格式的字符串
+	 */
+	public static Date StringToDateyyyy_MM_dd(String str){
+		Date date = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		if (StringUtils.isNotBlank(str)) {
+			try {
+				date = formatter.parse(str);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}	
+		}
+		return date;
+		
+	}
 	
 }
