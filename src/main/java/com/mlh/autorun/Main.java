@@ -37,9 +37,11 @@ public class Main {
 		 * huamu100_price
 		 * 
 		 * yuanlin_price
+		 * 
+		 * zjyuanlin_price
 		 */
 		
-		String _code = "yuanlin_price";
+		String _code = "zjyuanlin_price";
 		
 		/********保存详情页面连接开始*********/
 //		PageListProcessorFactory factory = new PageListProcessorFactory();

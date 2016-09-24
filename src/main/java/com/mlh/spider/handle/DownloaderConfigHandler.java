@@ -65,19 +65,20 @@ public class DownloaderConfigHandler {
 					pages.add(p);
 				}
 
-				System.out.println("共转换出列表页：" + pages.size());
+			
+					System.out.println("共转换出列表页：" + pages.size());
+					// 保存当前业务所有的列表
+					int[] rows = PageList.dao.saveAll(pages);
+					System.out.println(index + "、共保存列表页：" + rows.length);
 
-				// 保存当前业务所有的列表
-				int[] rows = PageList.dao.saveAll(pages);
-				System.out.println(index+"、共保存列表页：" + rows.length);
-
-				// 状态更新为已处理
-				DownloaderConfig.dao.updateStatusById(Confirm.yes.toString(), _id);
-				System.out.println("转换状态更新完毕！");
-				pages.clear();
-				index++;
-				System.out.println("-----------------------------------------------------------------");
-			}
+					// 状态更新为已处理
+					DownloaderConfig.dao.updateStatusById(Confirm.yes.toString(), _id);
+					System.out.println("转换状态更新完毕！");
+					pages.clear();
+					index++;
+					System.out.println("-----------------------------------------------------------------");
+				}
+			
 		} else {
 			System.out.println("没有配置需要转换：" + configs.size());
 		}

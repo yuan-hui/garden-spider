@@ -8,7 +8,8 @@ import com.mlh.spider.pageprocessor.huamu100.HuaMu100PricePageListProcessor;
 import com.mlh.spider.pageprocessor.miaomu.MiaomuPicePageList;
 import com.mlh.spider.pageprocessor.mm597.MM597PicePageListProcessor;
 import com.mlh.spider.pageprocessor.xbmiaomu.XBMiaoMuMiaoMuJiaGePageListProcessor;
-import com.mlh.spider.pageprocessor.yuanlin.Yuanlin_PricePageListProcessor;
+import com.mlh.spider.pageprocessor.yuanlin.YuanlinPricePageListProcessor;
+import com.mlh.spider.pageprocessor.zjyuanlin.ZJYuanLinPriceDetailsProcessor;
 
 /**
  * 
@@ -47,7 +48,10 @@ public class PageListProcessorFactory {
 				huaMu100_PricePageList(code);
 				break;
 			case yuanlin_price:
-				yuanlin_pricePageList(code);
+				yuanlin_PricePageList(code);
+				break;
+			case zjyuanlin_price:
+				zjYuanLin_PricePageList(code);
 				break;
 			default:
 				System.out.println("列表页业务未处理...");
@@ -55,13 +59,21 @@ public class PageListProcessorFactory {
 		}
 	}
 	
-	
+	/**
+	 * 浙江园林 列表页面处理
+	 * @param code
+	 */
+	private void zjYuanLin_PricePageList(String code) {
+		ZJYuanLinPriceDetailsProcessor.main(new String []{code});
+	}
+
+
 	/**
 	 * 中国园林网苗木价格 列表页面处理
 	 * @param code
 	 */
-	private void yuanlin_pricePageList(String code) {
-		Yuanlin_PricePageListProcessor.main(new String []{code});
+	private void yuanlin_PricePageList(String code) {
+		YuanlinPricePageListProcessor.main(new String []{code});
 	}
 
 	/**

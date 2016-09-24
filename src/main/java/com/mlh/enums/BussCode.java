@@ -45,7 +45,14 @@ public enum BussCode {
 	/**
 	 * 中国园林网
 	 */
-	yuanlin_price("yuanlin_price","中国园林网");
+	yuanlin_price("yuanlin_price","中国园林网"),
+	
+	/**
+	 * 浙江园林网
+	 */
+	zjyuanlin_price("zjyuanlin_price","浙江园林网");
+	
+	
 	
 	private String code;
 

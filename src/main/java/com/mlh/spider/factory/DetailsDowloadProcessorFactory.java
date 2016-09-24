@@ -9,6 +9,7 @@ import com.mlh.spider.pageprocessor.miaomu.MiaomuPiceDetailsDownloadProcessor;
 import com.mlh.spider.pageprocessor.mm597.MM597PiceDetailsDownloadProcessor;
 import com.mlh.spider.pageprocessor.xbmiaomu.XBMiaoMuMaiomuJiaGeDetailsDownloadProcessor;
 import com.mlh.spider.pageprocessor.yuanlin.YuanLinPriceDetailsDownloadProcessor;
+import com.mlh.spider.pageprocessor.zjyuanlin.ZJYuanLinPriceDetailsDownloadProcessor;
 
 /**
  * 
@@ -49,6 +50,9 @@ public class DetailsDowloadProcessorFactory {
 			case yuanlin_price:
 				yuanLinPriceDetailsDownloadProcessor(code);
 				break;	
+			case zjyuanlin_price:
+				zJYuanLinPriceDetailsDownloadProcessor(code);
+				break;	
 				
 				
 			default:
@@ -56,7 +60,16 @@ public class DetailsDowloadProcessorFactory {
 				break;
 		}
 	}
-	
+	/**
+	 * 浙江苗木  模拟详情页面下载
+	 * 浙江苗木没有详情页面 下载的是列表页面
+	 * @param code
+	 */
+	private void zJYuanLinPriceDetailsDownloadProcessor(String code) {
+		ZJYuanLinPriceDetailsDownloadProcessor.main(new String []{code});
+		
+	}
+
 	/**
 	 * 中国园林网详情页面下载
 	 * @param code

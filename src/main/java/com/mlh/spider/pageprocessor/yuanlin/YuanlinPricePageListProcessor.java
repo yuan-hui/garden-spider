@@ -20,9 +20,9 @@ import us.codecraft.webmagic.selector.Html;
  * @author songj
  *
  */
-public class Yuanlin_PricePageListProcessor extends WebMagicParams implements PageProcessor {
+public class YuanlinPricePageListProcessor extends WebMagicParams implements PageProcessor {
 
-	private final static Log logger = Log.getLog(Yuanlin_PricePageListProcessor.class);
+	private final static Log logger = Log.getLog(YuanlinPricePageListProcessor.class);
 	/**
 	 * 域名
 	 */
@@ -62,7 +62,7 @@ public class Yuanlin_PricePageListProcessor extends WebMagicParams implements Pa
 	}
 
 	public static void main(String[] args) {
-		WebMagicFunction.ListProcessor(args[0], new Yuanlin_PricePageListProcessor());
+		WebMagicFunction.ListProcessor(args[0], new YuanlinPricePageListProcessor());
 	}
 
 }

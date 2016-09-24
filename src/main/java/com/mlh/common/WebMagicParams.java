@@ -58,10 +58,16 @@ public class WebMagicParams {
 	 * huamu100
 	 */
 	public static final String HUAMU = "details.huamu100.path";
+	
 	/**
-	 * huamu100
+	 * www.yuanlin.com
 	 */
 	public static final String YUNANLIN = "details.yuanlin.path";
+	
+	/**
+	 * zj.yuanlin.com
+	 */
+	public static final String ZJYUNANLIN = "details.zjyuanlin.path";
 	
 
 }
