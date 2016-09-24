@@ -50,5 +50,15 @@ public class WebMagicParams {
 	 * xbmiaomu_miaomujiage
 	 */
 	public static final String XBMIAOMU = "details.xbmiaomu.path";
+	/**
+	 * mm597_price
+	 */
+	public static final String MM597 = "details.mm597.path";
+	
+	/**
+	 * huamu100
+	 */
+	public static final String HUAMU = "details.huamu100.path";
+	
 
 }

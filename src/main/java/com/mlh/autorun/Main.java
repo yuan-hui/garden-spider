@@ -31,9 +31,13 @@ public class Main {
 		 * miaomu_pice
 		 * 
 		 * xbmiaomu_maiomujiage
+		 * 
+		 * mm597_pice
+		 * 
+		 * huamu100_price
 		 */
 		
-		String _code = "xbmiaomu_maiomujiage";
+		String _code = "miaomu_price";
 		
 		/********保存详情页面连接开始*********/
 //		PageListProcessorFactory factory = new PageListProcessorFactory();
@@ -49,8 +53,8 @@ public class Main {
 		/********下载详情页面结束*********/
 		
 		/********解析详情页面开始*********/
-		DetailsParserFactory factory = new DetailsParserFactory();
-		factory.produce(_code);
+//		DetailsParserFactory factory = new DetailsParserFactory();
+//		factory.produce(_code);
 	
 		/********解析详情页面结束*********/
 		

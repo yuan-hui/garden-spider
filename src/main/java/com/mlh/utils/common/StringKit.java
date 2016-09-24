@@ -193,6 +193,33 @@ public class StringKit {
 		return StringUtils.trim(text);
 	}
 	
+	/**
+	 * @Description 提取 字符串中的数字  支持小数点
+	 * @param str a1b2c3
+	 * @return 123
+	 */
+	public static String strReturnNumber(String str){
+		if(StringUtils.isNotBlank(str)){
+			Pattern pattern = Pattern.compile("[^0-9\\.]");
+			Matcher matcher = pattern.matcher(str);
+			str = matcher.replaceAll("");
+		}
+		return str;
+	}
+	/**
+	 * @Description 提取 字符串中的字符
+	 * @param str a1b2c3
+	 * @return abc
+	 */
+	public static String strReturnStr(String str){
+		if(StringUtils.isNotBlank(str)){
+			Pattern pattern = Pattern.compile("[\\d]");
+			Matcher matcher = pattern.matcher(str);
+			str = matcher.replaceAll("");
+		}
+		return str;
+	}
+	
 	public static void main(String[] args) {
 		// String str = "A.N，D";
 		// System.out.println(str);

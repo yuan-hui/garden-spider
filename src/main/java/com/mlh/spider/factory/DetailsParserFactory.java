@@ -2,7 +2,9 @@ package com.mlh.spider.factory;
 
 import com.mlh.enums.BussCode;
 import com.mlh.spider.parser.Green321QiaoGuanMuDetailsLocalHtmlParser;
+import com.mlh.spider.parser.HuaMu100PriceDetailsLocalHtmlParser;
 import com.mlh.spider.parser.LvsemiaomuQiaoguanmuDetailsLocalHtmlParser;
+import com.mlh.spider.parser.MM597PriceDetailsLocalHtmlParser;
 import com.mlh.spider.parser.MiaomuzhanMiaomuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser;
 
@@ -31,19 +33,40 @@ public class DetailsParserFactory {
 				green321QiaoGuanMuDetailsLocalHtmlParser(code);
 				break;
 			case xbmiaomu_maiomujiage:
-				xbmiaomu_maiomujiageDetailsLocalHtmlParser(code);
+				xbMiaoMuMaioMujiageDetailsLocalHtmlParser(code);
+				break;
+			case mm597_price:
+				mm597PriceDetailsLocalHtmlParser(code);
+				break;
+			case huamu100_price:
+				huaMu100PriceDetailsLocalHtmlParser(code);
 				break;
 			default:
 				System.out.println("详情解析业务未处理...");
 				break;
 		}
 	}
-	
+	/**
+	 * 花木100 详情页面解析
+	 * @param code
+	 */
+	private void huaMu100PriceDetailsLocalHtmlParser(String code) {
+		HuaMu100PriceDetailsLocalHtmlParser.main(new String []{code});
+	}
+	/**
+	 * 597苗木网 详情页面解析
+	 * @param code
+	 * @author sjl
+	 */
+	private void mm597PriceDetailsLocalHtmlParser(String code) {
+		MM597PriceDetailsLocalHtmlParser.main(new String []{code});
+	}
+
 	/**
 	 * 西北苗木站 详情页面解析 控制器
 	 * @param code
 	 */
-	private void xbmiaomu_maiomujiageDetailsLocalHtmlParser(String code) {
+	private void xbMiaoMuMaioMujiageDetailsLocalHtmlParser(String code) {
 		
 		XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser.main(new String []{code});
 	}

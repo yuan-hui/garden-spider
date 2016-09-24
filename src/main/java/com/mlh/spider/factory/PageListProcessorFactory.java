@@ -4,7 +4,9 @@ import com.mlh.enums.BussCode;
 import com.mlh.spider.pageprocessor.Green321QiaoGuanMuPageListProcessor;
 import com.mlh.spider.pageprocessor.LvsemiaomuQiaoguanmuPageListProcessor;
 import com.mlh.spider.pageprocessor.MiaomuzhanMiaomujiagePageListProcessor;
+import com.mlh.spider.pageprocessor.huamu100.HuaMu100PricePageListProcessor;
 import com.mlh.spider.pageprocessor.miaomu.MiaomuPicePageList;
+import com.mlh.spider.pageprocessor.mm597.MM597PicePageListProcessor;
 import com.mlh.spider.pageprocessor.xbmiaomu.XBMiaoMuMiaoMuJiaGePageListProcessor;
 
 /**
@@ -31,16 +33,38 @@ public class PageListProcessorFactory {
 			case green321_qiaoguanmu:
 				green321QiaoGuanMuPageList(code);
 				break;
-			case miaomu_pice:
-				miaomu_PicePageList(code);
+			case miaomu_price:
+				miaomu_PricePageList(code);
 				break;
 			case xbmiaomu_maiomujiage:
 				xbmiaomu_jiagePageList(code);
+				break;
+			case mm597_price:
+				mm597_PricePageList(code);
+				break;
+			case huamu100_price:
+				huaMu100_PricePageList(code);
 				break;
 			default:
 				System.out.println("列表页业务未处理...");
 				break;
 		}
+	}
+	
+	/**
+	 * 花木100苗木价格列表页面处理
+	 * @param code
+	 */
+	private void huaMu100_PricePageList(String code) {
+		HuaMu100PricePageListProcessor.main(new String []{code});
+	}
+
+	/**
+	 * 597苗木站列表页面处理
+	 * @param code
+	 */
+	private void mm597_PricePageList(String code) {
+		MM597PicePageListProcessor.main(new String []{code});
 	}
 	/**
 	 * 进入西北苗木站 列表页面处理器
@@ -55,7 +79,7 @@ public class PageListProcessorFactory {
 	 * 进入中国苗木站 列表页面处理器
 	 * @param code
 	 */
-	private void miaomu_PicePageList(String code) {
+	private void miaomu_PricePageList(String code) {
 		
 		MiaomuPicePageList.main(new String []{code});
 		

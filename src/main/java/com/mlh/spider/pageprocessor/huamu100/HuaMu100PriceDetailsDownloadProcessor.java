@@ -1,25 +1,25 @@
-package com.mlh.spider.pageprocessor.xbmiaomu;
+package com.mlh.spider.pageprocessor.huamu100;
 
 import com.jfinal.log.Log;
 import com.mlh.common.WebMagicFunction;
 import com.mlh.common.WebMagicParams;
-import com.mlh.spider.pageprocessor.miaomu.MiaomuPicePageList;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
+
 /**
- * 西北苗木站详情页面下载
+ * 花木100 详情页面下载器
  * @author sjl
  *
  */
-public class XBMiaoMuMaiomuJiaGeDetailsDownloadProcessor extends WebMagicParams implements PageProcessor {
-
-	private final static Log logger = Log.getLog(XBMiaoMuMaiomuJiaGeDetailsDownloadProcessor.class);
+public class HuaMu100PriceDetailsDownloadProcessor extends WebMagicParams implements PageProcessor {
+	
+	private final static Log logger = Log.getLog(HuaMu100PricePageListProcessor.class);
 	/**
 	 * 域名
 	 */
-	private static final String DOMAIN = "http://www.xbmiaomu.com/miaomujiage/index-htm-page-1.html";
+	private static final String DOMAIN = "http://www.huamu100.com";
 	/**
 	 * 站点配置
 	 */
@@ -27,10 +27,6 @@ public class XBMiaoMuMaiomuJiaGeDetailsDownloadProcessor extends WebMagicParams 
 			.setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
 
 	
-	@Override
-	public Site getSite() {
-		return site;
-	}
 
 	@Override
 	public void process(Page page) {
@@ -40,11 +36,16 @@ public class XBMiaoMuMaiomuJiaGeDetailsDownloadProcessor extends WebMagicParams 
 		page.putField("code", code);
 		page.putField("result", page.getHtml().get());
 		page.putField("url", page.getUrl().get());
-		
+
+	}
+
+	@Override
+	public Site getSite() {
+		return site;
 	}
 
 	public static void main(String[] args) {
-		WebMagicFunction.DetailDownload(args[0], new XBMiaoMuMaiomuJiaGeDetailsDownloadProcessor(), XBMIAOMU);
+		WebMagicFunction.DetailDownload(args[0], new HuaMu100PriceDetailsDownloadProcessor(), HUAMU);
 	}
 
 }

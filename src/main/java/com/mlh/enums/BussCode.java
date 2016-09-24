@@ -25,12 +25,22 @@ public enum BussCode {
 	/**
 	 * 中国苗木网
 	 */
-	miaomu_pice("miaomu_pice","中国苗木网_价格"),
+	miaomu_price("miaomu_pice","中国苗木网_价格"),
 	/**
 	 * 西北苗木
 	 */
-	xbmiaomu_maiomujiage("xbmiaomu_maiomujiage","西北苗木_绿化苗木价格");
+	xbmiaomu_maiomujiage("xbmiaomu_maiomujiage","西北苗木_绿化苗木价格"),
 	
+	/**
+	 * 花木100
+	 */
+	huamu100_price("huamu100_price","花木100_苗木价格"),
+	
+	/**
+	 * 597苗木网
+	 */
+	
+	mm597_price("mm597_pice","597苗木_苗木报价");
 	
 	private String code;
 
