@@ -35,9 +35,11 @@ public class Main {
 		 * mm597_pice
 		 * 
 		 * huamu100_price
+		 * 
+		 * yuanlin_price
 		 */
 		
-		String _code = "miaomu_price";
+		String _code = "yuanlin_price";
 		
 		/********保存详情页面连接开始*********/
 //		PageListProcessorFactory factory = new PageListProcessorFactory();
@@ -53,8 +55,8 @@ public class Main {
 		/********下载详情页面结束*********/
 		
 		/********解析详情页面开始*********/
-//		DetailsParserFactory factory = new DetailsParserFactory();
-//		factory.produce(_code);
+		DetailsParserFactory factory = new DetailsParserFactory();
+		factory.produce(_code);
 	
 		/********解析详情页面结束*********/
 		

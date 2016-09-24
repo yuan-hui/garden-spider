@@ -8,6 +8,7 @@ import com.mlh.spider.pageprocessor.huamu100.HuaMu100PriceDetailsDownloadProcess
 import com.mlh.spider.pageprocessor.miaomu.MiaomuPiceDetailsDownloadProcessor;
 import com.mlh.spider.pageprocessor.mm597.MM597PiceDetailsDownloadProcessor;
 import com.mlh.spider.pageprocessor.xbmiaomu.XBMiaoMuMaiomuJiaGeDetailsDownloadProcessor;
+import com.mlh.spider.pageprocessor.yuanlin.YuanLinPriceDetailsDownloadProcessor;
 
 /**
  * 
@@ -45,12 +46,26 @@ public class DetailsDowloadProcessorFactory {
 			case huamu100_price:
 				huaMu100PriceDetailsDownloadProcessor(code);
 				break;	
+			case yuanlin_price:
+				yuanLinPriceDetailsDownloadProcessor(code);
+				break;	
+				
+				
 			default:
 				System.out.println("列表页业务未处理...");
 				break;
 		}
 	}
 	
+	/**
+	 * 中国园林网详情页面下载
+	 * @param code
+	 */
+	private void yuanLinPriceDetailsDownloadProcessor(String code) {
+		YuanLinPriceDetailsDownloadProcessor.main(new String []{code});
+		
+	}
+
 	/**
 	 * 花木100——苗木价格详情页面下载
 	 * @param code

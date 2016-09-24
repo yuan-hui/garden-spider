@@ -8,7 +8,6 @@ import com.jfinal.kit.PropKit;
 import com.mlh.enums.Confirm;
 import com.mlh.model.PageDetail;
 import com.mlh.model.PageList;
-import com.mlh.spider.pageprocessor.MiaomuzhanMiaomujiageDetailsDownloadProcessor;
 import com.mlh.spider.pipeline.HtmlToLocalPipeline;
 import com.mlh.utils.common.DateUtils;
 

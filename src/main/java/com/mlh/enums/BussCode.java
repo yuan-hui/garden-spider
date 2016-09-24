@@ -40,7 +40,12 @@ public enum BussCode {
 	 * 597苗木网
 	 */
 	
-	mm597_price("mm597_pice","597苗木_苗木报价");
+	mm597_price("mm597_pice","597苗木_苗木报价"),
+	
+	/**
+	 * 中国园林网
+	 */
+	yuanlin_price("yuanlin_price","中国园林网");
 	
 	private String code;
 

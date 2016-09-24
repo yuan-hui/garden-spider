@@ -1,6 +1,5 @@
 package com.mlh.common;
 
-import us.codecraft.webmagic.Site;
 /***
  * 提取一些反复重写的代码
  * @author sjl
@@ -59,6 +58,10 @@ public class WebMagicParams {
 	 * huamu100
 	 */
 	public static final String HUAMU = "details.huamu100.path";
+	/**
+	 * huamu100
+	 */
+	public static final String YUNANLIN = "details.yuanlin.path";
 	
 
 }

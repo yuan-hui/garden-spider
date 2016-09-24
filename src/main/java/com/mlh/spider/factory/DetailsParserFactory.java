@@ -7,6 +7,7 @@ import com.mlh.spider.parser.LvsemiaomuQiaoguanmuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.MM597PriceDetailsLocalHtmlParser;
 import com.mlh.spider.parser.MiaomuzhanMiaomuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser;
+import com.mlh.spider.parser.YuanLinPriceDetailsLocalHtmlParser;
 
 /**
  * 
@@ -41,10 +42,17 @@ public class DetailsParserFactory {
 			case huamu100_price:
 				huaMu100PriceDetailsLocalHtmlParser(code);
 				break;
+			case yuanlin_price:
+				yuanLinPriceDetailsLocalHtmlParser(code);
+				break;
 			default:
 				System.out.println("详情解析业务未处理...");
 				break;
 		}
+	}
+	private void yuanLinPriceDetailsLocalHtmlParser(String code) {
+		YuanLinPriceDetailsLocalHtmlParser.main(new String []{code});
+		
 	}
 	/**
 	 * 花木100 详情页面解析

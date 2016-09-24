@@ -1,18 +1,23 @@
 package com.mlh.spider.test;
 
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import com.mlh.enums.Confirm;
-import com.mlh.model.PageList;
-import com.mlh.utils.common.StringKit;
-
-import us.codecraft.webmagic.Request;
-import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.processor.PageProcessor;
+import org.apache.commons.lang3.StringUtils;
 
 public class Test {
 	public static void main(String[] args) {
-		System.out.println(StringKit.getUUID());
+//		System.out.println(StringKit.getUUID());
+		
+		String str = "12.3元/课";
+		if(StringUtils.isNotBlank(str)){
+			Pattern pattern = Pattern.compile("[\\d\\.]");
+			Matcher matcher = pattern.matcher(str);
+			str = matcher.replaceAll("");
+			
+		}
+		
+		System.out.println(str);
 	}
 
 	

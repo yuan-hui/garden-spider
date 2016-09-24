@@ -213,7 +213,7 @@ public class StringKit {
 	 */
 	public static String strReturnStr(String str){
 		if(StringUtils.isNotBlank(str)){
-			Pattern pattern = Pattern.compile("[\\d]");
+			Pattern pattern = Pattern.compile("[\\d\\.]");
 			Matcher matcher = pattern.matcher(str);
 			str = matcher.replaceAll("");
 		}
