@@ -3,14 +3,8 @@ package com.mlh.autorun;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.mlh.common.AppRun;
-import com.mlh.spider.factory.DetailsDowloadProcessorFactory;
 import com.mlh.spider.factory.DetailsParserFactory;
-import com.mlh.spider.factory.PageListProcessorFactory;
-import com.mlh.spider.parser.Test;
-import com.mlh.utils.common.StringKit;
 /***
  * 测试调试类
  * @author sjl
