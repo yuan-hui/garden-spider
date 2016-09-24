@@ -16,10 +16,10 @@ public class ZJYuanLinPriceDetailsProcessor {
 		System.out.println("进入" + code + "列表页处理器...");
 
 		List<PageList> pages = PageList.dao.findByCodeAndStatus(code, Confirm.no.toString());
-		List<String>urls = new ArrayList<String>();
+		
 		int index = 1;
 		for(PageList p :pages){
-		
+			List<String>urls = new ArrayList<String>();
 			urls.add(p.getUrl());
 			 PageDetail.dao.saveDetails(urls, code, p.getUrl(), p.getPageno());
 			

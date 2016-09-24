@@ -25,7 +25,7 @@ public enum BussCode {
 	/**
 	 * 中国苗木网
 	 */
-	miaomu_price("miaomu_pice","中国苗木网_价格"),
+	miaomu_price("miaomu_price","中国苗木网_价格"),
 	/**
 	 * 西北苗木
 	 */
@@ -40,7 +40,7 @@ public enum BussCode {
 	 * 597苗木网
 	 */
 	
-	mm597_price("mm597_pice","597苗木_苗木报价"),
+	mm597_price("mm597_price","597苗木_苗木报价"),
 	
 	/**
 	 * 中国园林网
