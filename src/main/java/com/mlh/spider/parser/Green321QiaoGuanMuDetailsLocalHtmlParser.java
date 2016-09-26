@@ -20,6 +20,7 @@ import com.mlh.model.PageDetail;
 import com.mlh.spider.pageprocessor.UpdateReleaseTime;
 import com.mlh.spider.util.DetailsHtmlUtil;
 import com.mlh.utils.common.DateUtils;
+import com.mlh.utils.common.StringKit;
 
 import us.codecraft.webmagic.selector.Html;
 
@@ -69,7 +70,8 @@ public class Green321QiaoGuanMuDetailsLocalHtmlParser {
 			String height = detailcontentMap.get("高度");
 			String crown = detailcontentMap.get("冠幅");
 			String grounddiaMeter = detailcontentMap.get("地径");
-			String price = detailcontentMap.get("价格").replace("元/棵", "");
+
+			String price = StringKit.strReturnNumber(detailcontentMap.get("价格"));
 			String unit = "颗";
 			String remark = detailcontentMap.get("备注");
 			List<String> contactusList = html.xpath("//div[@class='linkmode_row']").all();
