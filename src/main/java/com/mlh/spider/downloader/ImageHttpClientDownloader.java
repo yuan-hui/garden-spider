@@ -119,8 +119,7 @@ public class ImageHttpClientDownloader {
 		AppRun.start();
 		String url = "http://www.miaomu.net/api/task.js.php?moduleid=23&html=show&itemid=46445&refresh=0.5904558456348565.js";
 		String Referer = "http://www.miaomu.net/prices/201303/12/prices_show_46445.html";
-		// System.out.println(PropKit.get("details.miaomuPhp.path")+StringUtils.substringAfterLast(Referer,
-		// "/"));
+		
 		try {
 			ImageHttpClientDownloader.downloadFile(new String[] { url }, "details.miaomuPhp.path", Referer);
 		} catch (ClientProtocolException e) {
