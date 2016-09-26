@@ -5,6 +5,7 @@ import com.mlh.spider.parser.Green321QiaoGuanMuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.HuaMu100PriceDetailsLocalHtmlParser;
 import com.mlh.spider.parser.LvsemiaomuQiaoguanmuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.MM597PriceDetailsLocalHtmlParser;
+import com.mlh.spider.parser.MiaoMuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.MiaomuzhanMiaomuDetailsLocalHtmlParser;
 import com.mlh.spider.parser.XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser;
 import com.mlh.spider.parser.YuanLinPriceDetailsLocalHtmlParser;
@@ -31,6 +32,9 @@ public class DetailsParserFactory {
 			case miaomuzhan_miaomujiage:
 				miaomuzhanMiaomuDetailsLocalHtmlParser(code);
 				break;
+			case miaomu_price:
+				miaoMuPriceDetailsLocalHtmlParser(code);
+				break;
 			case green321_qiaoguanmu:
 				green321QiaoGuanMuDetailsLocalHtmlParser(code);
 				break;
@@ -53,6 +57,14 @@ public class DetailsParserFactory {
 				System.out.println("详情解析业务未处理...");
 				break;
 		}
+	}
+	
+	/**
+	 * miaomu 详情页解析
+	 * @param code
+	 */
+	private void miaoMuPriceDetailsLocalHtmlParser(String code) {
+		MiaoMuDetailsLocalHtmlParser.main(new String []{code});;		
 	}
 	/**
 	 * 浙江园林网站详情解析

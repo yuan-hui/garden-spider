@@ -35,7 +35,7 @@ public class Main {
 		 * zjyuanlin_price
 		 */
 		
-		String _code = "zjyuanlin_price";
+		String _code = "miaomu_price";
 		
 		/********保存详情页面连接开始*********/
 //		PageListProcessorFactory factory = new PageListProcessorFactory();
