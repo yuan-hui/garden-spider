@@ -3,6 +3,7 @@ package com.mlh.spider.pageprocessor;
 import java.util.List;
 
 import com.jfinal.log.Log;
+import com.mlh.common.WebMagicFunction;
 import com.mlh.enums.Confirm;
 import com.mlh.model.PageDetail;
 import com.mlh.model.PageList;
@@ -50,8 +51,8 @@ public class MiaomuzhanMiaomujiagePageListProcessor implements PageProcessor{
 	/**
 	 * 站点配置
 	 */
-	private Site site = Site.me().setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT).setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
-
+	private Site site = Site.me().setHttpProxyPool(WebMagicFunction.getIpList()).setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
+			.setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
 	
 	@Override
 	public void process(Page page) {

@@ -55,14 +55,19 @@ public class XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser {
 
 			List<String> info_main = html.xpath("//div[@class='info_main']/ul/li").all();
 			int index = info_main.size();
+			
 			// 米径
-			String midiaMeter = html.xpath("//div[@class='info_main']/ul/li[5]/a/text()").get().replace("cm", "");
+			String midiaMeter = html.xpath("//div[@class='info_main']/ul/li[5]/a/text()").get();
 			String height = null;
 			String crown = null;
 			String grounddiaMeter = null;
 
 			List<String> detailcontentList = html.xpath("//div[@class='info_main']/ul/li").all();
 			Map<String, String> detailcontentMap = DetailsHtmlUtil.changeToAttrMap(detailcontentList);
+			
+
+			if(StringUtils.isNotBlank(midiaMeter))
+				midiaMeter.replace("cm", "");
 
 			height = detailcontentMap.get("高度");
 			crown = detailcontentMap.get("冠幅");
@@ -71,7 +76,8 @@ public class XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser {
 
 			String price = detailcontentMap.get("产品报价");//
 
-			price = price.indexOf("元") > -1 ? price.substring(0, price.indexOf("元")) : price;
+			if(StringUtils.isNotBlank(price))
+				price = price.indexOf("元") > -1 ? price.substring(0, price.indexOf("元")) : price;
 
 			String company = html.xpath("//div[@class='contact_body']/ul/li[1]/a/text()").get();
 

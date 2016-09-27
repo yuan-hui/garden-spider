@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import com.jfinal.kit.PropKit;
+import com.mlh.common.WebMagicFunction;
 import com.mlh.enums.Confirm;
 import com.mlh.model.PageDetail;
 import com.mlh.spider.pipeline.HtmlToLocalPipeline;
@@ -25,7 +26,7 @@ public class MiaomuzhanMiaomujiageDetailsDownloadProcessor implements PageProces
 	/**
 	 * 域名
 	 */
-	private static final String DOMAIN = "http://www.miaomuzhan.com/html/miaomujiage/";
+	private static final String DOMAIN = "http://www.miaomuzhan.com";
 
 	/**
 	 * 休眠时间(毫秒)
@@ -49,9 +50,8 @@ public class MiaomuzhanMiaomujiageDetailsDownloadProcessor implements PageProces
 	/**
 	 * 站点配置
 	 */
-	private Site site = Site.me().setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
+	private Site site = Site.me().setHttpProxyPool(WebMagicFunction.getIpList()).setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
 			.setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
-
 	@Override
 	public void process(Page page) {
 		String id = page.getRequest().getExtra("id").toString();

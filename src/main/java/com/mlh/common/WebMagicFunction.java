@@ -2,10 +2,12 @@ package com.mlh.common;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jfinal.kit.PropKit;
 import com.mlh.enums.Confirm;
+import com.mlh.model.IPList;
 import com.mlh.model.PageDetail;
 import com.mlh.model.PageList;
 import com.mlh.spider.pipeline.HtmlToLocalPipeline;
@@ -98,5 +100,22 @@ public class WebMagicFunction {
 
 	}
 	
+	
+	
+	/**
+	 * 获取iplist
+	 */
+	public static List<String[]> getIpList (){
+		List <String []> iplist = new ArrayList<String[]>();
+		
+		List<IPList> ipDB = IPList.dao.findIPList();
+		for(IPList ip :ipDB){
+			
+			String [] arr = new String []{ip.getIp(),ip.getPort()};
+			iplist.add(arr);
+		}
+		
+		return iplist;
+	}
 	
 }

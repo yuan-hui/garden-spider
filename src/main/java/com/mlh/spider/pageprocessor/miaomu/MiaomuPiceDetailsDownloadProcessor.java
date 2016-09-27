@@ -12,14 +12,13 @@ public class MiaomuPiceDetailsDownloadProcessor extends WebMagicParams implement
 	/**
 	 * 域名
 	 */
-	private static final String DOMAIN = "http://www.312green.com/price/view-c1005-s-t-v-p1.html";
+	private static final String DOMAIN = "http://www.312green.com";
 
 	/**
 	 * 站点配置
 	 */
-	private Site site = Site.me().setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
+	private Site site = Site.me().setHttpProxyPool(WebMagicFunction.getIpList()).setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
 			.setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
-
 
 	@Override
 	public void process(Page page) {

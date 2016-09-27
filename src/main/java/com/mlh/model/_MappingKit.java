@@ -20,6 +20,7 @@ public class _MappingKit {
 		arp.addMapping("t_downloader_config", "id", DownloaderConfig.class);
 		arp.addMapping("t_page_detail", "id", PageDetail.class);
 		arp.addMapping("t_page_list", "id", PageList.class);
+		arp.addMapping("ip", "id", IPList.class);
 	}
 }
 

@@ -1,5 +1,7 @@
 package com.mlh.common;
 
+import java.util.List;
+
 /***
  * 提取一些反复重写的代码
  * @author sjl
@@ -69,5 +71,8 @@ public class WebMagicParams {
 	 */
 	public static final String ZJYUNANLIN = "details.zjyuanlin.path";
 	
-
+	
+	
+	
+	
 }

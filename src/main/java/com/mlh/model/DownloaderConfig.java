@@ -24,4 +24,6 @@ public class DownloaderConfig extends BaseDownloaderConfig<DownloaderConfig> {
 	public void updateStatusById(String status, String id) {
 		Db.update("update t_downloader_config set status = ?, updateTime = now() where id = ?", status, id);
 	}
+
+	
 }
