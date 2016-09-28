@@ -238,10 +238,10 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 			int savaDate = 0;
 			for (int i=degree,j=0;i>j;j++) {
 				int strat = j*100;
-				int end =100;
+				int end =100+strat;
 				int[] reuslt =product.saveProducts(productList.subList(strat,end));
 				savaDate+=reuslt.length;
-				System.out.println("已同步数据"+savaDate+",剩余"+(productList.size()-savaDate)+"条数据");
+				System.out.println("已同步数据"+savaDate+"条,剩余"+(productList.size()-savaDate)+"条数据");
 			}
 			System.out.println("-------------成功保存进price_product："+savaDate+"条-------------");	
 		}else{
