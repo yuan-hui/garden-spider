@@ -28,7 +28,9 @@ public abstract class BaseContent<M extends BaseContent<M>> extends Model<M> imp
 	public void setTitle(java.lang.String title) {
 		set("title", title);
 	}
-
+	public java.lang.String getTitle() {
+		return get("title");
+	}
 
 	public void setCode(java.lang.String code) {
 		set("code", code);
@@ -213,4 +215,31 @@ public abstract class BaseContent<M extends BaseContent<M>> extends Model<M> imp
 	public java.util.Date getReleasetime() {
 		return get("releasetime");
 	}
+	
+	/** 新增字段  **/
+	public java.lang.String getArea() {
+		return get("area");
+	}
+	
+	public void setArea(java.lang.String area) {
+		set("area", area);
+	}
+	
+	public java.lang.String getAreaNo() {
+		return get("areaNo");
+	}
+	
+	public void setAreaNo(java.lang.String areaNo) {
+		set("areaNo", areaNo);
+	}
+	
+	public java.lang.String getBreedName() {
+		return get("breedName");
+	}
+	
+	public void setBreedName(java.lang.String breedName) {
+		set("breedName", breedName);
+	}
+	
+	
 }

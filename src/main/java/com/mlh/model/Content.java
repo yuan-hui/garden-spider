@@ -1,6 +1,7 @@
 package com.mlh.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -65,5 +66,13 @@ public class Content extends BaseContent<Content> {
 		sql.append("order by createTime asc");
 		
 		return paginate(pageNumber, pageSize, "select *", sql.toString());
+	}
+	
+	public List<Content> findByCodeAndTime(String code,Date updateTime){
+		String sql = "SELECT id,title,(SELECT name FROM good_standard_name WHERE locate(content.title,alias)>0 LIMIT 1) as breedName,"
+					 +"midiameter,height,crown,grounddiameter,price,company,CONCAT(province,city) as area,contacts,tel,source,createTime,updateTime,"
+				     +"(SELECT areaNo FROM t_area WHERE locate(content.province,areaName) > 0 LIMIT 1) as areaNo "
+				     +"FROM t_content content WHERE content.`code`=? AND createTime >= ?";
+		return dao.find(sql, code, updateTime);
 	}
 }
