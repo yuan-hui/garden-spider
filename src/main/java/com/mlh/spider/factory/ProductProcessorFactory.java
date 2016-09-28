@@ -110,15 +110,17 @@ public class ProductProcessorFactory {
 	/**
 	 * @Description 青青苗木 清洗处理
 	 * @param code
+	 * @throws ParseException 
 	 */
-	private void green321QiaoGuanMuCleanList(String code) {
+	private void green321QiaoGuanMuCleanList(String code) throws ParseException {
 		Green321QiaoGuanMuCleanProcessor.main(new String[] {code});
 	}
 	/**
 	 * @Description 第一苗木 清洗处理
 	 * @param code
+	 * @throws ParseException 
 	 */
-	private void miaomuzhanMiaomujiageCleanList(String code) {
+	private void miaomuzhanMiaomujiageCleanList(String code) throws ParseException {
 		MiaomuzhanMiaomujiageCleanProcessor.main(new String[] {code});
 	}
 
