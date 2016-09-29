@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import com.mlh.model.Content;
 import com.mlh.model.Product;
@@ -132,15 +133,25 @@ public class HuaMu100PriceCleanProcessor {
 		System.out.println("-------------花木100待清洗数据"+list.size()+"条-------------");
 		for (Content content1 : list) {	
 			//如果产品名不存在，则跳出本次循环
-			if(StringUtils.isNullOrEmpty(content1.getTitle()))return;
+			if(StringUtils.isNullOrEmpty(content1.getTitle()))continue;
 			Product product = getProduct(content1);
 			productList.add(product);
 		}
 		System.out.println("-------------花木100已清洗数据"+productList.size()+"条-------------");
 		if(productList.size()>0){
+			int data = productList.size();
+			System.out.println("开始同步数据："+data+"条");
+			int degree = data>100?(data/100)+1:1;
 			Product product =new Product();
-			int[] reuslt =product.saveProducts(productList);
-			System.out.println("-------------成功保存进price_product："+reuslt.length+"条-------------");	
+			int savaDate = 0;
+			for (int i=degree,j=0;i>j;j++) {
+				int strat = j*100;
+				int end = 100;
+				int[] reuslt =product.saveProducts(productList.stream().skip(strat).limit(end).collect(Collectors.toList()));
+				savaDate+=reuslt.length;
+				System.out.println("已同步数据"+savaDate+"条,剩余"+(productList.size()-savaDate)+"条数据");
+			}
+			System.out.println("-------------成功保存进price_product："+savaDate+"条-------------");	
 		}else{
 			System.out.println("-------------无数据保存进price_product-------------");	
 		}

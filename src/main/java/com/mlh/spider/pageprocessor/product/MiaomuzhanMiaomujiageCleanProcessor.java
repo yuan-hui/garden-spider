@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-import com.mlh.common.AppRun;
 import com.mlh.model.Content;
 import com.mlh.model.Product;
 import com.mysql.jdbc.StringUtils;
@@ -70,7 +70,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 		m=p.matcher(price);  
 		price=m.replaceAll("").trim(); 
 		//字符替换为,
-		regEX ="[`~!@#$%^&*()+=|{}':;'\\[\\].<>/?~~！@#￥%……&*―-（）——+|{}【】‘；,/：”“’。，、？]"; 
+		regEX ="[`~!@#$%^&*()+=|{}':;'一\\[\\].<>/?~~！@#￥%……&*―-（）——+|{}【】‘；,/：”“’。，、？]"; 
 		p=Pattern.compile(regEX);  
 		m=p.matcher(price);  
 		price=m.replaceAll("-").trim();  
@@ -97,7 +97,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 		//""替换为,
 		tel.replaceAll(" ", ",");
 		//字符替换为,
-		String regEX ="[`~!@#$%^&*()+=|{}':;,'\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；/：”“’。，、？]"; 
+		String regEX ="[`~!@#$%^&*()+=|{}':;,'一\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；/：”“’。，、？]"; 
 		Pattern p=Pattern.compile(regEX);  
 		Matcher m=p.matcher(tel);  
 		tel=m.replaceAll(",").trim();  
@@ -215,9 +215,8 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
     }
     
 	public static void main(String[] args) throws ParseException {
-		AppRun.start();
-		String _code = "miaomuzhan_miaomujiage";/*args[0];*/
-		String _open = "Y";/*args[1];*/
+		String _code = args[0];
+		String _open = args[1];
 		System.out.println("-------------第一苗木 清洗开启-------------");
 		Content content  = new Content();
 		List<Content> list= content.findByCodeAndTime(_code,getTime(_open));
@@ -225,7 +224,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 		System.out.println("-------------第一苗木待清洗数据"+list.size()+"条-------------");
 		for (Content content1 : list) {	
 			//如果产品名不存在，则跳出本次循环
-			if(StringUtils.isNullOrEmpty(content1.getTitle()))return;
+			if(StringUtils.isNullOrEmpty(content1.getTitle()))continue;
 			Product product = getProduct(content1);
 			productList.add(product);
 		}
@@ -238,8 +237,8 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 			int savaDate = 0;
 			for (int i=degree,j=0;i>j;j++) {
 				int strat = j*100;
-				int end =100+strat;
-				int[] reuslt =product.saveProducts(productList.subList(strat,end));
+				int end = 100;
+				int[] reuslt =product.saveProducts(productList.stream().skip(strat).limit(end).collect(Collectors.toList()));
 				savaDate+=reuslt.length;
 				System.out.println("已同步数据"+savaDate+"条,剩余"+(productList.size()-savaDate)+"条数据");
 			}
