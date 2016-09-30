@@ -1,8 +1,6 @@
 package com.mlh.spider.pageprocessor.product;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -58,13 +56,14 @@ public class MiaomuPiceCleanProcessor {
 	        if(isNum.matches()) {
 	        	value = Double.valueOf(price);
 	        } else {
+	        	price=price.replaceAll("一", "-");
 	        	//去中文
 	    		String regEX="[\u4e00-\u9fa5]";  
 	    		Pattern p=Pattern.compile(regEX);  
 	    		Matcher m=p.matcher(price);  
 	    		price=m.replaceAll("").trim();  
 	    		//去字符
-	    		regEX ="[`~!@#$%^&*()+=|{}':;'\\[\\].<>/?~~！一@#￥%……&*―（）——+|{}【】‘；,/：”“’。，、？]"; 
+	    		regEX ="[`~!@#$%^&*()+=|{}':;'\\[\\]<>/?~~！一@#￥%……&*―（）——+|{}【】‘；,/：”“’。，、？]"; 
 	    		p=Pattern.compile(regEX);  
 	    		m=p.matcher(price);  
 	    		price=m.replaceAll("").trim();         
@@ -79,6 +78,7 @@ public class MiaomuPiceCleanProcessor {
 		if(StringUtils.isNullOrEmpty(content)){
 			value[0]=value[1]=0.0;
 		}else{
+			content=content.replaceAll("一", "-");
 			//去中文
 			String regEX="[\u4e00-\u9fa5]";  
 			Pattern p=Pattern.compile(regEX);  
@@ -90,7 +90,7 @@ public class MiaomuPiceCleanProcessor {
 	        	strArray = content.split("-");
 	        	if(strArray.length>2){
 	        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
-		        	Double num2 = Double.valueOf(strArray[1].trim().equals("")?"0":strArray[1]);
+		        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
 		        	if(num1<num2) {
 		        		value[0]=num1;
 		        		value[1]=num2;
@@ -108,24 +108,11 @@ public class MiaomuPiceCleanProcessor {
 		return value;
 	}
 		
-    //获取当天时间
-	public static Date getTime(String open) throws ParseException{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat current  = new SimpleDateFormat("yyyy-MM-dd");
-			String time = current.format(new Date());	
-			if(open.equals("Y")){
-				//全量查询
-				return sdf.parse("2000-09-01 00:00:00");
-			}
-			return sdf.parse(time+" 00:00:00");
-	}
-
-	public static void main(String[] args) throws ParseException {
-		String _code = args[0];
-		String _open = args[1];
+	public static void main(String[] args){
+		String _code = args[0];//miaomu_price
 		System.out.println("-------------中国苗木 清洗开启-------------");
 		Content content  = new Content();
-		List<Content> list= content.findByCodeAndTime(_code,getTime(_open));
+		List<Content> list= content.findByCodeAndTime(_code);
 		List<Product> productList = new LinkedList<Product>();
 		System.out.println("-------------中国苗木待清洗数据"+list.size()+"条-------------");
 		for (Content content1 : list) {	

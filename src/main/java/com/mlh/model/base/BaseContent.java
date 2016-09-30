@@ -241,5 +241,14 @@ public abstract class BaseContent<M extends BaseContent<M>> extends Model<M> imp
 		set("breedName", breedName);
 	}
 	
+	public java.lang.String getCleanState() {
+		return get("cleanState");
+	}
+	
+	public void setCleanState(java.lang.String cleanState) {
+		set("cleanState", cleanState);
+	}
+	
+	
 	
 }

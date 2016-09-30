@@ -58,11 +58,19 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 			price=ToDBC(price);
 		}	
 		//""替换为,
-		price.replaceAll(" ", ",");
-		//去中文
-		String regEX="[\u4e00-\u9fa5]";  
+		price=price.replaceAll(" ", ",");
+		price=price.replaceAll("一", "-");		
+	    //特殊中文
+		String regEX="[至到]";  
 		Pattern p=Pattern.compile(regEX);  
 		Matcher m=p.matcher(price);  
+		if (m.find()) {	
+		   price = price.substring(m.start(), price.length());
+		}	
+		//去中文
+		regEX="[\u4e00-\u9fa5]";  
+		p=Pattern.compile(regEX);  
+		 m=p.matcher(price);  
 		price=m.replaceAll("").trim();  	
 		//过滤字母
 		regEX="[A-Za-z]"; 
@@ -70,7 +78,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 		m=p.matcher(price);  
 		price=m.replaceAll("").trim(); 
 		//字符替换为,
-		regEX ="[`~!@#$%^&*()+=|{}':;'一\\[\\].<>/?~~！@#￥%……&*―-（）——+|{}【】‘；,/：”“’。，、？]"; 
+		regEX ="[`~!@#$%^&*()+=|{}':;'一_\\[\\]<>/?~~！@#￥%……&*―-（）——+|{}【】‘；,/：”“’。，、？]"; 
 		p=Pattern.compile(regEX);  
 		m=p.matcher(price);  
 		price=m.replaceAll("-").trim();  
@@ -122,18 +130,26 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 					content=ToDBC(content);
 				}	
 				content = content.replaceAll(" ","-");
-				//去中文
-				String regEX="[\u4e00-\u9fa5]";  
-				Pattern p=Pattern.compile(regEX);  
+				content=content.replaceAll("一", "-");
+				   //特殊中文
+				String regEX="[至到]";  
+				Pattern p=Pattern.compile(content);  
 				Matcher m=p.matcher(content);  
-				content=m.replaceAll("").trim();  
+				if (m.find()) {	
+					content = content.substring(m.start(), content.length());
+				}	
+				//去中文
+				regEX="[\u4e00-\u9fa5]";  
+				p=Pattern.compile(regEX);  
+				 m=p.matcher(content);  
+				 content=m.replaceAll("").trim();  	
 				//过滤字母
 				regEX="[A-Za-z]"; 
 				p=Pattern.compile(regEX);  
 				m=p.matcher(content);  
 				content=m.replaceAll("").trim(); 
 				//字符替换为-
-				regEX ="[`~!@#$%^&*()+=|{}':;,'_―\\[\\].<>/?！@#￥%……&*（）——+|{}【】‘；/：”“’。，、？]"; 
+				regEX ="[`~!@#$%^&*()+=|{}':;,'_―一\\[\\]<>/?！@#￥%……&*（）——+|{}【】‘；/：”“’。，、？]"; 
 				p=Pattern.compile(regEX);  
 				m=p.matcher(content);  
 				content=m.replaceAll("-").trim();	
@@ -142,7 +158,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 		        	strArray = content.split("-");
 		        	if(strArray.length>2){
 		        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
-			        	Double num2 = Double.valueOf(strArray[1].trim().equals("")?"0":strArray[1]);
+			        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
 			        	if(num1<num2) {
 			        		value[0]=num1;
 			        		value[1]=num2;
@@ -214,19 +230,20 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
         }
     }
     
-	public static void main(String[] args) throws ParseException {
-		String _code = args[0];
-		String _open = args[1];
+	public static void main(String[] args) {
+		String _code = args[0];//miaomuzhan_miaomujiage
 		System.out.println("-------------第一苗木 清洗开启-------------");
 		Content content  = new Content();
-		List<Content> list= content.findByCodeAndTime(_code,getTime(_open));
+		List<Content> list= content.findByCodeAndTime(_code);
 		List<Product> productList = new LinkedList<Product>();
+		List<String> contentList = new LinkedList<String>();
 		System.out.println("-------------第一苗木待清洗数据"+list.size()+"条-------------");
 		for (Content content1 : list) {	
 			//如果产品名不存在，则跳出本次循环
 			if(StringUtils.isNullOrEmpty(content1.getTitle()))continue;
 			Product product = getProduct(content1);
 			productList.add(product);
+			contentList.add(content1.getId());
 		}
 		System.out.println("-------------第一苗木已清洗数据"+productList.size()+"条-------------");
 		if(productList.size()>0){
@@ -239,6 +256,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 				int strat = j*100;
 				int end = 100;
 				int[] reuslt =product.saveProducts(productList.stream().skip(strat).limit(end).collect(Collectors.toList()));
+				content.updateContent(contentList.stream().skip(strat).limit(end).collect(Collectors.toList()));
 				savaDate+=reuslt.length;
 				System.out.println("已同步数据"+savaDate+"条,剩余"+(productList.size()-savaDate)+"条数据");
 			}

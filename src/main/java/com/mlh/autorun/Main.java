@@ -3,12 +3,11 @@ package com.mlh.autorun;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.mlh.common.AppRun;
-import com.mlh.spider.factory.PageListProcessorFactory;
 import com.mlh.model.Content;
+import com.mlh.spider.factory.PageListProcessorFactory;
 /***
  * 测试调试类
  * @author sjl
@@ -62,9 +61,8 @@ public class Main {
 		/********解析详情页面结束*********/
 		
 		/*********查询爬取网站的数据*******************/
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Content Content  = new Content();
-		List<Content> list= Content.findByCodeAndTime(_code,sdf.parse("2016-09-27 00:00:00"));
+		List<Content> list= Content.findByCodeAndTime(_code);
 		for (Content content2 : list) {
 			System.out.println(content2.getArea());
 		}

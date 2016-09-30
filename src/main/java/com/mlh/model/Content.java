@@ -58,6 +58,17 @@ public class Content extends BaseContent<Content> {
 		Db.update("delete from t_content where cid = ?", cid);
 	}
 
+
+   /**
+	* @Description: 批量修改
+	*/
+	public int updateContent(List<String> contentList) {	
+		int i =0;
+		for (String string : contentList) {
+			 i+=Db.update("UPDATE t_content SET cleanState = 'Y' WHERE id = ?",string);
+		}
+		return i;
+	}
 	
 	public Page<Content> paginate(int pageNumber, int pageSize, String buildsql) {
 		StringBuffer sql = new StringBuffer();
@@ -68,11 +79,11 @@ public class Content extends BaseContent<Content> {
 		return paginate(pageNumber, pageSize, "select *", sql.toString());
 	}
 	
-	public List<Content> findByCodeAndTime(String code,Date updateTime){
+	public List<Content> findByCodeAndTime(String code){
 		String sql = "SELECT id,title,(SELECT name FROM good_standard_name WHERE locate(content.title,alias)>0 LIMIT 1) as breedName,"
 					 +"midiameter,height,crown,grounddiameter,price,company,CONCAT(province,city) as area,contacts,tel,source,createTime,updateTime,"
-				     +"(SELECT areaNo FROM t_area WHERE locate(content.province,areaName) > 0 LIMIT 1) as areaNo "
-				     +"FROM t_content content WHERE content.`code`=? AND createTime >= ?";
-		return dao.find(sql, code, updateTime);
+				     +"(SELECT areaNo FROM price_province WHERE locate(content.province,areaName) > 0 LIMIT 1) as areaNo "
+				     +"FROM t_content content WHERE content.`code`=? AND content.cleanState='N'";
+		return dao.find(sql, code);
 	}
 }

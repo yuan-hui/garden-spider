@@ -23,35 +23,35 @@ public class ProductProcessorFactory {
 	 * @throws ParseException 
 	 * @Description: 处理不同业务数据
 	 */
-	public void produce(String code,String open) throws ParseException {
+	public void produce(String code) throws ParseException {
 		BussCode busscode = BussCode.valueOf(code);
 		switch (busscode) {
 			case lvsemiaomu_qiaoguanmu:
-				lvsemiaomuQiaoguanmuCleanList(code,open);
+				lvsemiaomuQiaoguanmuCleanList(code);
 				break;
 			case miaomuzhan_miaomujiage:
-				miaomuzhanMiaomujiageCleanList(code,open);
+				miaomuzhanMiaomujiageCleanList(code);
 				break;
 			case green321_qiaoguanmu:
-				green321QiaoGuanMuCleanList(code,open);
+				green321QiaoGuanMuCleanList(code);
 				break;
 			case miaomu_price:
-				miaomu_PriceCleanList(code,open);
+				miaomu_PriceCleanList(code);
 				break;
 			case xbmiaomu_maiomujiage:
-				xbmiaomu_jiageCleanList(code,open);
+				xbmiaomu_jiageCleanList(code);
 				break;
 			case mm597_price:
-				mm597_PriceCleanList(code,open);
+				mm597_PriceCleanList(code);
 				break;
 			case huamu100_price:
-				huaMu100_PriceCleanList(code,open);
+				huaMu100_PriceCleanList(code);
 				break;
 			case yuanlin_price:
-				yuanlin_PriceCleanList(code,open);
+				yuanlin_PriceCleanList(code);
 				break;
 			case zjyuanlin_price:
-				zjYuanLin_PriceCleanList(code,open);
+				zjYuanLin_PriceCleanList(code);
 				break;
 			default:
 				System.out.println("清洗未处理...");
@@ -63,8 +63,8 @@ public class ProductProcessorFactory {
 	 * @Description 浙江园林 清洗处理
 	 * @param code
 	 */
-	private void zjYuanLin_PriceCleanList(String code,String open) {
-		ZJYuanLinPriceCleanProcessor.main(new String []{code,open});
+	private void zjYuanLin_PriceCleanList(String code) {
+		ZJYuanLinPriceCleanProcessor.main(new String []{code});
 	}
 
 	/**
@@ -72,8 +72,8 @@ public class ProductProcessorFactory {
 	 * @param code
 	 * @throws ParseException 
 	 */
-	private void yuanlin_PriceCleanList(String code,String open) throws ParseException {
-		YuanLinPriceCleanProcessor.main(new String []{code,open});
+	private void yuanlin_PriceCleanList(String code) throws ParseException {
+		YuanLinPriceCleanProcessor.main(new String []{code});
 	}
 
 	/**
@@ -81,24 +81,24 @@ public class ProductProcessorFactory {
 	 * @param code
 	 * @throws ParseException 
 	 */
-	private void huaMu100_PriceCleanList(String code,String open) throws ParseException {
-		HuaMu100PriceCleanProcessor.main(new String []{code,open});
+	private void huaMu100_PriceCleanList(String code) throws ParseException {
+		HuaMu100PriceCleanProcessor.main(new String []{code});
 	}
 
 	/**
 	 * @Description 597苗木 清洗处理
 	 * @param code
 	 */
-	private void mm597_PriceCleanList(String code,String open) {
-		MM597PiceCleanProcessor.main(new String []{code,open});
+	private void mm597_PriceCleanList(String code) {
+		MM597PiceCleanProcessor.main(new String []{code});
 	}
 	/**
 	 * @Description 西北苗木 清洗处理
 	 * @param code
 	 * @throws ParseException 
 	 */
-	private void xbmiaomu_jiageCleanList(String code,String open) throws ParseException {
-		XBMiaoMuMaiomuJiaGeCleanProcessor.main(new String []{code,open});
+	private void xbmiaomu_jiageCleanList(String code) throws ParseException {
+		XBMiaoMuMaiomuJiaGeCleanProcessor.main(new String []{code});
 	}
 
 	/**
@@ -106,8 +106,8 @@ public class ProductProcessorFactory {
 	 * @param code
 	 * @throws ParseException 
 	 */
-	private void miaomu_PriceCleanList(String code,String open) throws ParseException {
-		MiaomuPiceCleanProcessor.main(new String []{code,open});	
+	private void miaomu_PriceCleanList(String code) throws ParseException {
+		MiaomuPiceCleanProcessor.main(new String []{code});	
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class ProductProcessorFactory {
 	 * @param code
 	 * @throws ParseException 
 	 */
-	private void green321QiaoGuanMuCleanList(String code,String open) throws ParseException {
+	private void green321QiaoGuanMuCleanList(String code) throws ParseException {
 		Green321QiaoGuanMuCleanProcessor.main(new String[] {code});
 	}
 	/**
@@ -123,7 +123,7 @@ public class ProductProcessorFactory {
 	 * @param code
 	 * @throws ParseException 
 	 */
-	private void miaomuzhanMiaomujiageCleanList(String code,String open) throws ParseException {
+	private void miaomuzhanMiaomujiageCleanList(String code) throws ParseException {
 		MiaomuzhanMiaomujiageCleanProcessor.main(new String[] {code});
 	}
 
@@ -132,7 +132,7 @@ public class ProductProcessorFactory {
 	 * @param code
 	 * @throws ParseException 
 	 */
-	private void lvsemiaomuQiaoguanmuCleanList(String code,String open) throws ParseException {
-		LvsemiaomuQiaoguanmuCleanProcessor.main(new String[] { code });
+	private void lvsemiaomuQiaoguanmuCleanList(String code) throws ParseException {
+		LvsemiaomuQiaoguanmuCleanProcessor.main(new String[] { code});
 	}
 }

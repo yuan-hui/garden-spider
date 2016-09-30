@@ -8,6 +8,7 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.ext.plugin.quartz.QuartzPlugin;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.log.Log;
@@ -105,7 +106,12 @@ public class AppConfig extends JFinalConfig {
 
 		// 配置属性名(字段名)大小写不敏感容器工厂
 		arp.setContainerFactory(new CaseInsensitiveContainerFactory());
-
+		
+		//配置定时任务
+		QuartzPlugin quartzPlugin =  new QuartzPlugin("quartzjob.properties","quartz.properties");
+		quartzPlugin.version(QuartzPlugin.VERSION_1);
+		me.add(quartzPlugin);
+		
 		// MappingKit映射
 		_MappingKit.mapping(arp);
 

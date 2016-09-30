@@ -1,15 +1,12 @@
 package com.mlh.spider.pageprocessor.product;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import com.mlh.common.AppRun;
 import com.mlh.model.Content;
 import com.mlh.model.Product;
 import com.mysql.jdbc.StringUtils;
@@ -60,13 +57,14 @@ public class YuanLinPriceCleanProcessor {
 	        if(isNum.matches()) {
 	        	value = Double.valueOf(price);
 	        } else {
+	        	price=price.replaceAll("一", "-");
 	        	//去中文
 	    		String regEX="[\u4e00-\u9fa5]";  
 	    		Pattern p=Pattern.compile(regEX);  
 	    		Matcher m=p.matcher(price);  
 	    		price=m.replaceAll("").trim();  
 	    		//去字符
-	    		regEX ="[`~!@#$%^&*()+=|{}':;'\\[\\].<>/?~~！一@#￥%……&*―（）——+|{}【】‘；,/：”“’。，、？]"; 
+	    		regEX ="[`~!@#$%^&*()+=|{}':;'\\[\\]<>/?~~！一@#￥%……&*―（）——+|{}【】‘；,/：”“’。，、？]"; 
 	    		p=Pattern.compile(regEX);  
 	    		m=p.matcher(price);  
 	    		price=m.replaceAll("").trim();         
@@ -102,6 +100,7 @@ public class YuanLinPriceCleanProcessor {
 		if(StringUtils.isNullOrEmpty(content)){
 			value[0]=value[1]=0.0;
 		}else{
+			content=content.replaceAll("一", "-");
 			//去中文
 			String regEX="[\u4e00-\u9fa5]";  
 			Pattern p=Pattern.compile(regEX);  
@@ -113,7 +112,7 @@ public class YuanLinPriceCleanProcessor {
 	        	strArray = content.split("-");
 	        	if(strArray.length>2){
 	        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
-		        	Double num2 = Double.valueOf(strArray[1].trim().equals("")?"0":strArray[1]);
+		        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
 		        	if(num1<num2) {
 		        		value[0]=num1;
 		        		value[1]=num2;
@@ -130,27 +129,14 @@ public class YuanLinPriceCleanProcessor {
 		}
 		return value;
 	}
-		
-    //获取当天时间
-	public static Date getTime(String open) throws ParseException{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat current  = new SimpleDateFormat("yyyy-MM-dd");
-			String time = current.format(new Date());	
-			if(open.equals("Y")){
-				//全量查询
-				return sdf.parse("2000-09-01 00:00:00");
-			}
-			return sdf.parse(time+" 00:00:00");
-	}
 
-	public static void main(String[] args) throws ParseException {
-		AppRun.start();
-		String _code = "yuanlin_price";//args[0];
-		String _open = "Y";//args[1];
+	public static void main(String[] args){
+		String _code = args[0];//yuanlin_price;
 		System.out.println("-------------中国园林 清洗开启-------------");
 		Content content  = new Content();
-		List<Content> list= content.findByCodeAndTime(_code,getTime(_open));
+		List<Content> list= content.findByCodeAndTime(_code);
 		List<Product> productList = new LinkedList<Product>();
+		List<String> contentList = new LinkedList<String>();
 		System.out.println("-------------中国园林待清洗数据"+list.size()+"条-------------");
 		for (Content content1 : list) {	
 			//如果产品名不存在，则跳出本次循环
@@ -159,6 +145,7 @@ public class YuanLinPriceCleanProcessor {
 			if(content1.getTitle().contains("??"))continue;
 			Product product = getProduct(content1);
 			productList.add(product);
+			contentList.add(content1.getId());
 		}
 		System.out.println("-------------中国园林已清洗数据"+productList.size()+"条-------------");
 		if(productList.size()>0){
@@ -171,6 +158,7 @@ public class YuanLinPriceCleanProcessor {
 				int strat = j*100;
 				int end = 100;
 				int[] reuslt =product.saveProducts(productList.stream().skip(strat).limit(end).collect(Collectors.toList()));
+				content.updateContent(contentList.stream().skip(strat).limit(end).collect(Collectors.toList()));
 				savaDate+=reuslt.length;
 				System.out.println("已同步数据"+savaDate+"条,剩余"+(productList.size()-savaDate)+"条数据");
 			}

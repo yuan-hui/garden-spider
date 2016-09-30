@@ -232,6 +232,8 @@ public class Reflect {
 
     /**
      * 
+     * TODO:(简单描述方法作用). <br/>
+     * 
      * @author kid create 2013-8-29
      * @param clazz
      * @param name
@@ -519,6 +521,7 @@ public class Reflect {
     public <P> P as(Class<P> proxyType) {
         final boolean isMap = (object instanceof Map);
         final InvocationHandler handler = new InvocationHandler() {
+            @SuppressWarnings("null")
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 String name = method.getName();
