@@ -59,7 +59,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 		}	
 		//""替换为,
 		price=price.replaceAll(" ", ",");
-		price=price.replaceAll("一", "-");		
+		price=price.replaceAll("一", "-");	
 	    //特殊中文
 		String regEX="[至到]";  
 		Pattern p=Pattern.compile(regEX);  
@@ -77,7 +77,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 		p=Pattern.compile(regEX);  
 		m=p.matcher(price);  
 		price=m.replaceAll("").trim(); 
-		//字符替换为,
+		//字符替换
 		regEX ="[`~!@#$%^&*()+=|{}':;'一_\\[\\]<>/?~~！@#￥%……&*―-（）——+|{}【】‘；,/：”“’。，、？]"; 
 		p=Pattern.compile(regEX);  
 		m=p.matcher(price);  
@@ -89,7 +89,19 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
 			if(_price.length==0)return value;
 			value = Double.valueOf(_price[0].trim().equals("")?"0":_price[0]);
 		}else{
-			value = Double.valueOf(StringUtils.isNullOrEmpty(price)?"0":price);
+			 regEX="[.]";  
+			 p=Pattern.compile(regEX);  
+			 m=p.matcher(price);  
+			 int count =0;
+			 int end =0;
+			 while (m.find()) { 
+	            count = count + 1;  
+	            end = m.end();
+			 }      
+	         if(count>1){
+	        	 price = price.substring(end, price.length());
+	         }
+	         value = Double.valueOf(StringUtils.isNullOrEmpty(price)?"0":price);	
 		}
         return value;
 	}
@@ -231,7 +243,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor {
     }
     
 	public static void main(String[] args) {
-		String _code = args[0];//miaomuzhan_miaomujiage
+		String _code = args[0];//"miaomuzhan_miaomujiage";
 		System.out.println("-------------第一苗木 清洗开启-------------");
 		Content content  = new Content();
 		List<Content> list= content.findByCodeAndTime(_code);

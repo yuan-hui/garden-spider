@@ -60,7 +60,11 @@ public class LvsemiaomuQiaoguanmuCleanProcessor {
 		//去符号
 		price = price.replaceAll("/", "");
 		price = price.replaceAll(",", "");
-		value = Double.valueOf(price);
+		if(StringUtils.isNullOrEmpty(price)) {
+			 return value;
+		}else{
+			value = Double.valueOf(price);
+		}
         return value;
 	}
 	
