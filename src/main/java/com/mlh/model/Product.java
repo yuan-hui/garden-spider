@@ -26,5 +26,34 @@ public class Product extends BaseProduct<Product> {
 	public void deleteByCId(String id) {
 		Db.update("delete from price_product where id = ?", id);
 	}
-
+	
+	/**
+	  * @Description: 批量修改
+	  */
+	public int updateProduct(List<Product> productList) {	
+		int i =0;
+		for (Product product : productList) {
+			 i+=Db.update("UPDATE price_product SET importStatus = 'Y' WHERE id = ?",product.getId());
+		}
+		return i;
+	}
+	
+	/**
+	 * @Description: 查询状态为N的数据
+	 * @return
+	 */
+	public List<Product> findByStatus(int start,int end){
+		String sql = "SELECT * FROM price_product WHERE importStatus = 'N' LIMIT ?,?";
+		return dao.find(sql,start,end);
+	}
+	
+	/**
+	 * @Description: 统计
+	 * @return
+	 */
+	public int count(){
+		String sql = "SELECT count(id) as count FROM price_product WHERE importStatus = 'N'";
+		long count =dao.find(sql).get(0).getCount();
+		return (int)count;
+	}
 }

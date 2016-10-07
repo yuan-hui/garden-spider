@@ -8,6 +8,7 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.ext.plugin.mongo.MongoJFinalPlugin;
 import com.jfinal.ext.plugin.quartz.QuartzPlugin;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
@@ -75,6 +76,20 @@ public class AppConfig extends JFinalConfig {
 		druidPlugin.setValidationQuery("select 1 from dual");
 		return druidPlugin;
 	}
+	
+	/**
+	 * mongodb 数据库连接
+	 */
+	public static MongoJFinalPlugin createMongoPlugin(){
+		Prop prop = PropKit.use("jdbc.properties");
+		String host = prop.get("local.mongodb.host");
+		int port = Integer.valueOf(prop.get("local.mongodb.port"));
+		String database = prop.get("local.mongodb.database");
+		String username = prop.get("local.mongodb.username");
+		String password = prop.get("local.mongodb.password");
+		MongoJFinalPlugin jFinalPlugin = new MongoJFinalPlugin(host,port,database,username,password);
+		return jFinalPlugin;
+	}
 
 	/**
 	 * 
@@ -103,6 +118,10 @@ public class AppConfig extends JFinalConfig {
 
 		// 配置Mysql方言
 		arp.setDialect(new MysqlDialect());
+		
+		//配置mongodb数据库连接插件
+		MongoJFinalPlugin jFinalPlugin =createMongoPlugin();
+		me.add(jFinalPlugin);
 
 		// 配置属性名(字段名)大小写不敏感容器工厂
 		arp.setContainerFactory(new CaseInsensitiveContainerFactory());

@@ -141,4 +141,10 @@ public abstract class BaseProduct <M extends BaseProduct<M>> extends Model<M> im
 	public void setInvoiceType(java.lang.String invoiceType) {
 		set("invoiceType", invoiceType);
 	}
+	public java.lang.Long getCount() {
+		return get("count");
+	}
+	public void setCount(java.lang.Long count) {
+		set("count", count);
+	}
 }
