@@ -94,7 +94,7 @@ public class MiaomuPiceCleanProcessor extends Thread{
 			if(content.contains("-")){
 				String[] strArray=null;
 	        	strArray = content.split("-");
-	        	if(strArray.length>2){
+	        	if(strArray.length>1){
 	        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
 		        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
 		        	if(num1<num2) {
@@ -114,11 +114,12 @@ public class MiaomuPiceCleanProcessor extends Thread{
 		return value;
 	}
 	
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 		AppRun.start();
 		MiaomuPiceCleanProcessor a = new MiaomuPiceCleanProcessor("miaomu_price");
 		a.start();
-	}*/
+		
+	}
 		
 	public void run() {//miaomu_price
 		System.out.println("-------------中国苗木 清洗开启-------------");

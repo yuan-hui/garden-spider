@@ -55,30 +55,55 @@ public class HuaMu100PriceCleanProcessor extends Thread{
 	
 	//价格
 	public static Double getStartingFare(String price){
-			if(StringUtils.isNullOrEmpty(price))
-				return 0.0;
-		    Pattern pattern = Pattern.compile("[0-9]*");
-	        Matcher isNum = pattern.matcher(price);
-	        Double value = 0.0;
-	        if(isNum.matches()) {
-	        	value = Double.valueOf(price);
-	        } else {
-	        	price=price.replaceAll("一", "-");
-	      /*      if(price.contains("---"))
-	            price.replaceAll("---","-");*/
-	            if(price.contains("-")){
-	            	String[] strArray=null;
-	            	strArray = price.split("-");
-	            	if(strArray.length==2){
-		        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
-			        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
-	            		value = (num1+num2)/2;
-	            	}else{
-	            		value = Double.valueOf(strArray[0]);
-	            	}
-	            }  
-	        }
-	      return value;
+		Double value = 0.0;
+		if(StringUtils.isNullOrEmpty(price))return value;
+		//""替换为,
+		price=price.replaceAll(" ", ",");
+		price=price.replaceAll("一", "-");	
+	    //特殊中文
+		String regEX="[至到]";  
+		Pattern p=Pattern.compile(regEX);  
+		Matcher m=p.matcher(price);  
+		if (m.find()) {	
+		   price = price.substring(m.start(), price.length());
+		}	
+		//去中文
+		regEX="[\u4e00-\u9fa5]";  
+		p=Pattern.compile(regEX);  
+		m=p.matcher(price);  
+		price=m.replaceAll("").trim();  	
+		//过滤字母
+		regEX="[A-Za-z]"; 
+		p=Pattern.compile(regEX);  
+		m=p.matcher(price);  
+		price=m.replaceAll("").trim(); 
+		//字符替换
+		regEX ="[`~!@#$%^&*()+=|{}':;'一_\\[\\]<>/?~~！@#￥%……&*―-（）——+|{}【】‘；,/：”“’。，、？]"; 
+		p=Pattern.compile(regEX);  
+		m=p.matcher(price);  
+		price=m.replaceAll("-").trim();  
+		if(price.contains("-"))
+		{
+			String[] _price =new String[]{};
+			_price = price.split("-");
+			if(_price.length==0)return value;
+			value = Double.valueOf(_price[0].trim().equals("")?"0":_price[0]);
+		}else{
+			 regEX="[.]";  
+			 p=Pattern.compile(regEX);  
+			 m=p.matcher(price);  
+			 int count =0;
+			 int end =0;
+			 while (m.find()) { 
+	            count = count + 1;  
+	            end = m.end();
+			 }      
+	         if(count>1){
+	        	 price = price.substring(end, price.length());
+	         }
+	         value = Double.valueOf(StringUtils.isNullOrEmpty(price)?"0":price);	
+		}
+        return value;
 	}
 	
 	//(米径/胸径)、(冠幅)、(高度)、最大值(Double[1])最小值	(Double[0])
@@ -87,23 +112,34 @@ public class HuaMu100PriceCleanProcessor extends Thread{
 		if(StringUtils.isNullOrEmpty(content)){
 			value[0]=value[1]=0.0;
 		}else{
+			content = content.replaceAll(" ","-");
 			content=content.replaceAll("一", "-");
-			/*if(content.contains("---"))
-			content.replaceAll("---","-");*/
-			//去中文
-			String regEX="[\u4e00-\u9fa5]";  
-			Pattern p=Pattern.compile(regEX);  
+			   //特殊中文
+			String regEX="[至到]";  
+			Pattern p=Pattern.compile(content);  
 			Matcher m=p.matcher(content);  
-			content=m.replaceAll("").trim();  
+			if (m.find()) {	
+				content = content.substring(m.start(), content.length());
+			}	
+			//去中文
+			regEX="[\u4e00-\u9fa5]";  
+			p=Pattern.compile(regEX);  
+			 m=p.matcher(content);  
+			 content=m.replaceAll("").trim();  	
+			//过滤字母
+			regEX="[A-Za-z]"; 
+			p=Pattern.compile(regEX);  
+			m=p.matcher(content);  
+			content=m.replaceAll("").trim(); 
 			//字符替换为-
 			regEX ="[`~!@#$%^&*()+=|{}':;,'_―一\\[\\]<>/?！@#￥%……&*（）——+|{}【】‘；/：”“’。，、？]"; 
 			p=Pattern.compile(regEX);  
 			m=p.matcher(content);  
-			content=m.replaceAll("-").trim();
+			content=m.replaceAll("-").trim();	
 			if(content.contains("-")){
 				String[] strArray=null;
 	        	strArray = content.split("-");
-	        	if(strArray.length>2){
+	        	if(strArray.length>1){
 	        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
 		        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
 		        	if(num1<num2) {
@@ -117,18 +153,21 @@ public class HuaMu100PriceCleanProcessor extends Thread{
 	        		value[0]=value[1]=0.0;
 	        	}
 			}else{
-				value[0]=value[1]=Double.valueOf(StringUtils.isNullOrEmpty(content)?"0":content);
+				value[0]=value[1]=Double.valueOf(content.trim().equals("")?"0":content);
 			}
 		}
 		return value;
 	}
-
+	
 	public static void main(String[] args) {
 		AppRun.start();
 		HuaMu100PriceCleanProcessor a = new HuaMu100PriceCleanProcessor("huamu100_price");
 		a.start();
+		//HuaMu100PriceCleanProcessor.compare("3/13");
+		/*System.out.println(HuaMu100PriceCleanProcessor.getStartingFare("1.5/1.4/1.2"));*/
 	}
 
+	
 	public void run() {//huamu100_price
 		System.out.println("-------------花木100 清洗开启-------------");
 		Content content  = new Content();

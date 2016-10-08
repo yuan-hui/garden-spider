@@ -125,11 +125,20 @@ public class XBMiaoMuMaiomuJiaGeCleanProcessor extends Thread{
 			Pattern p=Pattern.compile(regEX);  
 			Matcher m=p.matcher(content);  
 			content=m.replaceAll("").trim();  
-			
+			//过滤字母
+			regEX="[A-Za-z]"; 
+			p=Pattern.compile(regEX);  
+			m=p.matcher(content);  
+			content=m.replaceAll("").trim(); 
+			//字符替换为-
+			regEX ="[`~!@#$%^&*()+=|{}':;,'_―一\\[\\]<>/?！@#￥%……&*（）——+|{}【】‘；/：”“’。，、？]"; 
+			p=Pattern.compile(regEX);  
+			m=p.matcher(content);  
+			content=m.replaceAll("-").trim();	
 			if(content.contains("-")){
 				String[] strArray=null;
 	        	strArray = content.split("-");
-	        	if(strArray.length>2){
+	        	if(strArray.length>1){
 	        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
 		        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
 		        	if(num1<num2) {
