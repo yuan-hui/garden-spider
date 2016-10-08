@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
+import com.mlh.common.AppRun;
 import com.mlh.model.Content;
 import com.mlh.model.Product;
 import com.mysql.jdbc.StringUtils;
@@ -14,7 +14,13 @@ import com.mysql.jdbc.StringUtils;
 /**
  * 花木100 清洗处理器
  */
-public class HuaMu100PriceCleanProcessor {
+public class HuaMu100PriceCleanProcessor extends Thread{
+	
+	private String code;
+	
+	public HuaMu100PriceCleanProcessor(String code) {
+		this.code=code;
+	}
 	
 	public static Product getProduct(Content content){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -28,10 +34,10 @@ public class HuaMu100PriceCleanProcessor {
 		product.setCreateTime(sdf.format(content.getCreateTime()));
 		product.setOp("ACT");
 		product.setDetails(content.getSource());
-		product.setContacts(content.getContacts());
+		product.setContacts(StringUtils.isNullOrEmpty(content.getContacts())?"":content.getContacts());
 		product.setTel(content.getTel());
 		product.setInvoiceType("");
-		product.setSupplier(content.getCompany());
+		product.setSupplier(StringUtils.isNullOrEmpty(content.getCompany())?"":content.getCompany());
 		product.setTotalPrice(0.0);
 		product.setSource("1");
 		product.setStartingFare(getStartingFare(content.getPrice()));
@@ -58,14 +64,14 @@ public class HuaMu100PriceCleanProcessor {
 	        	value = Double.valueOf(price);
 	        } else {
 	        	price=price.replaceAll("一", "-");
-	            if(price.contains("---"))
-	            price.replaceAll("---","-");
+	      /*      if(price.contains("---"))
+	            price.replaceAll("---","-");*/
 	            if(price.contains("-")){
 	            	String[] strArray=null;
 	            	strArray = price.split("-");
 	            	if(strArray.length==2){
-	            		Double num1 = Double.valueOf(strArray[0]);
-	            		Double num2 = Double.valueOf(strArray[1]);
+		        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
+			        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
 	            		value = (num1+num2)/2;
 	            	}else{
 	            		value = Double.valueOf(strArray[0]);
@@ -82,11 +88,18 @@ public class HuaMu100PriceCleanProcessor {
 			value[0]=value[1]=0.0;
 		}else{
 			content=content.replaceAll("一", "-");
+			/*if(content.contains("---"))
+			content.replaceAll("---","-");*/
 			//去中文
 			String regEX="[\u4e00-\u9fa5]";  
 			Pattern p=Pattern.compile(regEX);  
 			Matcher m=p.matcher(content);  
 			content=m.replaceAll("").trim();  
+			//字符替换为-
+			regEX ="[`~!@#$%^&*()+=|{}':;,'_―一\\[\\]<>/?！@#￥%……&*（）——+|{}【】‘；/：”“’。，、？]"; 
+			p=Pattern.compile(regEX);  
+			m=p.matcher(content);  
+			content=m.replaceAll("-").trim();
 			if(content.contains("-")){
 				String[] strArray=null;
 	        	strArray = content.split("-");
@@ -104,45 +117,53 @@ public class HuaMu100PriceCleanProcessor {
 	        		value[0]=value[1]=0.0;
 	        	}
 			}else{
-				value[0]=value[1]=Double.valueOf(content);
+				value[0]=value[1]=Double.valueOf(StringUtils.isNullOrEmpty(content)?"0":content);
 			}
 		}
 		return value;
 	}
 
-	public static void main(String[] args){
-		String _code = args[0];//huamu100_price
+	public static void main(String[] args) {
+		AppRun.start();
+		HuaMu100PriceCleanProcessor a = new HuaMu100PriceCleanProcessor("huamu100_price");
+		a.start();
+	}
+
+	public void run() {//huamu100_price
 		System.out.println("-------------花木100 清洗开启-------------");
 		Content content  = new Content();
-		List<Content> list= content.findByCodeAndTime(_code);
-		List<Product> productList = new LinkedList<Product>();
-		List<String> contentList = new LinkedList<String>();
-		System.out.println("-------------花木100待清洗数据"+list.size()+"条-------------");
-		for (Content content1 : list) {	
-			//如果产品名不存在，则跳出本次循环
-			if(StringUtils.isNullOrEmpty(content1.getTitle()))continue;
-			Product product = getProduct(content1);
-			productList.add(product);
-			contentList.add(content1.getId());
-		}
-		System.out.println("-------------花木100已清洗数据"+productList.size()+"条-------------");
-		if(productList.size()>0){
-			int data = productList.size();
-			System.out.println("开始同步数据："+data+"条");
-			int degree = data>100?(data/100)+1:1;
-			Product product =new Product();
+		Product product = new Product();
+		List<Content> contentList= new LinkedList<Content>();
+		List<String> ids =new LinkedList<String>();;
+		List<Product> productList;
+		int count = content.count(code);
+		System.out.println("-------------花木100【待清洗数据"+count+"条】-------------");
+		if(count>0){
+			int degree = count>1000?(count/1000)+1:1;
 			int savaDate = 0;
 			for (int i=degree,j=0;i>j;j++) {
-				int strat = j*100;
-				int end = 100;
-				int[] reuslt =product.saveProducts(productList.stream().skip(strat).limit(end).collect(Collectors.toList()));
-				content.updateContent(contentList.stream().skip(strat).limit(end).collect(Collectors.toList()));
+				productList = new LinkedList<Product>();
+				int strat = j*1000;
+				int end = 1000;
+				contentList = content.findByCode(code, strat, end);
+				for (Content content1 : contentList) {	
+					//如果产品名不存在，则跳出本次循环
+					if(StringUtils.isNullOrEmpty(content1.getTitle()))continue;
+					Product pr = getProduct(content1);
+					productList.add(pr);
+					ids.add(content1.getId());
+				}	
+				int[] reuslt = product.saveProducts(productList);
 				savaDate+=reuslt.length;
-				System.out.println("已同步数据"+savaDate+"条,剩余"+(productList.size()-savaDate)+"条数据");
+				System.out.println("花木100【已同步数据："+savaDate+"条,剩余"+(count-savaDate)+"条数据】");
 			}
-			System.out.println("-------------成功保存进price_product："+savaDate+"条-------------");	
+			System.out.println("花木100【已清洗数据："+ids.size()+"条】");
+			//更改爬取数据状态（线程）
+			ContentProcessor ContentProcessor = new ContentProcessor(code,ids);
+			ContentProcessor.start();	
+			System.out.println("-------------花木100【成功保存进price_product："+savaDate+"条】-------------");	
 		}else{
-			System.out.println("-------------无数据保存进price_product-------------");	
+			System.out.println("-------------花木100【无数据保存进price_product】-------------");	
 		}
 	}
 }

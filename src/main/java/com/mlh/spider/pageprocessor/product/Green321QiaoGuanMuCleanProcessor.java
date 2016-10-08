@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import com.mlh.model.Content;
 import com.mlh.model.Product;
@@ -14,7 +13,13 @@ import com.mysql.jdbc.StringUtils;
 /**
  * 青青花木 清洗处理器
  */
-public class Green321QiaoGuanMuCleanProcessor {
+public class Green321QiaoGuanMuCleanProcessor extends Thread{
+	
+	private String code;
+	
+	public Green321QiaoGuanMuCleanProcessor(String code) {
+		this.code=code;
+	}
 	
 	public static Product getProduct(Content content){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -28,10 +33,10 @@ public class Green321QiaoGuanMuCleanProcessor {
 		product.setCreateTime(sdf.format(content.getCreateTime()));
 		product.setOp("ACT");
 		product.setDetails(content.getSource());
-		product.setContacts(content.getContacts());
+		product.setContacts(StringUtils.isNullOrEmpty(content.getContacts())?"":content.getContacts());
 		product.setTel(getTel(content.getTel()));
 		product.setInvoiceType("");
-		product.setSupplier(content.getCompany());
+		product.setSupplier(StringUtils.isNullOrEmpty(content.getCompany())?"":content.getCompany());
 		product.setTotalPrice(0.0);
 		product.setSource("1");
 		product.setStartingFare(getStartingFare(content.getPrice()));
@@ -96,7 +101,7 @@ public class Green321QiaoGuanMuCleanProcessor {
        	       } 
     	    } 	
         }	
-		return _tel;
+		return StringUtils.isNullOrEmpty(_tel)?"":_tel;
 	}
 	
 	//(米径/胸径)、(冠幅)、(高度)、最大值(Double[1])最小值	(Double[0])
@@ -134,51 +139,47 @@ public class Green321QiaoGuanMuCleanProcessor {
 		return value;
 	}
 		
-    //获取当天时间
-	/*public static Date getTime(String open) throws ParseException{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat current  = new SimpleDateFormat("yyyy-MM-dd");
-			String time = current.format(new Date());	
-			if(open.equals("Y")){
-				//全量查询
-				return sdf.parse("2000-09-01 00:00:00");
-			}
-			return sdf.parse(time+" 00:00:00");
+/*	public static void main(String[] args) {
+		AppRun.start();
+		Green321QiaoGuanMuCleanProcessor a = new Green321QiaoGuanMuCleanProcessor("green321_qiaoguanmu");
+		a.start();
 	}*/
 	
-	public static void main(String[] args) {	
-		String _code = args[0];//green321_qiaoguanmu
+	public void run() {//green321_qiaoguanmu
 		System.out.println("-------------青青花木 清洗开启-------------");
 		Content content  = new Content();
-		List<Content> list= content.findByCodeAndTime(_code);
-		List<Product> productList = new LinkedList<Product>();
-		List<String> contentList = new LinkedList<String>();
-		System.out.println("-------------青青花木待清洗数据"+list.size()+"条-------------");
-		for (Content content1 : list) {	
-			//如果产品名不存在，则跳出本次循环
-			if(StringUtils.isNullOrEmpty(content1.getTitle()))continue;
-			Product product = getProduct(content1);
-			productList.add(product);
-			contentList.add(content1.getId());
-		}
-		System.out.println("-------------青青花木已清洗数据"+productList.size()+"条-------------");
-		if(productList.size()>0){
-			int data = productList.size();
-			System.out.println("开始同步数据："+data+"条");
-			int degree = data>100?(data/100)+1:1;
-			Product product =new Product();
+		Product product = new Product();
+		List<Content> contentList= new LinkedList<Content>();
+		List<String> ids =new LinkedList<String>();
+		List<Product> productList;
+		int count = content.count(code);
+		System.out.println("-------------青青花木【待清洗数据"+count+"条】-------------");
+		if(count>0){
+			int degree = count>1000?(count/1000)+1:1;
 			int savaDate = 0;
 			for (int i=degree,j=0;i>j;j++) {
-				int strat = j*100;
-				int end = 100;
-				int[] reuslt =product.saveProducts(productList.stream().skip(strat).limit(end).collect(Collectors.toList()));
-				content.updateContent(contentList.stream().skip(strat).limit(end).collect(Collectors.toList()));
+				productList = new LinkedList<Product>();
+				int strat = j*1000;
+				int end = 1000;
+				contentList = content.findByCode(code, strat, end);
+				for (Content content1 : contentList) {	
+					//如果产品名不存在，则跳出本次循环
+					if(StringUtils.isNullOrEmpty(content1.getTitle()))continue;
+					Product pr = getProduct(content1);
+					productList.add(pr);
+					ids.add(content1.getId());
+				}	
+				int[] reuslt = product.saveProducts(productList);
 				savaDate+=reuslt.length;
-				System.out.println("已同步数据"+savaDate+"条,剩余"+(productList.size()-savaDate)+"条数据");
+				System.out.println("青青花木【已同步数据："+savaDate+"条,剩余"+(count-savaDate)+"条数据】");
 			}
-			System.out.println("-------------成功保存进price_product："+savaDate+"条-------------");	
+			System.out.println("青青花木【已清洗数据："+ids.size()+"条】");
+			//更改爬取数据状态（线程）
+			ContentProcessor ContentProcessor = new ContentProcessor(code,ids);
+			ContentProcessor.start();	
+			System.out.println("-------------青青花木【成功保存进price_product："+savaDate+"条】-------------");	
 		}else{
-			System.out.println("-------------无数据保存进price_product-------------");	
+			System.out.println("-------------青青花木【无数据保存进price_product】-------------");	
 		}
 	}
 }

@@ -62,7 +62,7 @@ public class Main {
 		
 		/*********查询爬取网站的数据*******************/
 		Content Content  = new Content();
-		List<Content> list= Content.findByCodeAndTime(_code);
+		List<Content> list= Content.findByCode(_code,1,100);
 		for (Content content2 : list) {
 			System.out.println(content2.getArea());
 		}

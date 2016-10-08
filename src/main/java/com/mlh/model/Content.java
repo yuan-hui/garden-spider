@@ -79,11 +79,22 @@ public class Content extends BaseContent<Content> {
 		return paginate(pageNumber, pageSize, "select *", sql.toString());
 	}
 	
-	public List<Content> findByCodeAndTime(String code){
+	public List<Content> findByCode(String code,int start,int end){
 		String sql = "SELECT id,title,(SELECT name FROM good_standard_name WHERE locate(content.title,alias)>0 LIMIT 1) as breedName,"
 					 +"midiameter,height,crown,grounddiameter,price,company,CONCAT(province,city) as area,contacts,tel,source,createTime,updateTime,"
 				     +"(SELECT areaNo FROM price_province WHERE locate(content.province,areaName) > 0 LIMIT 1) as areaNo "
-				     +"FROM t_content content WHERE content.`code`=? AND content.cleanState='N'";
-		return dao.find(sql, code);
+				     +"FROM t_content content WHERE content.`code`=? AND content.cleanState='N' LIMIT ?,?";
+		return dao.find(sql, code,start,end);
 	}
+	
+	/**
+	 * @Description: 统计
+	 * @return
+	 */
+	public int count(String code){
+		String sql = "SELECT count(id) as count FROM t_content WHERE cleanState = 'N' AND `code` = ?";
+		long count =dao.find(sql,code).get(0).getCount();
+		return (int)count;
+	}
+	
 }

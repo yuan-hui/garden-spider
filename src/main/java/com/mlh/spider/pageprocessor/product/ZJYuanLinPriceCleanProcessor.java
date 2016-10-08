@@ -3,10 +3,16 @@ package com.mlh.spider.pageprocessor.product;
 /**
  * 浙江园林 清洗处理器
  */
-public class ZJYuanLinPriceCleanProcessor {
+public class ZJYuanLinPriceCleanProcessor extends Thread{
 
-	public static void main(String[] args) {
+	private String code;
 	
+	public ZJYuanLinPriceCleanProcessor(String code) {
+		this.code=code;
+	}
+	
+	public void run() {
+		System.out.println("-------------浙江园林 清洗开启-------------");
 	}
 
 }

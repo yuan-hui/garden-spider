@@ -64,7 +64,8 @@ public class ProductProcessorFactory {
 	 * @param code
 	 */
 	private void zjYuanLin_PriceCleanList(String code) {
-		ZJYuanLinPriceCleanProcessor.main(new String []{code});
+		ZJYuanLinPriceCleanProcessor zJYuanLinPriceCleanProcessor=new ZJYuanLinPriceCleanProcessor(code);
+		zJYuanLinPriceCleanProcessor.start();
 	}
 
 	/**
@@ -73,7 +74,8 @@ public class ProductProcessorFactory {
 	 * @throws ParseException 
 	 */
 	private void yuanlin_PriceCleanList(String code) throws ParseException {
-		YuanLinPriceCleanProcessor.main(new String []{code});
+		YuanLinPriceCleanProcessor yuanLinPriceCleanProcessor=new YuanLinPriceCleanProcessor(code);
+		yuanLinPriceCleanProcessor.start();
 	}
 
 	/**
@@ -82,7 +84,8 @@ public class ProductProcessorFactory {
 	 * @throws ParseException 
 	 */
 	private void huaMu100_PriceCleanList(String code) throws ParseException {
-		HuaMu100PriceCleanProcessor.main(new String []{code});
+		HuaMu100PriceCleanProcessor huaMu100PriceCleanProcessor=new HuaMu100PriceCleanProcessor(code);
+		huaMu100PriceCleanProcessor.start();
 	}
 
 	/**
@@ -90,15 +93,18 @@ public class ProductProcessorFactory {
 	 * @param code
 	 */
 	private void mm597_PriceCleanList(String code) {
-		MM597PiceCleanProcessor.main(new String []{code});
+		MM597PiceCleanProcessor mM597PiceCleanProcessor=new MM597PiceCleanProcessor(code);
+		mM597PiceCleanProcessor.start();
 	}
+	
 	/**
 	 * @Description 西北苗木 清洗处理
 	 * @param code
 	 * @throws ParseException 
 	 */
 	private void xbmiaomu_jiageCleanList(String code) throws ParseException {
-		XBMiaoMuMaiomuJiaGeCleanProcessor.main(new String []{code});
+		XBMiaoMuMaiomuJiaGeCleanProcessor xBMiaoMuMaiomuJiaGeCleanProcessor=new XBMiaoMuMaiomuJiaGeCleanProcessor(code);
+		xBMiaoMuMaiomuJiaGeCleanProcessor.start();
 	}
 
 	/**
@@ -107,7 +113,9 @@ public class ProductProcessorFactory {
 	 * @throws ParseException 
 	 */
 	private void miaomu_PriceCleanList(String code) throws ParseException {
-		MiaomuPiceCleanProcessor.main(new String []{code});	
+		MiaomuPiceCleanProcessor miaomuPiceCleanProcessor=new MiaomuPiceCleanProcessor(code);
+		miaomuPiceCleanProcessor.start();
+
 	}
 
 	/**
@@ -116,15 +124,18 @@ public class ProductProcessorFactory {
 	 * @throws ParseException 
 	 */
 	private void green321QiaoGuanMuCleanList(String code) throws ParseException {
-		Green321QiaoGuanMuCleanProcessor.main(new String[] {code});
+		Green321QiaoGuanMuCleanProcessor green321QiaoGuanMuCleanProcessor=new Green321QiaoGuanMuCleanProcessor(code);
+		green321QiaoGuanMuCleanProcessor.start();
 	}
+	
 	/**
 	 * @Description 第一苗木 清洗处理
 	 * @param code
 	 * @throws ParseException 
 	 */
 	private void miaomuzhanMiaomujiageCleanList(String code) throws ParseException {
-		MiaomuzhanMiaomujiageCleanProcessor.main(new String[] {code});
+		MiaomuzhanMiaomujiageCleanProcessor miaomuzhanMiaomujiageCleanProcessor=new MiaomuzhanMiaomujiageCleanProcessor(code);
+		miaomuzhanMiaomujiageCleanProcessor.start();
 	}
 
 	/**
@@ -133,6 +144,7 @@ public class ProductProcessorFactory {
 	 * @throws ParseException 
 	 */
 	private void lvsemiaomuQiaoguanmuCleanList(String code) throws ParseException {
-		LvsemiaomuQiaoguanmuCleanProcessor.main(new String[] { code});
+		LvsemiaomuQiaoguanmuCleanProcessor lvsemiaomuQiaoguanmuCleanProcessor=new LvsemiaomuQiaoguanmuCleanProcessor(code);
+		lvsemiaomuQiaoguanmuCleanProcessor.start();
 	}
 }

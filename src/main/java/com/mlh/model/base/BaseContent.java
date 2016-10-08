@@ -249,6 +249,12 @@ public abstract class BaseContent<M extends BaseContent<M>> extends Model<M> imp
 		set("cleanState", cleanState);
 	}
 	
+	public java.lang.Long getCount() {
+		return get("count");
+	}
 	
+	public void setCount(java.lang.Long count) {
+		set("count", count);
+	}
 	
 }
