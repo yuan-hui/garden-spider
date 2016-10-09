@@ -51,7 +51,7 @@ public class MM597PriceDetailsLocalHtmlParser {
 	}
 
 	private static void process(PageDetail detail) {
-		
+
 		String code = detail.getCode();
 		String detailId = detail.getId();
 		String source = detail.getUrl();
@@ -77,12 +77,13 @@ public class MM597PriceDetailsLocalHtmlParser {
 			Map<String, String> detailcontentMap = new HashMap<String, String>();
 			String arryName = null;
 			String arryVlue = null;
-
-			for (int i = 0; i < tempArry.length; i++) {
-				String temp = tempArry[i].trim();
-				arryName = temp.substring(0, 2);
-				arryVlue = temp.substring(2);
-				detailcontentMap.put(arryName, arryVlue);
+			if (StringUtils.isNotBlank(detailcontent)) {
+				for (int i = 0; i < tempArry.length; i++) {
+					String temp = tempArry[i].trim();
+					arryName = temp.substring(0, 2);
+					arryVlue = temp.substring(2);
+					detailcontentMap.put(arryName, arryVlue);
+				}
 			}
 			String height = detailcontentMap.get("高度");
 			String crown = detailcontentMap.get("冠幅");
@@ -90,16 +91,16 @@ public class MM597PriceDetailsLocalHtmlParser {
 			String midiaMeter = detailcontentMap.get("米径");
 
 			String str = html.xpath("//div[@class='info_main']/ul/li[3]/a[1]/text()").get();//
-			String  price = StringKit.strReturnNumber(str);
+			String price = StringKit.strReturnNumber(str);
 			String unit = StringKit.strReturnStr(str);
 			String remark = html.xpath("//div[@id='content']/text()").get();
-			
-			List<String > usrInfo = html.xpath("//div[@id='contact']/ul/li").all();
+
+			List<String> usrInfo = html.xpath("//div[@id='contact']/ul/li").all();
 			Map<String, String> usercontentListMap = DetailsHtmlUtil.changeToAttrMap(usrInfo);
-			
-			//公司
+
+			// 公司
 			String company = html.xpath("//div[@id='contact']/ul/li[1]/a/text()").get();
-			
+
 			String tmpAddrss = usercontentListMap.get("所在地");
 			// 省份
 			String province = StringUtils.substring(tmpAddrss, 0, 2);
@@ -129,7 +130,7 @@ public class MM597PriceDetailsLocalHtmlParser {
 			info.setAddress(address);
 			info.setReleasetime(releaseTime);
 			info.setRemark(remark);
-			
+
 			if (StringUtils.isNoneBlank(title)) {
 				boolean save = Content.dao.save(info, detailId, source, code);
 				if (save) {

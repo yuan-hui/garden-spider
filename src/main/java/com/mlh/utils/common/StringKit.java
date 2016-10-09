@@ -200,7 +200,7 @@ public class StringKit {
 	 */
 	public static String strReturnNumber(String str){
 		if(StringUtils.isNotBlank(str)){
-			Pattern pattern = Pattern.compile("[^0-9\\.]");
+			Pattern pattern = Pattern.compile("[^0-9\\.\\-]");
 			Matcher matcher = pattern.matcher(str);
 			str = matcher.replaceAll("");
 		}
