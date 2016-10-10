@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.mlh.common.AppRun;
 import com.mlh.model.Content;
 import com.mlh.model.Product;
 import com.mysql.jdbc.StringUtils;
@@ -67,7 +68,7 @@ public class Green321QiaoGuanMuCleanProcessor extends Thread{
 		p=Pattern.compile(regEX);  
 		m=p.matcher(price);  
 		price=m.replaceAll("").trim();  
- 	    value = Double.valueOf(StringUtils.isNullOrEmpty(price.trim())?"0":price.trim());
+ 	    value = Double.valueOf(judge(price.trim()));
 	    return value;
 	}
 	
@@ -130,8 +131,8 @@ public class Green321QiaoGuanMuCleanProcessor extends Thread{
 				String[] strArray=null;
 	        	strArray = content.split("-");
 	        	if(strArray.length>1){
-	        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
-		        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
+	        		Double num1 = Double.valueOf(judge(strArray[0].trim()));
+		        	Double num2 = Double.valueOf(judge(strArray[strArray.length-1].trim()));
 		        	if(num1<num2) {
 		        		value[0]=num1;
 		        		value[1]=num2;
@@ -143,17 +144,33 @@ public class Green321QiaoGuanMuCleanProcessor extends Thread{
 	        		value[0]=value[1]=0.0;
 	        	}
 			}else{
-				value[0]=value[1]=Double.valueOf(content);
+				value[0]=value[1]=Double.valueOf(judge(content));
 			}
 		}
 		return value;
 	}
+	
+	public static String judge(String num){
+        String number = "0";		
+		Pattern p= Pattern.compile("^\\d+$|-\\d+$"); // 就是判断是否为整数
+		Matcher m = p.matcher(num);
+		if(m.find()){
+			number = num;
+		}else{
+			p = Pattern.compile("\\d+\\.\\d+$|-\\d+\\.\\d+$");//判断是否为小数
+			m = p.matcher(num);
+			if(m.find()){
+				number = num;
+			}
+		}
+		return number;
+	}
 		
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 		AppRun.start();
 		Green321QiaoGuanMuCleanProcessor a = new Green321QiaoGuanMuCleanProcessor("green321_qiaoguanmu");
 		a.start();
-	}*/
+	}
 	
 	public void run() {//green321_qiaoguanmu
 		System.out.println("-------------青青花木 清洗开启-------------");

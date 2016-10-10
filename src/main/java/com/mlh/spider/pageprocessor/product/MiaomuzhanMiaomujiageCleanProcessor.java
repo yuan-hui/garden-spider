@@ -2,6 +2,7 @@ package com.mlh.spider.pageprocessor.product;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,7 +94,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor extends Thread{
 			String[] _price =new String[]{};
 			_price = price.split("-");
 			if(_price.length==0)return value;
-			value = Double.valueOf(_price[0].trim().equals("")?"0":_price[0]);
+			value = Double.valueOf(judge(_price[0].trim()));
 		}else{
 			 regEX="[.]";  
 			 p=Pattern.compile(regEX);  
@@ -107,7 +108,7 @@ public class MiaomuzhanMiaomujiageCleanProcessor extends Thread{
 	         if(count>1){
 	        	 price = price.substring(end, price.length());
 	         }
-	         value = Double.valueOf(StringUtils.isNullOrEmpty(price)?"0":price);	
+	         value = Double.valueOf(judge(price));	
 		}
         return value;
 	}
@@ -175,8 +176,9 @@ public class MiaomuzhanMiaomujiageCleanProcessor extends Thread{
 					String[] strArray=null;
 		        	strArray = content.split("-");
 		        	if(strArray.length>1){
-		        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
-			        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
+		        		Double num1 = Double.valueOf(judge(strArray[0].trim()));
+		        		Double num2 = Double.valueOf(judge(strArray[strArray.length-1].trim()));
+			        	
 			        	if(num1<num2) {
 			        		value[0]=num1;
 			        		value[1]=num2;
@@ -188,12 +190,28 @@ public class MiaomuzhanMiaomujiageCleanProcessor extends Thread{
 		        		value[0]=value[1]=0.0;
 		        	}
 				}else{
-					value[0]=value[1]=Double.valueOf(content.trim().equals("")?"0":content);
+					value[0]=value[1]=Double.valueOf(judge(content.trim()));
 				}
 			}
 			return value;
 	}
 		
+	public static String judge(String num){
+        String number = "0";		
+		Pattern p= Pattern.compile("^\\d+$|-\\d+$"); // 就是判断是否为整数
+		Matcher m = p.matcher(num);
+		if(m.find()){
+			number = num;
+		}else{
+			p = Pattern.compile("\\d+\\.\\d+$|-\\d+\\.\\d+$");//判断是否为小数
+			m = p.matcher(num);
+			if(m.find()){
+				number = num;
+			}
+		}
+		return number;
+	}
+	
     //获取当天时间
 	public static Date getTime(String open) throws ParseException{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -248,11 +266,11 @@ public class MiaomuzhanMiaomujiageCleanProcessor extends Thread{
         }
     }
     
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 		AppRun.start();
 		MiaomuzhanMiaomujiageCleanProcessor a = new MiaomuzhanMiaomujiageCleanProcessor("miaomuzhan_miaomujiage");
 		a.start();
-	}*/
+	}
 
 	public void run() {//miaomuzhan_miaomujiage
         System.out.println("-------------第一苗木 清洗开启-------------");
@@ -264,12 +282,12 @@ public class MiaomuzhanMiaomujiageCleanProcessor extends Thread{
 		int count = content.count(code);
 		System.out.println("-------------第一苗木【待清洗数据"+count+"条】-------------");
 		if(count>0){
-			int degree = count>1000?(count/1000)+1:1;
+			int degree = count>999?(count/999)+1:1;
 			int savaDate = 0;
 			for (int i=degree,j=0;i>j;j++) {
-				productList = new LinkedList<Product>();
+				productList = new ArrayList<Product>();
 				int strat = j*1000;
-				int end = 1000;
+				int end = 999;
 				contentList = content.findByCode(code, strat, end);
 				for (Content content1 : contentList) {	
 					//如果产品名不存在，则跳出本次循环

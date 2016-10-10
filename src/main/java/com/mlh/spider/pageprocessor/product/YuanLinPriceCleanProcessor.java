@@ -61,7 +61,7 @@ public class YuanLinPriceCleanProcessor extends Thread{
 	        Matcher isNum = pattern.matcher(price);
 	        Double value = 0.0;
 	        if(isNum.matches()) {
-	        	value = Double.valueOf(price);
+	        	value = Double.valueOf(judge(price));
 	        } else {
 	        	price=price.replaceAll("一", "-");
 	        	//去中文
@@ -74,7 +74,7 @@ public class YuanLinPriceCleanProcessor extends Thread{
 	    		p=Pattern.compile(regEX);  
 	    		m=p.matcher(price);  
 	    		price=m.replaceAll("").trim();         
-	            value = Double.valueOf(price);
+	            value = Double.valueOf(judge(price));
 	        }
 	      return value;
 	}
@@ -126,8 +126,8 @@ public class YuanLinPriceCleanProcessor extends Thread{
 				String[] strArray=null;
 	        	strArray = content.split("-");
 	        	if(strArray.length>1){
-	        		Double num1 = Double.valueOf(strArray[0].trim().equals("")?"0":strArray[0]);
-		        	Double num2 = Double.valueOf(strArray[strArray.length-1].trim().equals("")?"0":strArray[strArray.length-1]);
+	        		Double num1 = Double.valueOf(judge(strArray[0].trim()));
+		        	Double num2 = Double.valueOf(judge(strArray[strArray.length-1].trim()));
 		        	if(num1<num2) {
 		        		value[0]=num1;
 		        		value[1]=num2;
@@ -139,17 +139,33 @@ public class YuanLinPriceCleanProcessor extends Thread{
 	        		value[0]=value[1]=0.0;
 	        	}
 			}else{
-				value[0]=value[1]=Double.valueOf(content.trim().equals("")?"0":content);
+				value[0]=value[1]=Double.valueOf(judge(content.trim()));
 			}
 		}
 		return value;
 	}
 	
-/*	public static void main(String[] args) {
+	public static String judge(String num){
+        String number = "0";		
+		Pattern p= Pattern.compile("^\\d+$|-\\d+$"); // 就是判断是否为整数
+		Matcher m = p.matcher(num);
+		if(m.find()){
+			number = num;
+		}else{
+			p = Pattern.compile("\\d+\\.\\d+$|-\\d+\\.\\d+$");//判断是否为小数
+			m = p.matcher(num);
+			if(m.find()){
+				number = num;
+			}
+		}
+		return number;
+	}
+	
+	public static void main(String[] args) {
 		AppRun.start();
 		YuanLinPriceCleanProcessor a = new YuanLinPriceCleanProcessor("yuanlin_price");
 		a.start();
-	}*/
+	}
 
 	public void run() {//yuanlin_price
 		System.out.println("-------------中国园林 清洗开启-------------");
