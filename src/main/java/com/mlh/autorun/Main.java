@@ -25,7 +25,7 @@ public class Main {
 		 * 
 		 * miaomuzhan_miaomujiage
 		 * 
-		 * miaomu_pice
+		 * mm597_price
 		 * 
 		 * xbmiaomu_maiomujiage
 		 * 
@@ -38,7 +38,7 @@ public class Main {
 		 * zjyuanlin_price
 		 */
 		
-		String _code = "lvsemiaomu_qiaoguanmu";
+		String _code = "mm597_price";
 		
 		/********保存详情页面连接开始*********/
 		PageListProcessorFactory factory = new PageListProcessorFactory();

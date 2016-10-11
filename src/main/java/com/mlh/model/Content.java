@@ -54,6 +54,14 @@ public class Content extends BaseContent<Content> {
 		return result;
 	}
 	
+	/**
+	 * 文件异常删除该页面详情页
+	 * @param id
+	 */
+	public void deleteById(String id ) {
+		Db.update("delete from t_page_detail where id = ?", id);
+	}
+	
 	public void deleteByCId(String cid) {
 		Db.update("delete from t_content where cid = ?", cid);
 	}

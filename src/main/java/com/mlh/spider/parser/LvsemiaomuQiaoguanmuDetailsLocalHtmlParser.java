@@ -163,6 +163,8 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 				}
 			} else {
 				System.out.println("详情页存在异常，请查阅源文件：" + path);
+				Content.dao.deleteById(detailId);
+				System.out.println("异常详情页已删除"+detailId);
 			}
 			
 
