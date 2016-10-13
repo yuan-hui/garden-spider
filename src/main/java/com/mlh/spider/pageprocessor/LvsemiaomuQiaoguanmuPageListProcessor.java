@@ -53,6 +53,7 @@ public class LvsemiaomuQiaoguanmuPageListProcessor implements PageProcessor {
 	 */
 	private Site site = Site.me().setHttpProxyPool(WebMagicFunction.getIpList()).setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
 			.setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
+	
 	@Override
 	public void process(Page page) {
 		try {
@@ -102,6 +103,7 @@ public class LvsemiaomuQiaoguanmuPageListProcessor implements PageProcessor {
 
 			// 列表页URL
 			String url = p.getUrl();
+			System.out.println(url);
 			
 			//第几页
 			int pageno = p.getPageno();

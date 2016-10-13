@@ -63,6 +63,9 @@ public class LvsemiaomuQiaoguanmuDetailsDowloadProcessor implements PageProcesso
 		page.putField("code", code);
 		page.putField("result", page.getHtml().get());
 		page.putField("url", page.getUrl().get());
+		
+//		System.out.println("当前IP->" + site.getHttpProxy().getHostName());
+//		System.out.println("当前PORT->" + site.getHttpProxy().getPort());
 	}
 
 	@Override
@@ -87,7 +90,8 @@ public class LvsemiaomuQiaoguanmuDetailsDowloadProcessor implements PageProcesso
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String now = formatter.format(new Date());
 				System.out.println(index + "、开始下载["+now+"]：" + id);
-
+				
+				
 				//文件保存路径
 				//String path = PathUtil.getRootPath() + "download" + "\\" + "details" + "\\";
 				String path = PropKit.get("details.yuanlin365.path");

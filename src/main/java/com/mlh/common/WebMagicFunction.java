@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.jfinal.kit.PropKit;
 import com.mlh.enums.Confirm;
 import com.mlh.model.IPList;
@@ -111,7 +113,10 @@ public class WebMagicFunction {
 		List<IPList> ipDB = IPList.dao.findIPList();
 		for(IPList ip :ipDB){
 			
-			String [] arr = new String []{ip.getIp(),ip.getPort()};
+			String _ip = StringUtils.trim(ip.getIp());
+			String _port = StringUtils.trim(ip.getPort());
+			
+			String [] arr = new String []{_ip,_port};
 			iplist.add(arr);
 		}
 		
