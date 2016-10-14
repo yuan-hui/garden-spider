@@ -1,6 +1,7 @@
 package com.mlh.quartz;
 
 import java.text.ParseException;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.quartz.Job;
@@ -12,6 +13,7 @@ import com.jfinal.log.Log;
 import com.mlh.common.AppRun;
 import com.mlh.model.Product;
 import com.mlh.spider.handle.ProductHandler;
+import com.mlh.spider.pageprocessor.product.ProductProcessor;
 
 
 
@@ -22,7 +24,7 @@ public class ImportProductJob extends Thread implements Job {
 	
 	private final static Log logger = Log.getLog(ImportProductJob.class);
 	
-	//每12个小时启动一次
+	//每12个小时重新启动
 	private  static long sleepTime = 12*60*60*1000l;	
 
 	@Override
@@ -51,6 +53,7 @@ public class ImportProductJob extends Thread implements Job {
 				int synchrodata = 0;
 				logger.debug("-----------需要同步数据："+count+"------------");
 				System.out.println("-----------需要同步数据："+count+"------------");
+				List<Product> updataProduct = new LinkedList<Product>();
 				int degree = count>1000?(count/1000)+1:1;
 				for (int i=degree,j=0;i>=j;j++) {
 					int strat = j*1000;
@@ -73,11 +76,16 @@ public class ImportProductJob extends Thread implements Job {
 					}
 					Boolean reuslt = query.saveList();
 					if(reuslt){
-						product.updateProduct(storage);
+						updataProduct.addAll(storage);
 						query=new MongoQuery();
 						synchrodata +=1000;
 						System.out.println("已同步进mongodb:"+synchrodata+"条");
 					}
+				}
+				//保存进mongodb后更新mysql对应的Product状态
+				if(updataProduct.size()>0){
+					ProductProcessor productProcessor = new ProductProcessor(updataProduct);
+					productProcessor.start();
 				}
 				System.out.println("----------------执行mysql同步mongodb结束--------------------------");
 				logger.debug("----------------执行mysql同步mongodb结束--------------------------");
