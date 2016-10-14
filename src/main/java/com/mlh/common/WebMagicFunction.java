@@ -123,4 +123,10 @@ public class WebMagicFunction {
 		return iplist;
 	}
 	
+	public  static List<String[]>getOneIp(){
+		List <String []> iplist = new ArrayList<String[]>();
+		iplist.add(new String []{"218.205.80.3","80"});
+		return iplist;
+	}
+	
 }

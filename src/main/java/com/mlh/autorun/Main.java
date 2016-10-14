@@ -38,7 +38,7 @@ public class Main {
 		 * zjyuanlin_price
 		 */
 		
-		String _code = "mm597_price";
+		String _code = "zjyuanlin_price";
 		
 		/********保存详情页面连接开始*********/
 		PageListProcessorFactory factory = new PageListProcessorFactory();
@@ -61,11 +61,11 @@ public class Main {
 		/********解析详情页面结束*********/
 		
 		/*********查询爬取网站的数据*******************/
-		Content Content  = new Content();
-		List<Content> list= Content.findByCode(_code,1,100);
-		for (Content content2 : list) {
-			System.out.println(content2.getArea());
-		}
+//		Content Content  = new Content();
+//		List<Content> list= Content.findByCode(_code,1,100);
+//		for (Content content2 : list) {
+//			System.out.println(content2.getArea());
+//		}
 	}
 
 }

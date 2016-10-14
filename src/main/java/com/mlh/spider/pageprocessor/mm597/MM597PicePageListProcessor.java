@@ -1,8 +1,7 @@
 package com.mlh.spider.pageprocessor.mm597;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.ArrayUtils;
 
 import com.jfinal.log.Log;
 import com.mlh.common.WebMagicFunction;
@@ -31,7 +30,7 @@ public class MM597PicePageListProcessor extends WebMagicParams implements PagePr
 	/**
 	 * 站点配置
 	 */
-	private Site site = Site.me().setHttpProxyPool(WebMagicFunction.getIpList()).setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
+	private Site site = Site.me().setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
 			.setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
 
 	@Override
