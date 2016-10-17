@@ -24,7 +24,7 @@ import us.codecraft.webmagic.selector.Html;
  *
  */
 public class MiaomuzhanMiaomuDetailsLocalHtmlParser {
-	private final static Log logger = Log.getLog(LvsemiaomuQiaoguanmuDetailsLocalHtmlParser.class);
+	private final static Log logger = Log.getLog(MiaomuzhanMiaomuDetailsLocalHtmlParser.class);
 	
 	private final static int SLEEP_TIME = 1;
 	
