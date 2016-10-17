@@ -96,7 +96,7 @@ public class IPHandle implements PageProcessor {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String now = formatter.format(new Date());
 			System.out.println("、开始爬取IP[" + now + "]：");
-			Request request = new Request("http://www.kxdaili.com/dailiip.html");
+			Request request = new Request("http://www.kxdaili.com/");
 			Spider.create(new IPHandle()).addRequest(request).thread(1).run();
 
 			System.out.println("程序休眠：" + 30 + "分钟");
