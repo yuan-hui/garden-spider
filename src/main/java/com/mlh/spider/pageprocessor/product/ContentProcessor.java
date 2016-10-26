@@ -21,11 +21,12 @@ public class ContentProcessor extends Thread{
 		
 	public void run() {
 		Content content  = new Content();
-		System.out.println("---------更新t_content【code:"+code+" ,size："+ids.size()+" ,cleanState:Y】--------------");
+		System.out.println("---------更新t_content【code:"+code+" ,size："+ids.size()+" ,cleanState:Y】开始--------------");
 		for (int i=ids.size(),j=0;i>j;j++) {
 			int strat = j*100;
 			int end = 100;
 			content.updateContent(ids.stream().skip(strat).limit(end).collect(Collectors.toList()));	
 		}
+		System.out.println("---------更新t_content【code:"+code+" ,size："+ids.size()+" ,cleanState:Y】结束--------------");
 	}
 }
