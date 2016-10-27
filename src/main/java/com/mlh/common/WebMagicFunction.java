@@ -125,7 +125,7 @@ public class WebMagicFunction {
 	
 	public  static List<String[]>getOneIp(){
 		List <String []> iplist = new ArrayList<String[]>();
-		iplist.add(new String []{"218.205.80.3","80"});
+		iplist.add(new String []{"112.226.113.66","81"});
 		return iplist;
 	}
 	

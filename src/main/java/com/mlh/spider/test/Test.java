@@ -29,41 +29,57 @@ public class Test extends WebMagicParams {
 		 Document htmldoc = Jsoup.parse(text);
 			Html html = new Html(htmldoc);
 			// 标题
-			String title = html.xpath("//div[@class='info_main']/h1/text()").get().replace("价格", "");
+						String title = html.xpath("//div[@class='info_main']/h1/text()").get().replace("价格", "");
 
-			// 发布时间
-			String releaseTimeStr = html.xpath("//div[@class='info_main']/ul/li[1]/text()").get().replace("：", "");
-			Date releaseTime = DateUtils.StringToDateyyyy_MM_dd(releaseTimeStr);
+						// 发布时间
+						String releaseTimeStr = html.xpath("//div[@class='info_main']/ul/li[3]/text()").get().replace("：", "");
+						Date releaseTime = DateUtils.StringToDateyyyy_MM_dd(releaseTimeStr);
 
-			// 拿到苗木规格数据源 解析
-			String detailcontent = html.xpath("//div[@class='info_main']/ul/li[3]/a[2]/text()").get().trim();
-			String[] tempArry = detailcontent.split("cm");
-			Map<String, String> detailcontentMap = new HashMap<String, String>();
-			String arryName = null;
-			String arryVlue = null;
+						List<String> info_main = html.xpath("//div[@class='info_main']/ul/li").all();
+						int index = info_main.size();
+						
+						// 米径
+						String midiaMeter = html.xpath("//div[@class='info_main']/ul/li[5]/a/text()").get();
+						String height = null;
+						String crown = null;
+						String grounddiaMeter = null;
 
-			if (StringUtils.isNotBlank(detailcontent)) {
-				for (int i = 0; i < tempArry.length; i++) {
-					String temp = tempArry[i].trim();
-					arryName = temp.substring(0, 2);
-					arryVlue = temp.substring(2);
-					detailcontentMap.put(arryName, arryVlue);
-				}
-			}
-			String height = detailcontentMap.get("高度");
-			String crown = detailcontentMap.get("冠幅");
-			String grounddiaMeter = detailcontentMap.get("地径");
-			String midiaMeter = detailcontentMap.get("米径");
+						List<String> detailcontentList = html.xpath("//div[@class='info_main']/ul/li").all();
+						Map<String, String> detailcontentMap = DetailsHtmlUtil.changeToAttrMap(detailcontentList);
+						
 
-			String str = html.xpath("//div[@class='info_main']/ul/li[3]/a[1]/text()").get();//
-			String price = StringKit.strReturnNumber(str);
-			String unit = StringKit.strReturnStr(str);
-			String remark = html.xpath("//div[@id='content']/text()").get();
+						if(StringUtils.isNotBlank(midiaMeter))
+							midiaMeter.replace("cm", "");
 
-			List<String> usrInfo = html.xpath("//div[@id='contact']/ul/li").all();
-			Map<String, String> usercontentListMap = DetailsHtmlUtil.changeToAttrMap(usrInfo);
+						height = detailcontentMap.get("高度");
+						crown = detailcontentMap.get("冠幅");
+						grounddiaMeter = detailcontentMap.get("地径");
+						midiaMeter = detailcontentMap.get("米径");
 
-		
+						String price = detailcontentMap.get("产品报价");//
+
+						if(StringUtils.isNotBlank(price))
+							price = price.indexOf("元") > -1 ? price.substring(0, price.indexOf("元")) : price;
+
+						String company = html.xpath("//div[@class='contact_body']/ul/li[1]/a/text()").get();
+
+						List<String> usercontentList = html.xpath("//div[@class='contact_body']/ul/li").all();
+						Map<String, String> usercontentListMap = DetailsHtmlUtil.changeToAttrMap(usercontentList);
+
+						String tmpAddrss = usercontentListMap.get("所在地");
+						// 省份
+						String province = StringUtils.substring(tmpAddrss, 0, 2);
+
+						String city = StringUtils.substring(tmpAddrss, tmpAddrss.length() - 3);
+
+						String contacts = usercontentListMap.get("联系人");
+
+						String tel = usercontentListMap.get("电话");
+
+						String email = usercontentListMap.get("邮件");
+
+						String address = usercontentListMap.get("地址");
+
 	}
 
 }
