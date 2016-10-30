@@ -147,6 +147,9 @@ public class MM597PriceDetailsLocalHtmlParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 			logger.error("message", e);
+			PageDetail.dao.updateParserById(Confirm.yes.toString(), detailId);
+			return ;
+			
 		}
 
 		System.out.println("程序休眠：" + SLEEP_TIME + "秒.");
