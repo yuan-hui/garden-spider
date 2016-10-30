@@ -46,6 +46,8 @@ public class XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser {
 
 			Document htmldoc = Jsoup.parse(text);
 			Html html = new Html(htmldoc);
+			
+				
 			// 标题
 			String title = html.xpath("//div[@class='info_main']/h1/text()").get().replace("价格", "");
 
@@ -135,6 +137,9 @@ public class XBMiaoMu_MaioMuJiaGeDetailsLocalHtmlParser {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 			logger.error("message", e1);
+		}catch (NullPointerException e) {
+			logger.error("message", e);
+			 return;
 		}
 		
 		System.out.println("程序休眠：" + SLEEP_TIME + "秒.");
