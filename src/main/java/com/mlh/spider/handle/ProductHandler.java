@@ -3,6 +3,7 @@ package com.mlh.spider.handle;
 import java.text.ParseException;
 
 import com.mlh.enums.BussCode;
+import com.mlh.model.Content;
 import com.mlh.spider.factory.ProductProcessorFactory;
 
 /**
@@ -19,6 +20,8 @@ public class ProductHandler {
 		BussCode[] codes = BussCode.values();
 
 		System.out.println("开始数据清洗...");
+		Content content = new Content();
+		content.updateRepeatstate();
 		for (BussCode c : codes) {
 			String _code = c.getCode();
 			System.out.println("进入处理->" + _code);

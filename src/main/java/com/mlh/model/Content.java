@@ -78,6 +78,16 @@ public class Content extends BaseContent<Content> {
 		return i;
 	}
 	
+	/**
+	 * 清洗数据重复过滤
+	 */
+    public void updateRepeatstate() {
+    	Db.update("update t_content a inner join "
+    			+ "(SELECT id,cleanState FROM t_content WHERE cleanState ='N' and id in (SELECT id FROM price_product)) b on a.`id` = b.`id`"
+    			+"set a.`cleanState` = 'Y'"
+    			);
+    }
+	
 	public Page<Content> paginate(int pageNumber, int pageSize, String buildsql) {
 		StringBuffer sql = new StringBuffer();
 		sql.append("from t_content");
