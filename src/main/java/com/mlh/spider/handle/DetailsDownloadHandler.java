@@ -21,8 +21,8 @@ public class DetailsDownloadHandler {
 			BussCode[] codes = BussCode.values();
 			
 			for (BussCode c : codes) {
-				String _code = c.getCode();
-
+//				String _code = c.getCode();
+				String _code = "lvsemiaomu_qiaoguanmu";
 				DetailsDowloadProcessorFactory factory = new DetailsDowloadProcessorFactory();
 
 				// 根据业务编码从列表页中解析出详情页的地址，并保存起来

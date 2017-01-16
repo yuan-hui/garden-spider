@@ -4,14 +4,17 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.jfinal.kit.PropKit;
+import com.jfinal.log.Log;
 import com.mlh.enums.Confirm;
 import com.mlh.model.IPList;
 import com.mlh.model.PageDetail;
 import com.mlh.model.PageList;
+import com.mlh.spider.pageprocessor.LvsemiaomuQiaoguanmuPageListProcessor;
 import com.mlh.spider.pipeline.HtmlToLocalPipeline;
 import com.mlh.utils.common.DateUtils;
 
@@ -27,16 +30,18 @@ import us.codecraft.webmagic.processor.PageProcessor;
  */
 public class WebMagicFunction {
 
+	private final static Log logger = Log.getLog(WebMagicFunction.class);
+	
 	/***
 	 * 列表处理器启动器
 	 */
 	public static void ListProcessor(String param, PageProcessor processor) {
 
 		String code = param;
-		System.out.println("进入" + code + "列表页处理器...");
+		logger.error("进入" + code + "列表页处理器...");
 
 		List<PageList> pages = PageList.dao.findByCodeAndStatus(code, Confirm.no.toString());
-		System.out.println("没有处理的列表数量:"+pages.size());
+		logger.error("没有处理的列表数量:"+pages.size());
 		for (PageList p : pages) {
 			// 列表页ID
 			String id = p.getId();
@@ -61,47 +66,58 @@ public class WebMagicFunction {
 	 */
 	public static void DetailDownload(String code, PageProcessor processor,String pathCode) {
 
-		System.out.println("进入" + code + "详情页下载器...");
-
-		// 查询没有下载的列表详情页
-		List<PageDetail> details = PageDetail.dao.findByCodeAndDownload(code, Confirm.no.toString());
-		if (details != null && details.size() > 0) {
-			int index = 1;
-			for (PageDetail pageDetail : details) {
-				String id = pageDetail.getId();
-				String url = pageDetail.getUrl();
-				System.out.println(index + "、开始下载[" + DateUtils.getNow() + "]：" + id);
-				// 保存路劲
-				String path = PropKit.get(pathCode);
-				// 业务参数
-				Request request = new Request(url).setPriority(0).putExtra("code", code).putExtra("id", id);
-				// 启动
+		logger.error("进入" + code + "详情页下载器...");
+			// 查询没有下载的列表详情页
+			List<PageDetail> details = PageDetail.dao.findByCodeAndDownload(code, Confirm.no.toString());
+			if (details != null && details.size() > 0) {
+				int index = 1;
+				for (PageDetail pageDetail : details) {
+					String id = pageDetail.getId();
+					String url = pageDetail.getUrl();
+					logger.error(index + "、开始下载[" + DateUtils.getNow() + "]：" + id);
+					// 保存路劲
+					String path = PropKit.get(pathCode);
+					// 业务参数
+					Request request = new Request(url).setPriority(0).putExtra("code", code).putExtra("id", id);
+					// 启动
+					try {
+						Spider.create(processor)
+								.addPipeline(new HtmlToLocalPipeline(path, "GBK")).thread(1).addRequest(request).run();
+						logger.error("-----------------------------------------------------------------");
+						treadSleep();
+						
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					index++;
+				}
+			} else {
+				logger.error("没有需要下载的详情页：" + details.size());
+	
+				logger.error("程序休眠：" + 8 + "秒.");
 				try {
-					Spider.create(processor)
-							.addPipeline(new HtmlToLocalPipeline(path, "GBK")).thread(1).addRequest(request).run();
-					System.out.println("-----------------------------------------------------------------");
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				} catch (FileNotFoundException e) {
+					Thread.sleep(8 * 1000);
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				index++;
+				logger.error("-----------------------------------------------------------------");
+	
 			}
-		} else {
-			System.out.println("没有需要下载的详情页：" + details.size());
-
-			System.out.println("程序休眠：" + 8 + "秒.");
-			try {
-				Thread.sleep(8 * 1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			System.out.println("-----------------------------------------------------------------");
-
-		}
-
 	}
 	
+	
+	public static void treadSleep() throws InterruptedException{
+		Random random = new Random();
+		int result=random.nextInt(10)+1;
+		
+			logger.error("程序休眠：------------>"+result+"秒");
+			Thread.sleep(result * 1000);
+		
+	}
 	
 	
 	/**
@@ -123,10 +139,6 @@ public class WebMagicFunction {
 		return iplist;
 	}
 	
-	public  static List<String[]>getOneIp(){
-		List <String []> iplist = new ArrayList<String[]>();
-		iplist.add(new String []{"112.226.113.66","81"});
-		return iplist;
-	}
+	
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.jfinal.kit.PropKit;
 import com.mlh.common.WebMagicFunction;
+import com.mlh.common.WebMagicParams;
 import com.mlh.enums.Confirm;
 import com.mlh.model.PageDetail;
 import com.mlh.spider.pipeline.HtmlToLocalPipeline;
@@ -21,32 +22,13 @@ import us.codecraft.webmagic.processor.PageProcessor;
  * @author sjl
  *
  */
-public class MiaomuzhanMiaomujiageDetailsDownloadProcessor implements PageProcessor {
+public class MiaomuzhanMiaomujiageDetailsDownloadProcessor extends WebMagicParams implements PageProcessor {
 
 	/**
 	 * 域名
 	 */
 	private static final String DOMAIN = "http://www.miaomuzhan.com";
-
-	/**
-	 * 休眠时间(毫秒)
-	 */
-	private static final int SLEEP_TIME = 5000;
-
-	/**
-	 * 用户代理
-	 */
-	private static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31";
-
-	/**
-	 * 设置超时时间，单位是毫秒
-	 */
-	private static final int TIME_OUT = 200000;
-
-	/**
-	 * 设置重试次数
-	 */
-	private static final int RETRY_TIMES = 3;
+	
 	/**
 	 * 站点配置
 	 */
@@ -72,7 +54,7 @@ public class MiaomuzhanMiaomujiageDetailsDownloadProcessor implements PageProces
 
 	public static void main(String[] args) {
 		
-		String code = args[0];
+		/*String code = args[0];
 		System.out.println("进入"+code+"详情页下载器...");
 		
 		//查询没有下载的列表详情页
@@ -115,8 +97,8 @@ public class MiaomuzhanMiaomujiageDetailsDownloadProcessor implements PageProces
 			System.out.println("-----------------------------------------------------------------");
 			
 		}
-	
-
+	*/
+		WebMagicFunction.DetailDownload(args[0], new Green321QiaoGuanMuDetailsDownloadProcessor(),MIAOMUZHAN);
 	}
 
 }

@@ -21,7 +21,8 @@ public class PageListHandler {
 
 		System.out.println("开始处理业务...");
 		for (BussCode c : codes) {
-			String _code = c.getCode();
+			//String _code = c.getCode();
+			String _code = "lvsemiaomu_qiaoguanmu";
 
 			System.out.println("进入处理->" + _code);
 			PageListProcessorFactory factory = new PageListProcessorFactory();

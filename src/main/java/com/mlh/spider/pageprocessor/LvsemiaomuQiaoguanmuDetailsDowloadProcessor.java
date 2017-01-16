@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.jfinal.kit.PropKit;
 import com.mlh.common.WebMagicFunction;
+import com.mlh.common.WebMagicParams;
 import com.mlh.enums.Confirm;
 import com.mlh.model.PageDetail;
 import com.mlh.spider.pipeline.HtmlToLocalPipeline;
@@ -23,32 +24,13 @@ import us.codecraft.webmagic.processor.PageProcessor;
  * @Description: 中华园林绿色苗木->乔灌木类,把详情页下载到本地，用于后续页面数据分析提取
  * @author liujiecheng
  */
-public class LvsemiaomuQiaoguanmuDetailsDowloadProcessor implements PageProcessor {
+public class LvsemiaomuQiaoguanmuDetailsDowloadProcessor extends WebMagicParams implements PageProcessor {
 
 	/**
 	 * 域名
 	 */
 	private static final String DOMAIN = "www.yuanlin365.com";
 
-	/**
-	 * 休眠时间(毫秒)
-	 */
-	private static final int SLEEP_TIME = 5000;
-
-	/**
-	 * 用户代理
-	 */
-	private static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31";
-
-	/**
-	 * 设置超时时间，单位是毫秒
-	 */
-	private static final int TIME_OUT = 200000;
-
-	/**
-	 * 设置重试次数
-	 */
-	private static final int RETRY_TIMES = 3;
 	/**
 	 * 站点配置
 	 */
@@ -64,8 +46,7 @@ public class LvsemiaomuQiaoguanmuDetailsDowloadProcessor implements PageProcesso
 		page.putField("result", page.getHtml().get());
 		page.putField("url", page.getUrl().get());
 		
-//		System.out.println("当前IP->" + site.getHttpProxy().getHostName());
-//		System.out.println("当前PORT->" + site.getHttpProxy().getPort());
+
 	}
 
 	@Override
@@ -76,7 +57,7 @@ public class LvsemiaomuQiaoguanmuDetailsDowloadProcessor implements PageProcesso
 	public static void main(String[] args) {
 
 		String code = args[0];
-		System.out.println("进入"+code+"详情页下载器...");
+		/*System.out.println("进入"+code+"详情页下载器...");
 
 		//查询所有没有下载的列表页
 		List<PageDetail> details = PageDetail.dao.findByCodeAndDownload(code, Confirm.no.toString());
@@ -121,7 +102,7 @@ public class LvsemiaomuQiaoguanmuDetailsDowloadProcessor implements PageProcesso
 			}
 			System.out.println("-----------------------------------------------------------------");
 		}
-		
-		
+		*/
+		WebMagicFunction.DetailDownload(code, new Green321QiaoGuanMuDetailsDownloadProcessor(),YUANLIN);
 	}
 }

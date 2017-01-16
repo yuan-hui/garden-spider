@@ -50,7 +50,7 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 			System.out.println("解析文件：" + filepath);
 			File file = new File(filepath);
 			String text;
-			text = FileUtils.readFileToString(file, "UTF-8");
+			text = FileUtils.readFileToString(file, "GBK");
 
 			Document htmldoc = Jsoup.parse(text);
 			Html html = new Html(htmldoc);

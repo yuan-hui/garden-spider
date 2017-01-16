@@ -5,7 +5,9 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 
 import com.mlh.common.AppRun;
+import com.mlh.spider.factory.DetailsDowloadProcessorFactory;
 import com.mlh.spider.factory.DetailsParserFactory;
+import com.mlh.spider.factory.PageListProcessorFactory;
 /***
  * 测试调试类
  * @author sjl

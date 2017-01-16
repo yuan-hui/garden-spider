@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jfinal.log.Log;
 import com.mlh.common.WebMagicFunction;
+import com.mlh.common.WebMagicParams;
 import com.mlh.enums.Confirm;
 import com.mlh.model.PageDetail;
 import com.mlh.model.PageList;
@@ -20,7 +21,7 @@ import us.codecraft.webmagic.selector.Html;
  * @author sjl
  *
  */
-public class MiaomuzhanMiaomujiagePageListProcessor implements PageProcessor{
+public class MiaomuzhanMiaomujiagePageListProcessor extends WebMagicParams  implements PageProcessor{
 	
 	private final static Log logger = Log.getLog(MiaomuzhanMiaomujiagePageListProcessor.class);
 
@@ -28,30 +29,11 @@ public class MiaomuzhanMiaomujiagePageListProcessor implements PageProcessor{
 	 * 域名
 	 */
 	private static final String DOMAIN = "http://www.miaomuzhan.com/html/miaomujiage/";
-
-	/**
-	 * 休眠时间(毫秒)
-	 */
-	private static final int SLEEP_TIME = 5000;
-
-	/**
-	 * 用户代理
-	 */
-	private static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31";
-
-	/**
-	 * 设置超时时间，单位是毫秒
-	 */
-	private static final int TIME_OUT = 200000;
-
-	/**
-	 * 设置重试次数
-	 */
-	private static final int RETRY_TIMES = 3;
+	
 	/**
 	 * 站点配置
 	 */
-	private Site site = Site.me().setHttpProxyPool(WebMagicFunction.getIpList()).setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
+	private Site site = Site.me().setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
 			.setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
 	
 	@Override
@@ -62,7 +44,7 @@ public class MiaomuzhanMiaomujiagePageListProcessor implements PageProcessor{
 			String id = page.getRequest().getExtra("id").toString();
 			int pageno = (int) page.getRequest().getExtra("pageno");
 			
-			System.out.println("第"+pageno+"页正在处理：" + page.getUrl().get());
+			logger.error("第"+pageno+"页正在处理：" + page.getUrl().get());
 
 			// 获取整个页面的HTML
 			Html html = page.getHtml();
@@ -71,15 +53,14 @@ public class MiaomuzhanMiaomujiagePageListProcessor implements PageProcessor{
 			List<String> urls = html.xpath("//table[@class='table_qq']").xpath("//a[@class='title']").links().all();
 				// 将详情页的链接保存到数据库
 			int[] rows = PageDetail.dao.saveDetails(urls, code, page.getUrl().get(), pageno);
-			System.out.println("详情页保存完毕：" + rows.length);
+			logger.error("详情页保存完毕：" + rows.length);
 
 			// 更新当前列表页为已处理,已分析出详情页
 			PageList.dao.updateHandleById(Confirm.yes.toString(), id);
-			System.out.println("列表页状态更新完毕：" + Confirm.yes.toString());
+			logger.error("列表页状态更新完毕：" + Confirm.yes.toString());
 
-			System.out.println("-----------------------------------------------------------------");
+			logger.error("-----------------------------------------------------------------");
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error("message", e);
 		}
 	}
@@ -90,12 +71,12 @@ public class MiaomuzhanMiaomujiagePageListProcessor implements PageProcessor{
 	}
 
 	public static void main(String[] args) {
-		// 业务代码
+		/*// 业务代码
 		String code = args[0];
-		System.out.println("进入" + code + "列表页处理器...");
+		logger.error("进入" + code + "列表页处理器...");
 
 		List<PageList> pages = PageList.dao.findByCodeAndStatus(code, Confirm.no.toString());
-		System.out.println(pages.size());
+		logger.error(pages.size());
 	for (PageList p : pages) {
 			// 列表页ID
 			String id = p.getId();
@@ -112,7 +93,8 @@ public class MiaomuzhanMiaomujiagePageListProcessor implements PageProcessor{
 
 			// 启动当前路径的爬取
 			Spider.create(new MiaomuzhanMiaomujiagePageListProcessor()).thread(1).addRequest(request).run();
-		}
+		}*/
+		WebMagicFunction.ListProcessor(args[0], new MiaomuzhanMiaomujiagePageListProcessor());
 
 	}
 }

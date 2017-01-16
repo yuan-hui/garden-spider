@@ -17,7 +17,7 @@ public class Green321QiaoGuanMuDetailsDownloadProcessor extends WebMagicParams i
 	/**
 	 * 域名
 	 */
-	private static final String DOMAIN = "http://www.312green.com/price/view-c1005-s-t-v-p1.html";
+	private static final String DOMAIN = "http://www.312green.com";
 
 	/**
 	 * 站点配置
@@ -44,7 +44,6 @@ public class Green321QiaoGuanMuDetailsDownloadProcessor extends WebMagicParams i
 	public static void main(String[] args) {
 		String code = args[0];
 		WebMagicFunction.DetailDownload(code, new Green321QiaoGuanMuDetailsDownloadProcessor(),GREEN);
-		
 
 	}
 

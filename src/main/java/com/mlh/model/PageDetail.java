@@ -59,7 +59,7 @@ public class PageDetail extends BasePageDetail<PageDetail> {
 	 * @author liujiecheng
 	 */
 	public List<PageDetail> findByCodeAndDownload(String code, String download) {
-		return dao.find("select * from t_page_detail where code =? and download = ? order by pageno asc", code, download);
+		return dao.find("select * from t_page_detail where code =? and download = ? order by pageno asc LIMIT 0,100", code, download);
 	}
 	
 	/**
