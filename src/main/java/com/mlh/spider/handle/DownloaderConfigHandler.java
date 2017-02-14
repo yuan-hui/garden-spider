@@ -77,11 +77,19 @@ public class DownloaderConfigHandler {
 					pages.clear();
 					index++;
 					System.out.println("-----------------------------------------------------------------");
+					
+					
+					
 				}
 			
 		} else {
 			System.out.println("没有配置需要转换：" + configs.size());
 		}
+		// 列表页面转换完成后 状态改为未处理  以方便 明天定时  爬取 新增量  参数 为每天爬取量
+		DownloaderConfig.dao.updateState(10);
+		System.out.println("转换状态更新完毕！以方便 明天定时  爬取 新增量");
 	}
+	
+	
 
 }

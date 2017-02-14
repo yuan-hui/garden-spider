@@ -24,6 +24,10 @@ public class DownloaderConfig extends BaseDownloaderConfig<DownloaderConfig> {
 	public void updateStatusById(String status, String id) {
 		Db.update("update t_downloader_config set status = ?, updateTime = now() where id = ?", status, id);
 	}
+	// 列表页面转换完成后 状态改为未处理  以方便 明天定时  爬取 新增量  参数 为每天爬取 页数
+	public void updateState(int i) {
+		Db.update("update t_downloader_config set status = ?, updateTime = now(),endpage = ?","no",i);
+	}
 
 	
 }

@@ -25,7 +25,7 @@ public class Main {
 		 * 
 		 * miaomuzhan_miaomujiage
 		 * 
-		 * mm597_price
+		 * miaomu_price
 		 * 
 		 * xbmiaomu_maiomujiage
 		 * 
@@ -38,7 +38,7 @@ public class Main {
 		 * zjyuanlin_price
 		 */
 		
-		String _code = "miaomuzhan_miaomujiage";
+		String _code = "miaomu_price";
 		
 		/********保存详情页面连接开始*********/
 //		PageListProcessorFactory factory = new PageListProcessorFactory();
@@ -56,8 +56,6 @@ public class Main {
 		/********解析详情页面开始*********/
 		DetailsParserFactory factory = new DetailsParserFactory();
 		factory.produce(_code);
-//		List<String[]> list =  WebMagicFunction.getIpList();
-//		System.out.println(list);
 		/********解析详情页面结束*********/
 		
 		/*********查询爬取网站的数据*******************/

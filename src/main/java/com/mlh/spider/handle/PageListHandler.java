@@ -28,7 +28,9 @@ public class PageListHandler {
 			// 根据业务编码从列表页中解析出详情页的地址，并保存起来
 			factory.produce(_code);
 		}*/
-		String codes [] = {"lvsemiaomu_qiaoguanmu","miaomuzhan_miaomujiage"};
+		String codes [] = {"lvsemiaomu_qiaoguanmu","miaomuzhan_miaomujiage","green321_qiaoguanmu",
+				"miaomu_price"
+			};
 
 		System.out.println("开始处理业务...");
 		for (String c : codes) {

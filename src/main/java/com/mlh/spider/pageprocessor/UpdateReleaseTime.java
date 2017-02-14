@@ -25,7 +25,7 @@ public class UpdateReleaseTime implements PageProcessor {
 	/**
 	 * 域名
 	 */
-	private static final String DOMAIN = "http://www.miaomuzhan.com";
+	private static final String DOMAIN = "http://www.miaomu.net";
 
 	/**
 	 * 休眠时间(毫秒)
@@ -59,7 +59,6 @@ public class UpdateReleaseTime implements PageProcessor {
 		
 		String time = html.xpath("//body/text()").get();
 		time=time.substring(time.indexOf("：")+1, time.lastIndexOf("'"));
-		System.out.println(time);
 		PageDetail.dao.updateReleaseTime(time,detailId);
 	}
 
@@ -78,7 +77,11 @@ public class UpdateReleaseTime implements PageProcessor {
 
 		// 启动当前路径的爬取
 		Spider.create(new UpdateReleaseTime()).thread(1).addRequest(request).run();
-		
+		try {
+			WebMagicFunction.treadSleep();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
