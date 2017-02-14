@@ -143,7 +143,9 @@ public class MiaomuzhanMiaomuDetailsLocalHtmlParser {
 			}
 
 		} catch (IOException e1) {
-			logger.error("message", e1);
+			logger.error("读取文件错误", e1);
+			PageDetail.dao.deleteByDetailId(detailId);
+			logger.error("删除该记录》》》"+detailId);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

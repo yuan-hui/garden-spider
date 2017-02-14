@@ -155,8 +155,9 @@ public class MiaoMuDetailsLocalHtmlParser {
 
 
 		} catch (IOException e1) {
-			e1.printStackTrace();
-			logger.error("message", e1);
+			logger.error("读取文件错误", e1);
+			PageDetail.dao.deleteByDetailId(detailId);
+			logger.error("删除该记录》》》"+detailId);
 		}
 
 		System.out.println("程序休眠：" + SLEEP_TIME + "秒.");

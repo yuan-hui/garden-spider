@@ -25,8 +25,7 @@ public class DetailsParserHandler {
 			BussCode[] codes = BussCode.values();
 
 			for (BussCode c : codes) {
-//				String _code = c.getCode();
-				String _code = "lvsemiaomu_qiaoguanmu";
+				String _code = c.getCode();
 				DetailsParserFactory factory = new DetailsParserFactory();
 				factory.produce(_code);
 			}
@@ -36,6 +35,7 @@ public class DetailsParserHandler {
 
 			System.out.println("-----------------------------------------------------------------");
 		} while (true);
+		
 
 	}
 

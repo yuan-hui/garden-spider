@@ -47,7 +47,7 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 		String filepath = PropKit.get("details.yuanlin365.path") + path;
 
 		try {
-			System.out.println("解析文件：" + filepath);
+			logger.error("解析文件：" + filepath);
 			File file = new File(filepath);
 			String text;
 			text = FileUtils.readFileToString(file, "GBK");
@@ -155,16 +155,16 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 				boolean save = Content.dao.save(info, detailId, source, code);
 
 				if (save) {
-					System.out.println("内容保存成功：" + title);
+					logger.error("内容保存成功：" + title);
 					int row = PageDetail.dao.updateParserById(Confirm.yes.toString(), detailId);
-					System.out.println("详情页更新为已解析：" + row);
+					logger.error("详情页更新为已解析：" + row);
 				} else {
-					System.out.println("内容保存失败：" + title + "->" + detailId);
+					logger.error("内容保存失败：" + title + "->" + detailId);
 				}
 			} else {
-				System.out.println("详情页存在异常，请查阅源文件：" + path);
+				logger.error("详情页存在异常，请查阅源文件：" + path);
 				Content.dao.deleteById(detailId);
-				System.out.println("异常详情页已删除"+detailId);
+				logger.error("异常详情页已删除"+detailId);
 			}
 			
 
@@ -173,14 +173,14 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 			logger.error("message", e1);
 		}
 
-		System.out.println("程序休眠：" + SLEEP_TIME + "秒.");
+		/*logger.error("程序休眠：" + SLEEP_TIME + "秒.");
 		try {
 			Thread.sleep(SLEEP_TIME * 1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 
-		System.out.println("-----------------------------------------------------------------");
+		logger.error("-----------------------------------------------------------------");
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 
 		String code = args[0];
 
-		System.out.println("开始查询需要解析的详情页...");
+		logger.error("开始查询需要解析的详情页...");
 
 		List<PageDetail> details = PageDetail.dao.findByCodeAndParser(code, Confirm.no.toString());
 
@@ -201,7 +201,7 @@ public class LvsemiaomuQiaoguanmuDetailsLocalHtmlParser {
 				process(detail);
 			}
 		} else {
-			System.out.println("没有需要解析的详情页：" + details.size());
+			logger.error("没有需要解析的详情页：" + details.size());
 		}
 	}
 }

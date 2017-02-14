@@ -17,13 +17,22 @@ public class PageListHandler {
 		AppRun.start();
 
 		// 查询需要提出详情页的所有列表页，并根据不同的业务使用不同的页面解析器
-		BussCode[] codes = BussCode.values();
+		/*BussCode[] codes = BussCode.values();
 
 		System.out.println("开始处理业务...");
 		for (BussCode c : codes) {
-			//String _code = c.getCode();
-			String _code = "lvsemiaomu_qiaoguanmu";
+			String _code = c.getCode();
+			System.out.println("进入处理->" + _code);
+			PageListProcessorFactory factory = new PageListProcessorFactory();
 
+			// 根据业务编码从列表页中解析出详情页的地址，并保存起来
+			factory.produce(_code);
+		}*/
+		String codes [] = {"lvsemiaomu_qiaoguanmu","miaomuzhan_miaomujiage"};
+
+		System.out.println("开始处理业务...");
+		for (String c : codes) {
+			String _code = c; 
 			System.out.println("进入处理->" + _code);
 			PageListProcessorFactory factory = new PageListProcessorFactory();
 

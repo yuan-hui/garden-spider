@@ -86,7 +86,7 @@ public class PageDetail extends BasePageDetail<PageDetail> {
 	 * @author liujiecheng
 	 */
 	public List<PageDetail> findByCodeAndParser(String code, String parser) {
-		return dao.find("select * from t_page_detail where download = 'yes' and code =? and parser = ? order by pageno asc", code, parser);
+		return dao.find("select * from t_page_detail where download = 'yes' and code =? and parser = ? order by pageno asc LIMIT 0,1000", code, parser);
 	}
 
 	/**
@@ -169,5 +169,12 @@ public class PageDetail extends BasePageDetail<PageDetail> {
 	 */
 	public void updateReleaseTime(String time,String detailId) {
 		Db.update("UPDATE t_content SET releasetime = ? WHERE detailId=?",time,detailId);
+	}
+	
+	/**
+	 * 删除 一条详情记录
+	 */
+	public void deleteByDetailId(String detailId){
+		Db.deleteById("t_page_detail", detailId);
 	}
 }

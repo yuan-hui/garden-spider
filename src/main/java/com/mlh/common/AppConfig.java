@@ -72,6 +72,9 @@ public class AppConfig extends JFinalConfig {
 		String password = prop.get("local.jdbc.password");
 
 		DruidPlugin druidPlugin = new DruidPlugin(url, username, password);
+		druidPlugin.set(20, 20, 50);
+		druidPlugin.setMinIdle(6000);
+		druidPlugin.setMaxWait(14400000);
 		druidPlugin.setFilters("stat,wall");
 		druidPlugin.setValidationQuery("select 1 from dual");
 		return druidPlugin;
