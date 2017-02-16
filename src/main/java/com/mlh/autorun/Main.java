@@ -25,20 +25,20 @@ public class Main {
 		 * 
 		 * miaomuzhan_miaomujiage
 		 * 
-		 * miaomu_price
+		 * miaomu_price   IP限制严重
 		 * 
 		 * xbmiaomu_maiomujiage
 		 * 
 		 * mm597_price
 		 * 
-		 * huamu100_price
+		 * huamu100_price  
 		 * 
 		 * yuanlin_price
 		 * 
 		 * zjyuanlin_price
 		 */
 		
-		String _code = "mm597_price";
+		String _code = "zjyuanlin_price";
 		
 		/********保存详情页面连接开始*********/
 //		PageListProcessorFactory factory = new PageListProcessorFactory();
@@ -54,8 +54,8 @@ public class Main {
 		/********下载详情页面结束*********/
 		
 		/********解析详情页面开始*********/
-		DetailsParserFactory factory = new DetailsParserFactory();
-		factory.produce(_code);
+		DetailsParserFactory factory2 = new DetailsParserFactory();
+		factory2.produce(_code);
 		/********解析详情页面结束*********/
 		
 		/*********查询爬取网站的数据*******************/

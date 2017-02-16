@@ -92,11 +92,11 @@ public class WebMagicFunction {
 						treadSleep();
 						
 					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
+						logger.error("解析错误 --"+code+"",e);
 					} catch (FileNotFoundException e) {
-						e.printStackTrace();
+						logger.error("解析错误 --"+code+"",e);
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						logger.error("解析错误 --"+code+"",e);
 					}
 					index++;
 				}
@@ -107,7 +107,7 @@ public class WebMagicFunction {
 				try {
 					Thread.sleep(8 * 1000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					logger.error("解析错误 --"+code+"",e);
 				}
 				logger.error("-----------------------------------------------------------------");
 	
