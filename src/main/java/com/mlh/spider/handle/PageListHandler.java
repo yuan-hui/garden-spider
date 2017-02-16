@@ -1,5 +1,6 @@
 package com.mlh.spider.handle;
 
+import com.jfinal.log.Log;
 import com.mlh.common.AppRun;
 import com.mlh.enums.BussCode;
 import com.mlh.spider.factory.PageListProcessorFactory;
@@ -11,31 +12,31 @@ import com.mlh.spider.factory.PageListProcessorFactory;
  */
 public class PageListHandler {
 
-
+	private final static Log logger = Log.getLog(DownloaderConfigHandler.class);
 	public static void main(String[] args) {
 		// ----
-		AppRun.start();
+		//AppRun.start();
 
 		// 查询需要提出详情页的所有列表页，并根据不同的业务使用不同的页面解析器
 		/*BussCode[] codes = BussCode.values();
 
-		System.out.println("开始处理业务...");
+		logger.error("开始处理业务...");
 		for (BussCode c : codes) {
 			String _code = c.getCode();
-			System.out.println("进入处理->" + _code);
+			logger.error("进入处理->" + _code);
 			PageListProcessorFactory factory = new PageListProcessorFactory();
 
 			// 根据业务编码从列表页中解析出详情页的地址，并保存起来
 			factory.produce(_code);
 		}*/
 		String codes [] = {"lvsemiaomu_qiaoguanmu","miaomuzhan_miaomujiage","green321_qiaoguanmu",
-				"miaomu_price"
+				"xbmiaomu_maiomujiage","mm597_price"
 			};
 
-		System.out.println("开始处理业务...");
+		logger.error("开始处理业务...");
 		for (String c : codes) {
 			String _code = c; 
-			System.out.println("进入处理->" + _code);
+			logger.error("进入处理->" + _code);
 			PageListProcessorFactory factory = new PageListProcessorFactory();
 
 			// 根据业务编码从列表页中解析出详情页的地址，并保存起来

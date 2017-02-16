@@ -21,7 +21,7 @@ public class MM597PiceDetailsDownloadProcessor extends WebMagicParams implements
 	/**
 	 * 域名
 	 */
-	private static final String DOMAIN = "http://www.xbmiaomu.com";
+	private static final String DOMAIN = "http://www.597mm.com";
 	/**
 	 * 站点配置
 	 */

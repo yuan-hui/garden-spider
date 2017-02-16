@@ -51,17 +51,16 @@ public class HtmlToLocalPipeline extends FilePersistentBase implements Pipeline 
 			
 			//保存在本地文件
 			FileUtils.write(new File(filepath), result, this.encoding);
-			System.out.println("文件保存成功：" + id + "->" + filepath);
+			logger.error("文件保存成功：" + id + "->" + filepath);
 
 			//更新详情页为已下载
 			PageDetail.dao.updatePathAndDownloadById(filename, Confirm.yes.toString(), id);
 			
 			
-			System.out.println("更新为已下载：" + Confirm.yes.toString());
+			logger.error("更新为已下载：" + Confirm.yes.toString());
 		} catch (IOException e) {
-			System.out.println("文件保存失败：" + id + "->" + filename);
+			logger.error("文件保存失败：" + id + "->" + filename);
 			e.printStackTrace();
-			logger.error("filename：" + id + "->" + filename);
 			logger.error("message", e);
 		}
 	}

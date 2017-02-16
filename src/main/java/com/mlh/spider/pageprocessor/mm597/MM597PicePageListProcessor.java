@@ -39,16 +39,16 @@ public class MM597PicePageListProcessor extends WebMagicParams implements PagePr
 		String code = page.getRequest().getExtra("code").toString();
 		String id = page.getRequest().getExtra("id").toString();
 		int pageno = (int) page.getRequest().getExtra("pageno");
-		System.out.println("第" + pageno + "页正在处理：" + page.getUrl().get());
+		logger.error("第" + pageno + "页正在处理：" + page.getUrl().get());
 		Html html = page.getHtml();
 		
 		List<String> urls = html.xpath("//table[@bgcolor='#8df885']").xpath("//tr[@bgcolor='#FFFFFF']/td[1]/a").links().all();
 		
 		int[] rows = PageDetail.dao.saveDetails(urls, code, page.getUrl().get(), pageno);
-		System.out.println("详情页保存完毕：" + rows.length);
+		logger.error("详情页保存完毕：" + rows.length);
 		// 更新当前列表页为已处理,已分析出详情页
 		PageList.dao.updateHandleById(Confirm.yes.toString(), id);
-		System.out.println("列表页状态更新完毕：" + Confirm.yes.toString());
+		logger.error("列表页状态更新完毕：" + Confirm.yes.toString());
 			
 		
 	}

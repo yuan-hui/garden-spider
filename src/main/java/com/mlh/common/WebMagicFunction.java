@@ -55,8 +55,13 @@ public class WebMagicFunction {
 
 			// 启动当前路径的爬取
 			Spider.create(processor).thread(1).addRequest(request).run();
+			try {
+				treadSleep();
+			} catch (InterruptedException e) {
+				logger.error("列表页面处理错误  "+code+"", e);
+			}
 		}
-
+		
 	}
 
 	/**
