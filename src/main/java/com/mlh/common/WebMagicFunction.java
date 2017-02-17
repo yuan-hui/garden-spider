@@ -84,6 +84,7 @@ public class WebMagicFunction {
 					String path = PropKit.get(pathCode);
 					// 业务参数
 					Request request = new Request(url).setPriority(0).putExtra("code", code).putExtra("id", id);
+					request.setMethod("GET");
 					// 启动
 					try {
 						Spider.create(processor)
@@ -92,11 +93,11 @@ public class WebMagicFunction {
 						treadSleep();
 						
 					} catch (UnsupportedEncodingException e) {
-						logger.error("解析错误 --"+code+"",e);
+						logger.error("下载错误 --"+code+"",e);
 					} catch (FileNotFoundException e) {
-						logger.error("解析错误 --"+code+"",e);
+						logger.error("下载错误 --"+code+"",e);
 					} catch (InterruptedException e) {
-						logger.error("解析错误 --"+code+"",e);
+						logger.error("下载错误 --"+code+"",e);
 					}
 					index++;
 				}
