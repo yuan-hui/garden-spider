@@ -26,7 +26,7 @@ import us.codecraft.webmagic.selector.Html;
 
 public class Green321QiaoGuanMuDetailsLocalHtmlParser {
 	private final static Log logger = Log.getLog(Green321QiaoGuanMuDetailsLocalHtmlParser.class);
-	
+
 	private final static int SLEEP_TIME = 1;
 
 	public static void main(String[] args) {
@@ -51,7 +51,7 @@ public class Green321QiaoGuanMuDetailsLocalHtmlParser {
 		String detailId = detail.getId();
 		String source = detail.getUrl();
 		String path = detail.getPath();
-		//文件路劲
+		// 文件路劲
 		String filepath = PropKit.get("details.green321.path") + path;
 		logger.error("解析文件：" + filepath);
 		try {
@@ -77,33 +77,52 @@ public class Green321QiaoGuanMuDetailsLocalHtmlParser {
 			List<String> contactusList = html.xpath("//div[@class='linkmode_row']").all();
 			Map<String, String> contactusMap = DetailsHtmlUtil.changeToAttrMap(contactusList);
 
-			String strInfor = contactusMap.get("公司");
+			String company = null;
+			String addrsInfor = null;
+			String province = null;
+			String city = null;
+			String contacts = null;
+			String tel = null;
+			String email = null;
+			String address = null;
+			String fax = null;
+			String website = null;
+			String zipcode = null;
 
-			// 公司
-			String company = strInfor.substring(0, strInfor.indexOf("["));
+			addrsInfor = html.xpath("//span[@class='zt1']/text()").get();
 
-			String addrsInfor = html.xpath("//span[@class='zt1']/text()").get();
-			addrsInfor = addrsInfor.substring(addrsInfor.indexOf("[") + 1, addrsInfor.lastIndexOf("]")).trim();
-			// 省份
-			String province = addrsInfor.substring(0, addrsInfor.indexOf(" "));
+			if (StringUtils.isNotBlank(addrsInfor)) {
+				addrsInfor = StringUtils.isNotBlank(addrsInfor)
+						? addrsInfor.substring(addrsInfor.indexOf("[") + 1, addrsInfor.lastIndexOf("]")).trim() : null;
+				// 省份
+				province = StringUtils.isNotBlank(addrsInfor) ? addrsInfor.substring(0, addrsInfor.indexOf(" ")) : null;
+				city = StringUtils.isNotBlank(addrsInfor) ? addrsInfor.substring(addrsInfor.indexOf(" ") + 1) : null;
 
-			String city = addrsInfor.substring(addrsInfor.indexOf(" ") + 1);
-			// 联系人
-			String contacts = contactusMap.get("联系人").substring(0,contactusMap.get("联系人").indexOf("Q")>-1 ? contactusMap.get("联系人").indexOf("Q"):contactusMap.get("联系人").length());
+			}
+			if (contactusMap.size() > 0) {
 
-			// 电话
-			String tel = contactusMap.get("电话").substring(0, contactusMap.get("电话").indexOf("（")>-1?contactusMap.get("电话").indexOf("（"):contactusMap.get("电话").length());
+				String strInfor = contactusMap.get("公司");
+				// 公司
+				company = StringUtils.isNotBlank(strInfor) ? strInfor.substring(0, strInfor.indexOf("[")) : null;
 
-			// 电子邮箱
-			String email = contactusMap.get("电邮");
-			String address = contactusMap.get("地址");
+				// 联系人
+				contacts = contactusMap.get("联系人").substring(0, contactusMap.get("联系人").indexOf("Q") > -1
+						? contactusMap.get("联系人").indexOf("Q") : contactusMap.get("联系人").length());
 
-			String fax = contactusMap.get("传真");
+				// 电话
+				tel = contactusMap.get("电话").substring(0, contactusMap.get("电话").indexOf("（") > -1
+						? contactusMap.get("电话").indexOf("（") : contactusMap.get("电话").length());
 
-			String website = contactusMap.get("网址");
+				// 电子邮箱
+				email = contactusMap.get("电邮");
+				address = contactusMap.get("地址");
 
-			String zipcode = contactusMap.get("邮编");
+				fax = contactusMap.get("传真");
 
+				website = contactusMap.get("网址");
+
+				zipcode = contactusMap.get("邮编");
+			}
 			String cid = StringUtils.substringBefore(path, ".");
 
 			String temStr = html.xpath("//div[@id='detailtime']/span[@class='left']/text()").get();
@@ -132,18 +151,18 @@ public class Green321QiaoGuanMuDetailsLocalHtmlParser {
 			info.setAddress(address);
 			info.setZipcode(zipcode);
 			info.setReleasetime(releaseTime);
-			
-			if(StringUtils.isNoneBlank(title)){
+
+			if (StringUtils.isNoneBlank(title)) {
 				boolean save = Content.dao.save(info, detailId, source, code);
-				if(save){
-					logger.error("内容保存成功"+ title);
+				if (save) {
+					logger.error("内容保存成功" + title);
 					int row = PageDetail.dao.updateParserById(Confirm.yes.toString(), detailId);
 					logger.error("详情页更新为已解析：" + row);
-				}else{
-					logger.error("内容保存失败：" + title + "->" );
-					
+				} else {
+					logger.error("内容保存失败：" + title + "->");
+
 				}
-			}else{
+			} else {
 				logger.error("详情页存在异常，请查阅源文件：" + path);
 			}
 
@@ -151,7 +170,7 @@ public class Green321QiaoGuanMuDetailsLocalHtmlParser {
 			e1.printStackTrace();
 			logger.error("message", e1);
 		}
-		
+
 		logger.error("程序休眠：" + SLEEP_TIME + "秒.");
 		try {
 			Thread.sleep(SLEEP_TIME * 1000);
@@ -160,7 +179,6 @@ public class Green321QiaoGuanMuDetailsLocalHtmlParser {
 		}
 
 		logger.error("-----------------------------------------------------------------");
-
 
 	}
 
