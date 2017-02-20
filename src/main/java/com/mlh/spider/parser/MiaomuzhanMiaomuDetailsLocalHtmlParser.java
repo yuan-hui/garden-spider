@@ -27,7 +27,6 @@ import us.codecraft.webmagic.selector.Html;
 public class MiaomuzhanMiaomuDetailsLocalHtmlParser {
 	private final static Log logger = Log.getLog(MiaomuzhanMiaomuDetailsLocalHtmlParser.class);
 	
-	private final static int SLEEP_TIME = 1;
 	
 	/**
 	 *解析本地HTML文件 
@@ -147,7 +146,7 @@ public class MiaomuzhanMiaomuDetailsLocalHtmlParser {
 			PageDetail.dao.deleteByDetailId(detailId);
 			logger.error("删除该记录》》》"+detailId);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			logger.error("页面解析错误",e);
 		}
 
 		logger.error("-----------------------------------------------------------------");
@@ -170,6 +169,11 @@ public class MiaomuzhanMiaomuDetailsLocalHtmlParser {
 			}
 		} else {
 			logger.error("没有需要解析的详情页：" + details.size());
+			try {
+				WebMagicFunction.treadSleep();
+			} catch (InterruptedException e) {
+				logger.error("估计是线程错误",e);
+			}
 		}
 	}
 

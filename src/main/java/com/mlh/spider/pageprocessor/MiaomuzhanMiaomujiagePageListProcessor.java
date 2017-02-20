@@ -28,7 +28,7 @@ public class MiaomuzhanMiaomujiagePageListProcessor extends WebMagicParams  impl
 	/**
 	 * 域名
 	 */
-	private static final String DOMAIN = "http://www.miaomuzhan.com/html/miaomujiage/";
+	private static final String DOMAIN = "http://www.miaomuzhan.com";
 	
 	/**
 	 * 站点配置
@@ -71,29 +71,6 @@ public class MiaomuzhanMiaomujiagePageListProcessor extends WebMagicParams  impl
 	}
 
 	public static void main(String[] args) {
-		/*// 业务代码
-		String code = args[0];
-		logger.error("进入" + code + "列表页处理器...");
-
-		List<PageList> pages = PageList.dao.findByCodeAndStatus(code, Confirm.no.toString());
-		logger.error(pages.size());
-	for (PageList p : pages) {
-			// 列表页ID
-			String id = p.getId();
-
-			// 列表页URL
-			String url = p.getUrl();
-
-			// 第几页
-			int pageno = p.getPageno();
-
-			// 传递业务参数
-			Request request = new Request(url).setPriority(0).putExtra("code", code).putExtra("id", id)
-					.putExtra("pageno", pageno);
-
-			// 启动当前路径的爬取
-			Spider.create(new MiaomuzhanMiaomujiagePageListProcessor()).thread(1).addRequest(request).run();
-		}*/
 		WebMagicFunction.ListProcessor(args[0], new MiaomuzhanMiaomujiagePageListProcessor());
 
 	}

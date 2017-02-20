@@ -115,7 +115,10 @@ public class WebMagicFunction {
 			}
 	}
 	
-	
+	/**
+	 * 线程随机休眠 1-10秒
+	 * @throws InterruptedException
+	 */
 	public static void treadSleep() throws InterruptedException{
 		Random random = new Random();
 		int result=random.nextInt(10)+1;
