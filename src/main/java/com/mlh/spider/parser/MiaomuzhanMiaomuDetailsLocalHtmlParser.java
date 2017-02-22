@@ -131,8 +131,6 @@ public class MiaomuzhanMiaomuDetailsLocalHtmlParser {
 					logger.error("保存苗木第一站发布时间成功");
 					int row = PageDetail.dao.updateParserById(Confirm.yes.toString(), detailId);
 					logger.error("详情页更新为已解析：" + row);
-					// 解析的时候有访问外网   随机休眠
-					WebMagicFunction.treadSleep();
 				}else{
 					logger.error("内容保存失败：" + title + "->" );
 					
@@ -145,9 +143,7 @@ public class MiaomuzhanMiaomuDetailsLocalHtmlParser {
 			logger.error("读取文件错误", e1);
 			PageDetail.dao.deleteByDetailId(detailId);
 			logger.error("删除该记录》》》"+detailId);
-		} catch (InterruptedException e) {
-			logger.error("页面解析错误",e);
-		}
+		} 
 
 		logger.error("-----------------------------------------------------------------");
 

@@ -171,13 +171,6 @@ public class Green321QiaoGuanMuDetailsLocalHtmlParser {
 			logger.error("message", e1);
 		}
 
-		logger.error("程序休眠：" + SLEEP_TIME + "秒.");
-		try {
-			Thread.sleep(SLEEP_TIME * 1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
 		logger.error("-----------------------------------------------------------------");
 
 	}
