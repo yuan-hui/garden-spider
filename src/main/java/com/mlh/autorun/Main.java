@@ -38,7 +38,7 @@ public class Main {
 		 * zjyuanlin_price
 		 */
 		
-		String _code = "yuanlin_price";
+		String _code = "huamu100_price";
 		
 		/********保存详情页面连接开始*********/
 //		PageListProcessorFactory factory = new PageListProcessorFactory();
@@ -49,13 +49,13 @@ public class Main {
 		
 		/********下载详情页面开始*********/
 		
-		DetailsDowloadProcessorFactory factory = new DetailsDowloadProcessorFactory();
-		factory.produce(_code);
+//		DetailsDowloadProcessorFactory factory = new DetailsDowloadProcessorFactory();
+//		factory.produce(_code);
 		/********下载详情页面结束*********/
 		
 		/********解析详情页面开始*********/
-		/*DetailsParserFactory factory2 = new DetailsParserFactory();
-		factory2.produce(_code);*/
+		DetailsParserFactory factory2 = new DetailsParserFactory();
+		factory2.produce(_code);
 		/********解析详情页面结束*********/
 		
 		/*********查询爬取网站的数据*******************/

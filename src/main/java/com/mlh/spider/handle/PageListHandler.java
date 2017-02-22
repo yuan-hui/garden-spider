@@ -30,7 +30,7 @@ public class PageListHandler {
 			factory.produce(_code);
 		}*/
 		String codes [] = {"lvsemiaomu_qiaoguanmu","miaomuzhan_miaomujiage","green321_qiaoguanmu",
-				"xbmiaomu_maiomujiage","mm597_price","yuanlin_price","zjyuanlin_price"
+				"xbmiaomu_maiomujiage","mm597_price","yuanlin_price","zjyuanlin_price","huamu100_price"
 			};
 
 		logger.error("开始处理业务...");
