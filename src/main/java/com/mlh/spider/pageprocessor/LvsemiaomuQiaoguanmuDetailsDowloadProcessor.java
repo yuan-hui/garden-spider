@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.http.HttpHost;
+
 import com.jfinal.kit.PropKit;
 import com.mlh.common.WebMagicFunction;
 import com.mlh.common.WebMagicParams;
@@ -34,7 +36,7 @@ public class LvsemiaomuQiaoguanmuDetailsDowloadProcessor extends WebMagicParams 
 	/**
 	 * 站点配置
 	 */
-	private Site site = Site.me().setHttpProxyPool(WebMagicFunction.getIpList()).setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
+	private Site site = Site.me().setHttpProxy(new HttpHost("106.46.136.189", 808)).setHttpProxyPool(WebMagicFunction.getIpList()).setDomain(DOMAIN).setSleepTime(SLEEP_TIME).setUserAgent(USER_AGENT)
 			.setTimeOut(TIME_OUT).setRetryTimes(RETRY_TIMES);
 	@Override
 	public void process(Page page) {

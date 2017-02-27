@@ -38,11 +38,11 @@ public class Main {
 		 * zjyuanlin_price
 		 */
 		
-		String _code = "huamu100_price";
+		String _code = "lvsemiaomu_qiaoguanmu";
 		
 		/********保存详情页面连接开始*********/
-//		PageListProcessorFactory factory = new PageListProcessorFactory();
-//		factory.produce(_code);// 根据业务编码从列表页中解析出详情页的地址，并保存起来
+		PageListProcessorFactory factory = new PageListProcessorFactory();
+		factory.produce(_code);// 根据业务编码从列表页中解析出详情页的地址，并保存起来
 		/********保存详情页面连接结束*********/
 		
 		
