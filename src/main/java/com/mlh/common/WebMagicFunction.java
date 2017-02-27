@@ -134,16 +134,14 @@ public class WebMagicFunction {
 	 */
 	public static List<String[]> getIpList (){
 		List <String []> iplist = new ArrayList<String[]>();
-		
-		List<IPList> ipDB = IPList.dao.findIPList();
+		/*List<IPList> ipDB = IPList.dao.findIPList();
 		for(IPList ip :ipDB){
-			
 			String _ip = StringUtils.trim(ip.getIp());
 			String _port = StringUtils.trim(ip.getPort());
-			
 			String [] arr = new String []{_ip,_port};
 			iplist.add(arr);
-		}
+		}*/
+		iplist.add(new String []{"106.46.136.189","808"});
 		
 		return iplist;
 	}

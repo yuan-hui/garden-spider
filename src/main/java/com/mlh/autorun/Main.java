@@ -41,21 +41,21 @@ public class Main {
 		String _code = "lvsemiaomu_qiaoguanmu";
 		
 		/********保存详情页面连接开始*********/
-		PageListProcessorFactory factory = new PageListProcessorFactory();
-		factory.produce(_code);// 根据业务编码从列表页中解析出详情页的地址，并保存起来
+//		PageListProcessorFactory factory = new PageListProcessorFactory();
+//		factory.produce(_code);// 根据业务编码从列表页中解析出详情页的地址，并保存起来
 		/********保存详情页面连接结束*********/
 		
 		
 		
 		/********下载详情页面开始*********/
 		
-//		DetailsDowloadProcessorFactory factory = new DetailsDowloadProcessorFactory();
-//		factory.produce(_code);
+		DetailsDowloadProcessorFactory factory = new DetailsDowloadProcessorFactory();
+		factory.produce(_code);
 		/********下载详情页面结束*********/
 		
 		/********解析详情页面开始*********/
-		DetailsParserFactory factory2 = new DetailsParserFactory();
-		factory2.produce(_code);
+//		DetailsParserFactory factory2 = new DetailsParserFactory();
+//		factory2.produce(_code);
 		/********解析详情页面结束*********/
 		
 		/*********查询爬取网站的数据*******************/
