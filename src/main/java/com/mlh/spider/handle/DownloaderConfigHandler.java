@@ -24,9 +24,10 @@ public class DownloaderConfigHandler {
 
 	private final static String PLACEHOLDER = "{0}";
 	private final static Log logger = Log.getLog(DownloaderConfigHandler.class);
+
 	public static void main(String[] args) {
 		// 读取需要页面处理的下载配置(未处理过的)
-		
+
 		// ----
 		AppRun.start();
 
@@ -68,33 +69,28 @@ public class DownloaderConfigHandler {
 					pages.add(p);
 				}
 
-			
-					logger.error("共转换出列表页：" + pages.size());
-					// 保存当前业务所有的列表
-					int[] rows = PageList.dao.saveAll(pages);
-					logger.error(index + "、共保存列表页：" + rows.length);
+				logger.error("共转换出列表页：" + pages.size());
+				// 保存当前业务所有的列表
+				int[] rows = PageList.dao.saveAll(pages);
+				logger.error(index + "、共保存列表页：" + rows.length);
 
-					// 状态更新为已处理
-					DownloaderConfig.dao.updateStatusById(Confirm.yes.toString(), _id);
-					logger.error("转换状态更新完毕！");
-					pages.clear();
-					index++;
-					logger.error("-----------------------------------------------------------------");
-					
-					
-					
-				}
-			
+				// 状态更新为已处理
+				DownloaderConfig.dao.updateStatusById(Confirm.yes.toString(), _id);
+				logger.error("转换状态更新完毕！");
+				pages.clear();
+				index++;
+				logger.error("-----------------------------------------------------------------");
+
+			}
+
 		} else {
 			logger.error("没有配置需要转换：" + configs.size());
 		}
-		// 列表页面转换完成后 状态改为未处理  以方便 明天定时  爬取 新增量  参数 为每天爬取量
+		// 列表页面转换完成后 状态改为未处理 以方便 明天定时 爬取 新增量 参数 为每天爬取量
 		DownloaderConfig.dao.updateState(10);
 		logger.error("转换状态更新完毕！以方便 明天定时  爬取 新增量");
-		
+
 		PageListHandler.main(args);
 	}
-	
-	
 
 }
