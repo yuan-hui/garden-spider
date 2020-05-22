@@ -3,8 +3,10 @@ package com.mlh.autorun;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
+import java.util.List;
 
 import com.mlh.common.AppRun;
+import com.mlh.model.Content;
 import com.mlh.spider.factory.DetailsDowloadProcessorFactory;
 import com.mlh.spider.factory.DetailsParserFactory;
 import com.mlh.spider.factory.PageListProcessorFactory;
@@ -38,7 +40,7 @@ public class Main {
 		 * zjyuanlin_price
 		 */
 		
-		String _code = "lvsemiaomu_qiaoguanmu";
+		String _code = "miaomuzhan_miaomujiage";
 		
 		/********保存详情页面连接开始*********/
 //		PageListProcessorFactory factory = new PageListProcessorFactory();

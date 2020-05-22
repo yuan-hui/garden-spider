@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import com.mlh.common.AppRun;
 import com.mlh.model.Content;
 import com.mlh.model.Product;
-import com.mysql.jdbc.StringUtils;
+import com.mysql.cj.util.StringUtils;
 
 /**
  * 青青花木 清洗处理器

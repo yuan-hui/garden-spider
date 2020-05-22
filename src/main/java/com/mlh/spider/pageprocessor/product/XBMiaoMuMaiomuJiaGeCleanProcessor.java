@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 import com.mlh.common.AppRun;
 import com.mlh.model.Content;
 import com.mlh.model.Product;
-import com.mysql.jdbc.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+
 
 /**
  * 西北苗木 清洗处理器
@@ -26,7 +27,7 @@ public class XBMiaoMuMaiomuJiaGeCleanProcessor extends Thread{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Product product = new Product();
 		product.setId(content.getId());
-		product.setBreedName(StringUtils.isNullOrEmpty(content.getBreedName())?"":content.getBreedName());
+		product.setBreedName(StringUtils.isNotBlank(content.getBreedName())?"":content.getBreedName());
 		product.setProductName(content.getTitle());	
 		product.setArea(content.getArea());
 		product.setAreaNo(content.getAreaNo());
@@ -34,10 +35,10 @@ public class XBMiaoMuMaiomuJiaGeCleanProcessor extends Thread{
 		product.setCreateTime(sdf.format(content.getCreateTime()));
 		product.setOp("ACT");
 		product.setDetails(content.getSource());
-		product.setContacts(StringUtils.isNullOrEmpty(content.getContacts())?"":content.getContacts());
+		product.setContacts(StringUtils.isNotBlank(content.getContacts())?"":content.getContacts());
 		product.setTel(getTel(content.getTel()));
 		product.setInvoiceType("");
-		product.setSupplier(StringUtils.isNullOrEmpty(content.getCompany())?"":content.getCompany());
+		product.setSupplier(StringUtils.isNotBlank(content.getCompany())?"":content.getCompany());
 		product.setTotalPrice(0.0);
 		product.setSource("1");
 		product.setStartingFare(getStartingFare(content.getPrice()));
@@ -56,7 +57,7 @@ public class XBMiaoMuMaiomuJiaGeCleanProcessor extends Thread{
 	//价格
 	public static Double getStartingFare(String price){
 		Double value = 0.0;
-		if(StringUtils.isNullOrEmpty(price))return value;
+		if(StringUtils.isNotBlank(price))return value;
 		price=price.replaceAll("一", "-");
 		//去中文
 		String regEX="[\u4e00-\u9fa5]";  
@@ -75,7 +76,7 @@ public class XBMiaoMuMaiomuJiaGeCleanProcessor extends Thread{
 	//电话
 	public static String getTel(String tel){
 		String _tel = "";
-		if(StringUtils.isNullOrEmpty(tel)) return _tel;
+		if(StringUtils.isNotBlank(tel)) return _tel;
 		Pattern pattern = Pattern.compile("微信号");
         Matcher istel = pattern.matcher(tel);
         if(istel.find()){
@@ -110,13 +111,13 @@ public class XBMiaoMuMaiomuJiaGeCleanProcessor extends Thread{
        	       } 
     	    } 	
         }	
-		return StringUtils.isNullOrEmpty(_tel)?"":_tel;
+		return StringUtils.isNotBlank(_tel)?"":_tel;
 	}
 	
 	//(米径/胸径)、(冠幅)、(高度)、最大值(Double[1])最小值	(Double[0])
 	public static Double[] compare(String content){
 		Double[] value = new Double[2];
-		if(StringUtils.isNullOrEmpty(content)){
+		if(StringUtils.isNotBlank(content)){
 			value[0]=value[1]=0.0;
 		}else{
 			content=content.replaceAll("一", "-");
@@ -199,7 +200,7 @@ public class XBMiaoMuMaiomuJiaGeCleanProcessor extends Thread{
 				contentList = content.findByCode(code, strat, end);
 				for (Content content1 : contentList) {	
 					//如果产品名不存在，则跳出本次循环
-					if(StringUtils.isNullOrEmpty(content1.getTitle()))continue;
+					if(StringUtils.isNotBlank(content1.getTitle()))continue;
 					Product pr = getProduct(content1);
 					productList.add(pr);
 					ids.add(content1.getId());
